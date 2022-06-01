@@ -1,8 +1,14 @@
+---
+title: "AHS-2 lupus study 2"
+output: github_document
+always_allow_html: true
+---
 
-# AHS-2 lupus study 2
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 
 # Required packages
-pacs <- c("tidyverse", "tableone", "emmeans")
+pacs <- c("tidyverse", "tableone", "emmeans", "kableExtra")
 sapply(pacs, require, character.only = TRUE)
 
 # Function to search variables
@@ -15,9 +21,6 @@ search_var <- function(df, pattern, ...) {
 # Read data: n = 93,467 and 111 variables
 filepath <- "./data/lupus-initial-dataset-v1-2022-04-25.csv"
 lupus0  <- read_csv(filepath)
-dim(lupus0)
-names(lupus0)
-n_distinct(lupus0$analysisid)
 
 # Include non-Hispanic White or Black
 # Exclude age < 30
@@ -57,25 +60,51 @@ lupus <- lupus0 %>%
 
 levels(lupus$vegstat) <- c("Vegans", "Lacto-ovo", "Pesco", "Semi", "Non-veg")
 levels(lupus$vegstat3) <- c("Vegetarians", "Vegetarians", "Pesco", "Non-veg", "Non-veg")
+```
 
-# Females only
-lupus_f <- lupus %>% filter(sex == "Female")
-dim(lupus_f)
+## Dataset
 
-# Yields n = 77,795 and n.cases = 237
-dim(lupus)
-lupus %>% count(prev_sle) %>% mutate(pct = n / sum(n) * 100)
+* Filename: `lupus-initial-dataset-v1-2022-04-25.csv`
+  * Data received on 4/25/2022
+  * Includes *n* = `r nrow(lupus0)` subjects and `r ncol(lupus0)` variables
+  * No imputations
+  
+* To create an analytic file:
+  * Included only non-Hispanic White or Black
+  * Excluded if age at baseline < 30 years
+  * Excluded extreme energy intake of <500 or >4500 kcal
+  * Excluded any subjects with missing gender, education, smoking history, dietary pattern and BMI
+  * This resulted in *n* = `r nrow(lupus)` subjects (`r nrow(lupus0) - nrow(lupus)` subjects were excluded)
 
+* **For now, both males and females are included in the analytic dataset**
+
+## Outcome
+
+* Prevalent cases of SLE were identified using the baseline questionnaire
+  * Includes only those who "have been treated for SLE in the last 12 months" at baseline
+  * ("Years since the 1st diagnosis" was not used, following the case definition in the manuscript)
+* There were `r sum(lupus$prev_sle == "Yes")` prevalent cases (`r round(sum(lupus$prev_sle == "Yes") / nrow(lupus) * 100, 2)`%) of SLE
+  
+## Descriptive table
+
+* Descriptive table stratified by cases/non-cases
+  * Variables were categorized following the original manuscript
+
+```{r echo = FALSE}
+table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat")
+lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
+  print(showAllLevels = TRUE, pDigits = 4) %>% 
+  kableone()
+```
+
+## Fatty acid intake
+
+* Currently, the nutrient intake data include the following fatty acids
+  * Each FA has both dietary and supplement intake
+  * (What are omega-6 FA used in the manuscript? p182 + p204?)
+
+```{r echo = FALSE}
 # Nutrients
-names(lupus)
-
-# Omega-3: n3pfa (18:3, 18:4, 20:5, 22:5, 22:6)
-# ALA    : p183diet, p183supp
-# SDA    : p184diet, p184supp
-# EPA    : p205diet, p205supp
-# DPA    : p225diet, p225supp
-# DHA    : p226diet, p226supp
-
 fa <- tribble(
   ~fa_name, ~lipid, ~note,
   "ALA", "p183", "Omega-3",
@@ -85,34 +114,18 @@ fa <- tribble(
   "DHA", "p226", "Omega-3"
 )
 
-lupus %>% 
-  select(all_of(fa$lipid)) %>% 
-  summary()
+fa %>% knitr::kable()
+```
 
-# Percent of zero intake
-lupus %>% 
-  select(all_of(fa$lipid)) %>% 
-  pivot_longer(p183:p226, names_to = "fa", values_to = "value") %>% 
-  mutate(zeros = ifelse(value == 0, 1, 0)) %>% 
-  group_by(fa) %>% 
-  summarize(pct_zero = mean(zeros) * 100)
+* For each FA, its dietary intake was energy-adjusted by the residual method, while partitioning zero intake ([Jaceldo-Siegl et al., 2011](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3433053/)). Due to its highly right-skewed distribution, non-zero intake was log-transformed before being regressed on the total energy intake. Residuals were added by the mean of log and then back-transformed to obtain energy-adjusted dietary intake. Energy-adjusted dietary intake was added with (unadjusted) supplement intake to form energy-adjuste total intake.
 
-lupus %>% 
-  select(p183diet, p184diet, p205diet, p225diet, p226diet) %>% 
-  summary()
+* Energy-adjusted total omega-3 fatty acid intake was calculated as the sum of all energy-adjusted FAs (ALA, SDA, EPA, DPA and DHA).
 
-lupus %>% 
-  select(p183supp, p184supp, p205supp, p225supp, p226supp) %>% 
-  summary()
+* Median (IQR) intake of energy-adjusted ALA (`p183_ea`), EPA + DHA (`p205p226_ea`), and total omega-3 (`n3pfa_ea`) by cases/non-cases:
+  * P-values were obtained with Mann-Whitney tests
+  * For EPA + DHA and total omega-3, those with SLE had significantly higher intake than those without SLE.
 
-lupus %>% 
-  select(all_of(fa$lipid)) %>% 
-  pivot_longer(p183:p226, names_to = "fa", values_to = "value") %>% 
-  # mutate(value = log(value + 1)) %>% 
-  ggplot(aes(x = value)) +
-  geom_histogram(bins = 20) +
-  facet_grid(~ fa, scales = "free")
-
+```{r echo = FALSE}
 # Energy-adjust with zero partition
 # By default, variables are log-transformed (excluding zeros)
 kcal_adjust <- function(var, kcal, log=TRUE){
@@ -155,23 +168,9 @@ lupus[o3_vars_ea] <- lapply(o3_vars, calc_total_ea)
 # Sum all omega-3 fatty acids energy-adjusted values
 lupus$n3pfa_ea <- rowSums(lupus[o3_vars_ea])
 lupus$p205p226_ea <- rowSums(lupus[c("p205_ea", "p226_ea")])
-
-# How did she define omega-6?
-
-# Descriptive table
-table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat")
-lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
-  print(showAllLevels = TRUE, pDigits = 4)
-
 table_vars <- c("p183_ea", "p205p226_ea", "n3pfa_ea")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
-  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
+  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars) %>% 
+  kableone()
+```
 
-# Logistic regression
-
-# Change references
-lupus_md <- lupus %>% 
-  mutate(kcal100 = kcal / 100)
-lupus_md$vegstat3 <- relevel(lupus_md$vegstat3, ref = "Non-veg")
-lupus_md$educat3 <- relevel(lupus_md$educat3, ref = "Col grad")
-lupus_md$agecat <- relevel(lupus_md$agecat, ref = ">=60")
