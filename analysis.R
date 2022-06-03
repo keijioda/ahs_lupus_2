@@ -104,9 +104,6 @@ lupus %>%
   select(all_of(fa$lipid)) %>% 
   summary()
 
-lupus %>% 
-  select(starts_with("p182"))
-
 # Percent of zero intake
 lupus %>% 
   select(all_of(fa$lipid)) %>% 
@@ -184,14 +181,45 @@ table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4)
 
-table_vars <- c("p183_ea", "p184_ea", "p205_ea", "p225_ea", "p226_ea", "p205p226_ea", "n3pfa_ea", 
-                "p182_ea", "p204_ea", "n6pfa_ea")
+table_vars <- c("p183_ea", "p205p226_ea", "n3pfa_ea", "n6pfa_ea")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
 
 table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
+
+# Using Gmisc package
+library(Gmisc)
+
+table_vars <- c("p183_ea", "p205p226_ea", "n3pfa_ea", "n6pfa_ea")
+lupus %>% 
+  set_column_labels(prev_sle    = "Prevalent SLE", 
+                    p183_ea     = "ALA",
+                    p205p226_ea = "DHA + EPA",
+                    n3pfa_ea    = "Omega-3",
+                    n6pfa_ea    = "Omega-6") %>% 
+  getDescriptionStatsBy(all_of(table_vars), 
+                        by = prev_sle, 
+                        continuous_fn = describeMedian,
+                        digits = 2,
+                        statistics = TRUE) %>% 
+  htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
+            tfoot = "P-values were from Mann-Whitney tests")
+
+table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
+lupus %>% 
+  set_column_labels(prev_sle    = "Prevalent SLE", 
+                    o3_o6       = "Omega-3/Omega-6",
+                    p205p226_o6 = "(DHA + EPA)/Omega-6",
+                    p183_o6     = "ALA/Omega-6") %>% 
+  getDescriptionStatsBy(all_of(table_vars), 
+                        by = prev_sle, 
+                        continuous_fn = describeMedian,
+                        digits = 4,
+                        statistics = TRUE) %>% 
+  htmlTable(caption = "Median (IQR) ratio of fatty acids",
+            tfoot = "P-values were from Mann-Whitney tests")
 
 # Logistic regression
 

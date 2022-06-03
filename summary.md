@@ -5,7 +5,7 @@ AHS-2 lupus study 2
 
 -   Filename: `lupus-initial-dataset-v1-2022-04-25.csv`
     -   Data received on 4/25/2022
-    -   Includes *n* = 93467 subjects and 111 variables
+    -   Includes *n* = 93467 subjects and 115 variables
     -   No imputations
 -   To create an analytic file:
     -   Included only non-Hispanic White or Black
@@ -468,10 +468,9 @@ Obese
 </tbody>
 </table>
 
-## Fatty acid intake
+## Energy-adjusted fatty acid intake
 
--   Currently, the nutrient intake data include the following fatty
-    acids
+-   The nutrient intake data include the following fatty acids
     -   Each FA has both dietary and supplement intake
 
 <table>
@@ -544,6 +543,28 @@ p226
 Omega-3
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+LA
+</td>
+<td style="text-align:left;">
+p182
+</td>
+<td style="text-align:left;">
+Omega-6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AA
+</td>
+<td style="text-align:left;">
+p204
+</td>
+<td style="text-align:left;">
+Omega-6
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -556,113 +577,179 @@ Omega-3
     obtain energy-adjusted dietary intake. Energy-adjusted dietary
     intake was added with (unadjusted) supplement intake to form
     energy-adjuste total intake.
-
--   Energy-adjusted total omega-3 fatty acid intake was calculated as
-    the sum of all energy-adjusted FAs (ALA, SDA, EPA, DPA and DHA).
-
--   Median (IQR) intake of energy-adjusted ALA (`p183_ea`), EPA + DHA
-    (`p205p226_ea`), and total omega-3 (`n3pfa_ea`) by cases/non-cases:
-
-    -   P-values were obtained with Mann-Whitney tests
+    -   Energy-adjusted total omega-3 fatty acid intake was calculated
+        as the sum of the following energy-adjusted FAs: ALA, SDA, EPA,
+        DPA and DHA.
+    -   Energy-adjusted total omega-6 fatty acid intake was calculated
+        as the sum of the following energy-adjusted FAs: LA, AA
+-   Median (IQR) intake (gram/day) of energy-adjusted ALA, EPA + DHA,
+    total omega-3, and total omega-6 by cases/non-cases:
     -   For EPA + DHA and total omega-3, those with SLE had
         significantly higher intake than those without SLE.
 
-<table>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
 <tr>
-<th style="text-align:left;">
+<td colspan="4" style="text-align: left;">
+Median (IQR) energy-adjusted intake of fatty acids (gram/day)
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
 </th>
-<th style="text-align:left;">
-level
-</th>
-<th style="text-align:left;">
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 No
 </th>
-<th style="text-align:left;">
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 Yes
 </th>
-<th style="text-align:left;">
-p
-</th>
-<th style="text-align:left;">
-test
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+P-value
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
-n
+<td style="text-align: left;">
+ALA
 </td>
-<td style="text-align:left;">
+<td style="text-align: center;">
+1.41 (1.11 - 1.77)
 </td>
-<td style="text-align:left;">
-77558
+<td style="text-align: center;">
+1.40 (1.15 - 1.79)
 </td>
-<td style="text-align:left;">
-237
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
+<td style="text-align: center;">
+0.63
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-p183_ea (median \[IQR\])
+<td style="text-align: left;">
+DHA + EPA
 </td>
-<td style="text-align:left;">
+<td style="text-align: center;">
+0.03 (0.00 - 0.18)
 </td>
-<td style="text-align:left;">
-1.41 \[1.11, 1.77\]
+<td style="text-align: center;">
+0.09 (0.01 - 0.26)
 </td>
-<td style="text-align:left;">
-1.40 \[1.15, 1.79\]
-</td>
-<td style="text-align:left;">
-0.6274
-</td>
-<td style="text-align:left;">
-nonnorm
+<td style="text-align: center;">
+\< 0.0001
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-p205p226_ea (median \[IQR\])
+<td style="text-align: left;">
+Omega-3
 </td>
-<td style="text-align:left;">
+<td style="text-align: center;">
+1.56 (1.23 - 1.98)
 </td>
-<td style="text-align:left;">
-0.03 \[0.00, 0.18\]
+<td style="text-align: center;">
+1.63 (1.31 - 2.08)
 </td>
-<td style="text-align:left;">
-0.09 \[0.01, 0.26\]
-</td>
-<td style="text-align:left;">
-0.0001
-</td>
-<td style="text-align:left;">
-nonnorm
+<td style="text-align: center;">
+0.018
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-n3pfa_ea (median \[IQR\])
+<td style="border-bottom: 2px solid grey; text-align: left;">
+Omega-6
 </td>
-<td style="text-align:left;">
+<td style="border-bottom: 2px solid grey; text-align: center;">
+14.11 (11.27 - 17.14)
 </td>
-<td style="text-align:left;">
-1.56 \[1.23, 1.98\]
+<td style="border-bottom: 2px solid grey; text-align: center;">
+13.62 (10.59 - 16.85)
 </td>
-<td style="text-align:left;">
-1.63 \[1.31, 2.08\]
-</td>
-<td style="text-align:left;">
-0.0183
-</td>
-<td style="text-align:left;">
-nonnorm
+<td style="border-bottom: 2px solid grey; text-align: center;">
+0.098
 </td>
 </tr>
 </tbody>
+<tfoot>
+<tr>
+<td colspan="4">
+P-values were from Mann-Whitney tests
+</td>
+</tr>
+</tfoot>
+</table>
+
+-   Median (IQR) ratio of energy-adjusted fatty acids by
+    cases/non-cases:
+    -   For all ratios, those with SLE had significantly higher intake
+        than those without SLE.
+
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="4" style="text-align: left;">
+Median (IQR) ratio of fatty acids
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+No
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Yes
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+P-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">
+Omega-3/Omega-6
+</td>
+<td style="text-align: center;">
+0.1121 (0.0944 - 0.1340)
+</td>
+<td style="text-align: center;">
+0.1185 (0.0997 - 0.1501)
+</td>
+<td style="text-align: center;">
+0.0002
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+(DHA + EPA)/Omega-6
+</td>
+<td style="text-align: center;">
+0.0020 (0.0002 - 0.0135)
+</td>
+<td style="text-align: center;">
+0.0060 (0.0004 - 0.0199)
+</td>
+<td style="text-align: center;">
+\< 0.0001
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: left;">
+ALA/Omega-6
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+0.1032 (0.0889 - 0.1187)
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+0.1064 (0.0902 - 0.1227)
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+0.024
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="4">
+P-values were from Mann-Whitney tests
+</td>
+</tr>
+</tfoot>
 </table>
