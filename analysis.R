@@ -19,6 +19,13 @@ dim(lupus0)
 names(lupus0)
 n_distinct(lupus0$analysisid)
 
+filepath <- "./data/lupus-initial-dataset-v2-2022-06-03.csv"
+lupus00  <- read_csv(filepath)
+dim(lupus00)
+
+lupus0 <- lupus0 %>% 
+  inner_join(select(lupus00, analysisid, starts_with("p182"), starts_with("p204")))
+
 # Include non-Hispanic White or Black
 # Exclude age < 30
 # Exclude missing gender, diet pattern, education, smoking and BMI
@@ -51,7 +58,9 @@ lupus <- lupus0 %>%
     vegstat = factor(vege_group_gen_bl, levels = c("vegan", "lacto", "pesco", "semi", "nonveg")),
     vegstat3 = vegstat,
     prev_sle = ifelse(!is.na(sle) & sle == 2, 1, 0),
-    prev_sle = factor(prev_sle, labels = c("No", "Yes"))) %>% 
+    prev_sle = factor(prev_sle, labels = c("No", "Yes")),
+    p182     = p182diet + p182supp,
+    p204     = p204diet + p204supp) %>% 
   drop_na(sex, age, black, vege_group_gen_bl, smkever, educat3, bmi) %>% 
   filter(kcal >= 500 & kcal <= 4500)
 
@@ -76,38 +85,39 @@ names(lupus)
 # DPA    : p225diet, p225supp
 # DHA    : p226diet, p226supp
 
+# Omega-6: 
+# LA     : p182diet, p182supp
+# AA     : p204diet, p204supp
+
 fa <- tribble(
   ~fa_name, ~lipid, ~note,
   "ALA", "p183", "Omega-3",
   "SDA", "p184", "Omega-3",
   "EPA", "p205", "Omega-3",
   "DPA", "p225", "Omega-3",
-  "DHA", "p226", "Omega-3"
+  "DHA", "p226", "Omega-3",
+  "LA",  "p182", "Omega-6",
+  "AA",  "p204", "Omega-6"
 )
 
 lupus %>% 
   select(all_of(fa$lipid)) %>% 
   summary()
 
+lupus %>% 
+  select(starts_with("p182"))
+
 # Percent of zero intake
 lupus %>% 
   select(all_of(fa$lipid)) %>% 
-  pivot_longer(p183:p226, names_to = "fa", values_to = "value") %>% 
+  pivot_longer(p183:p204, names_to = "fa", values_to = "value") %>% 
   mutate(zeros = ifelse(value == 0, 1, 0)) %>% 
   group_by(fa) %>% 
   summarize(pct_zero = mean(zeros) * 100)
 
 lupus %>% 
-  select(p183diet, p184diet, p205diet, p225diet, p226diet) %>% 
-  summary()
-
-lupus %>% 
-  select(p183supp, p184supp, p205supp, p225supp, p226supp) %>% 
-  summary()
-
-lupus %>% 
   select(all_of(fa$lipid)) %>% 
-  pivot_longer(p183:p226, names_to = "fa", values_to = "value") %>% 
+  pivot_longer(p183:p204, names_to = "fa", values_to = "value") %>% 
   # mutate(value = log(value + 1)) %>% 
   ggplot(aes(x = value)) +
   geom_histogram(bins = 20) +
@@ -138,34 +148,50 @@ kcal_adjust <- function(var, kcal, log=TRUE){
 }
 
 # Create new variables
-o3_vars         <- fa$lipid
-o3_diet_vars    <- paste0(o3_vars, "diet")
-o3_supp_vars    <- paste0(o3_vars, "supp")
+omega_vars         <- fa$lipid
+omega_diet_vars    <- paste0(omega_vars, "diet")
+omega_supp_vars    <- paste0(omega_vars, "supp")
 
-o3_vars_ea      <- paste0(o3_vars, "_ea")
-o3_diet_vars_ea <- paste0(o3_diet_vars, "_ea")
+omega_vars_ea      <- paste0(omega_vars, "_ea")
+omega_diet_vars_ea <- paste0(omega_diet_vars, "_ea")
 
 # Energy-adjust only dietary component (not supplement)
-lupus[o3_diet_vars_ea] <- lapply(lupus[o3_diet_vars], kcal_adjust, kcal = lupus$kcal)
+lupus[omega_diet_vars_ea] <- lapply(lupus[omega_diet_vars], kcal_adjust, kcal = lupus$kcal)
 
 # Add energy-adjusted dietary intake and supplement
 calc_total_ea <- function(var) rowSums(lupus[c(paste0(var, "diet_ea"), paste0(var, "supp"))])
-lupus[o3_vars_ea] <- lapply(o3_vars, calc_total_ea)
+lupus[omega_vars_ea] <- lapply(omega_vars, calc_total_ea)
 
-# Sum all omega-3 fatty acids energy-adjusted values
-lupus$n3pfa_ea <- rowSums(lupus[o3_vars_ea])
+# Sum omaga fa energy-adjusted values
+lupus$n3pfa_ea    <- rowSums(lupus[c("p183_ea", "p184_ea", "p205_ea", "p225_ea", "p226_ea")])
+lupus$n6pfa_ea    <- rowSums(lupus[c("p182_ea", "p204_ea")])
 lupus$p205p226_ea <- rowSums(lupus[c("p205_ea", "p226_ea")])
 
-# How did she define omega-6?
+# Calculate ratio of FA
+lupus <- lupus %>% 
+  mutate(o3_o6 = n3pfa_ea / n6pfa_ea,
+         p183_o6 = p183_ea / n6pfa_ea,
+         p205p226_o6 = p205p226_ea / n6pfa_ea)
+
+lupus %>% ggplot(aes(x = o3_o6))       + geom_histogram()
+lupus %>% ggplot(aes(x = p183_o6))     + geom_histogram()
+lupus %>% ggplot(aes(x = p205p226_o6)) + geom_histogram()
+
+# Get quartiles of ratio variables
 
 # Descriptive table
 table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4)
 
-table_vars <- c("p183_ea", "p205p226_ea", "n3pfa_ea")
+table_vars <- c("p183_ea", "p184_ea", "p205_ea", "p225_ea", "p226_ea", "p205p226_ea", "n3pfa_ea", 
+                "p182_ea", "p204_ea", "n6pfa_ea")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
+
+table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
+lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
+  print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
 
 # Logistic regression
 
