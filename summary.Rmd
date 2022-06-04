@@ -219,6 +219,6 @@ lupus %>%
                         continuous_fn = describeMedian,
                         digits = 4,
                         statistics = TRUE) %>% 
-  htmlTable(caption = "Median (IQR) ratio of fatty acids",
+  htmlTable(caption = "Median (IQR) ratio of energy-adjusted fatty acid intake",
             tfoot = "P-values were from Mann-Whitney tests")
 ```

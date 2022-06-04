@@ -2,7 +2,7 @@
 # AHS-2 lupus study 2
 
 # Required packages
-pacs <- c("tidyverse", "tableone", "emmeans")
+pacs <- c("tidyverse", "tableone", "emmeans", "Gmisc")
 sapply(pacs, require, character.only = TRUE)
 
 # Function to search variables
@@ -165,34 +165,53 @@ lupus$n6pfa_ea    <- rowSums(lupus[c("p182_ea", "p204_ea")])
 lupus$p205p226_ea <- rowSums(lupus[c("p205_ea", "p226_ea")])
 
 # Calculate ratio of FA
+# Get quartiles of ratio variables
 lupus <- lupus %>% 
-  mutate(o3_o6 = n3pfa_ea / n6pfa_ea,
-         p183_o6 = p183_ea / n6pfa_ea,
-         p205p226_o6 = p205p226_ea / n6pfa_ea)
+  mutate(o3_o6       = n3pfa_ea / n6pfa_ea,
+         p183_o6     = p183_ea / n6pfa_ea,
+         p205p226_o6 = p205p226_ea / n6pfa_ea,
+         o3_o6_cat       = ntile(o3_o6, 4),
+         o3_o6_cat       = factor(o3_o6_cat),
+         p183_o6_cat     = ntile(p183_o6, 4),
+         p183_o6_cat     = factor(p183_o6_cat),
+         p205p226_o6_cat = ntile(p205p226_o6, 4),
+         p205p226_o6_cat = factor(p205p226_o6_cat))
 
 lupus %>% ggplot(aes(x = o3_o6))       + geom_histogram()
 lupus %>% ggplot(aes(x = p183_o6))     + geom_histogram()
 lupus %>% ggplot(aes(x = p205p226_o6)) + geom_histogram()
 
-# Get quartiles of ratio variables
-
 # Descriptive table
+# Demographics and lifestyles
 table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4)
 
+# FA quartiles
+lupus %>% 
+  select(starts_with("o3_o6")) %>% 
+  group_by(o3_o6_cat) %>% 
+  summarize(min = min(o3_o6), max = max(o3_o6))
+
+lupus %>% 
+  select(starts_with("p183_o6")) %>% 
+  group_by(p183_o6_cat) %>% 
+  summarize(min = min(p183_o6), max = max(p183_o6))
+
+lupus %>% 
+  select(starts_with("p205p226_o6")) %>% 
+  group_by(p205p226_o6_cat) %>% 
+  summarize(min = min(p205p226_o6), max = max(p205p226_o6))
+
+table_vars <- c("o3_o6_cat", "p183_o6_cat", "p205p226_o6_cat")
+lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
+  print(showAllLevels = TRUE, pDigits = 4)
+
+# Omega-3 and -6 fatty acids
 table_vars <- c("p183_ea", "p205p226_ea", "n3pfa_ea", "n6pfa_ea")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
 
-table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
-lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
-  print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
-
-# Using Gmisc package
-library(Gmisc)
-
-table_vars <- c("p183_ea", "p205p226_ea", "n3pfa_ea", "n6pfa_ea")
 lupus %>% 
   set_column_labels(prev_sle    = "Prevalent SLE", 
                     p183_ea     = "ALA",
@@ -207,7 +226,11 @@ lupus %>%
   htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
             tfoot = "P-values were from Mann-Whitney tests")
 
+# Ratios
 table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
+lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
+  print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
+
 lupus %>% 
   set_column_labels(prev_sle    = "Prevalent SLE", 
                     o3_o6       = "Omega-3/Omega-6",
@@ -222,10 +245,56 @@ lupus %>%
             tfoot = "P-values were from Mann-Whitney tests")
 
 # Logistic regression
-
 # Change references
 lupus_md <- lupus %>% 
   mutate(kcal100 = kcal / 100)
 lupus_md$vegstat3 <- relevel(lupus_md$vegstat3, ref = "Non-veg")
 lupus_md$educat3 <- relevel(lupus_md$educat3, ref = "Col grad")
 lupus_md$agecat <- relevel(lupus_md$agecat, ref = ">=60")
+
+fm <- formula(prev_sle ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat)
+m1 <- glm(fm, family = binomial, data = lupus_md)
+m2 <- update(m1, .~. + take_fo + agecat + black + sex + educat3 + smkever)
+m3 <- update(m2, .~. + vegstat3)
+m4 <- update(m3, .~. +  bmicat)
+
+models <- list(m1, m2, m3, m4)
+ci <- list(exp(confint.default(m1)), 
+           exp(confint.default(m2)), 
+           exp(confint.default(m3)), 
+           exp(confint.default(m4)))
+var_labels <- c("O3/O6: Q2",
+                "O3/O6: Q3",
+                "O3/O6: Q4",
+                "DHA+EPA/O6: Q2",
+                "DHA+EPA/O6: Q3",
+                "DHA+EPA/O6: Q4",
+                "ALA/O6: Q2",
+                "ALA/O6: Q3",
+                "ALA/O6: Q4",
+                "FOil: Yes",
+                "Age.: 30-39", 
+                "Age.: 40-59", 
+                "Race: Black", 
+                "Sex.: Male", 
+                "Educ: HS or less",
+                "Educ: Some college",
+                "Smkg: Ever", 
+                "Diet: Vegetarians", 
+                "Diet: Pesco veg", 
+                "BMI.: Overweight",
+                "BMI.: Obese")
+stargazer::stargazer(models, 
+                     type = "text", 
+                     digits = 2,
+                     dep.var.caption = "",
+                     dep.var.labels = "Outcome: Prevalent SLE",
+                     model.numbers = FALSE,
+                     column.labels = c("Model 1", "Model 2", "Model 3", "Model 4"),
+                     covariate.labels = var_labels,
+                     apply.coef = exp, 
+                     ci.custom = ci, 
+                     star.cutoffs = NA, 
+                     omit = "Constant", 
+                     omit.stat = c("aic", "ll"),
+                     omit.table.layout = "n")
