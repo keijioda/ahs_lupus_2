@@ -587,6 +587,102 @@ Omega-6
 
 ![](summary_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
+-   A Spearman correlation matrix among energy-adjusted ALA, EPA + DHA,
+    total omega-3, and total omega-6 is shown below
+    -   ALA is moderately positively correlated with omega-3 and omega-6
+        fatty acids.
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+p183_ea
+</th>
+<th style="text-align:right;">
+p205p226_ea
+</th>
+<th style="text-align:right;">
+n3pfa_ea
+</th>
+<th style="text-align:right;">
+n6pfa_ea
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+p183_ea
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.009
+</td>
+<td style="text-align:right;">
+0.887
+</td>
+<td style="text-align:right;">
+0.736
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p205p226_ea
+</td>
+<td style="text-align:right;">
+0.009
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.347
+</td>
+<td style="text-align:right;">
+-0.100
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+n3pfa_ea
+</td>
+<td style="text-align:right;">
+0.887
+</td>
+<td style="text-align:right;">
+0.347
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.607
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+n6pfa_ea
+</td>
+<td style="text-align:right;">
+0.736
+</td>
+<td style="text-align:right;">
+-0.100
+</td>
+<td style="text-align:right;">
+0.607
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+</tr>
+</tbody>
+</table>
+
 -   Median (IQR) intake (gram/day) of energy-adjusted ALA, EPA + DHA,
     total omega-3, and total omega-6 by cases/non-cases:
     -   For EPA + DHA and total omega-3, those with SLE had
@@ -680,12 +776,130 @@ P-values were from Mann-Whitney tests
 </tfoot>
 </table>
 
+-   Proportions of (energy-adjusted) dietary intake out of the total
+    intake (dietary + supplement) are shown below. Over 90% of the total
+    intake were from dietary intake, not supplements.
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+var
+</th>
+<th style="text-align:right;">
+mean
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+p183_diet_ratio
+</td>
+<td style="text-align:right;">
+0.9984
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p205p226_diet_ratio
+</td>
+<td style="text-align:right;">
+0.9181
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+n3pfa_diet_ratio
+</td>
+<td style="text-align:right;">
+0.9739
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+n6pfa_diet_ratio
+</td>
+<td style="text-align:right;">
+0.9996
+</td>
+</tr>
+</tbody>
+</table>
+
 -   Three ratios of fatty acids, Omega-3/Omega-6, (DHA + EPA)/Omega-6,
     ALA/Omega-6, were calculated based on energy-adjusted intake, i.e.,
     both the numerator and denominator were energy-adjusted values.
     -   Distribution of the three ratios were highly right-skewed:
 
-![](summary_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](summary_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+-   A Spearman correlation matrix among three ratio variables is shown
+    below.
+    -   Omega-3/omema-6 ratio is highly correlated with ALA/omega-6
+        ratio.
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+o3_o6
+</th>
+<th style="text-align:right;">
+p205p226_o6
+</th>
+<th style="text-align:right;">
+p183_o6
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+o3_o6
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.548
+</td>
+<td style="text-align:right;">
+0.856
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p205p226_o6
+</td>
+<td style="text-align:right;">
+0.548
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.170
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p183_o6
+</td>
+<td style="text-align:right;">
+0.856
+</td>
+<td style="text-align:right;">
+0.170
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+</tr>
+</tbody>
+</table>
 
 -   Median (IQR) ratio of energy-adjusted fatty acids by
     cases/non-cases:
@@ -1218,8 +1432,8 @@ max
 -   Four logistic models were fitted using prevalent SLE as the outcome.
     -   Model 1 includes: quartile groups of omega-3/omega-6, (DHA +
         EPA)/omega-6, and ALA/omaga-6
-    -   Model 2 adds age groups, race, gender, education level, and
-        smoking status (never/enver)
+    -   Model 2 adds fish oil supplement (no/yes), age groups, race,
+        gender, education level, and smoking status (never/enver)
     -   Model 3 further adds dietary pattern
     -   Model 4 further adds BMI groups
     -   (Should we keep fish oil supplement?)
@@ -1266,13 +1480,13 @@ O3/O6: Q2
 1.29
 </td>
 <td>
-1.26
+1.21
 </td>
 <td>
-1.26
+1.21
 </td>
 <td>
-1.26
+1.21
 </td>
 </tr>
 <tr>
@@ -1282,13 +1496,13 @@ O3/O6: Q2
 (0.75, 2.20)
 </td>
 <td>
-(0.73, 2.15)
+(0.71, 2.07)
 </td>
 <td>
-(0.74, 2.15)
+(0.71, 2.07)
 </td>
 <td>
-(0.74, 2.16)
+(0.71, 2.07)
 </td>
 </tr>
 <tr>
@@ -1311,13 +1525,13 @@ O3/O6: Q3
 1.69
 </td>
 <td>
-1.63
+1.52
 </td>
 <td>
-1.63
+1.51
 </td>
 <td>
-1.63
+1.52
 </td>
 </tr>
 <tr>
@@ -1327,13 +1541,13 @@ O3/O6: Q3
 (0.89, 3.22)
 </td>
 <td>
-(0.85, 3.10)
+(0.80, 2.88)
 </td>
 <td>
-(0.85, 3.11)
+(0.80, 2.88)
 </td>
 <td>
-(0.86, 3.12)
+(0.80, 2.89)
 </td>
 </tr>
 <tr>
@@ -1356,13 +1570,13 @@ O3/O6: Q4
 2.72
 </td>
 <td>
-2.49
+2.21
 </td>
 <td>
-2.49
+2.20
 </td>
 <td>
-2.51
+2.22
 </td>
 </tr>
 <tr>
@@ -1372,13 +1586,13 @@ O3/O6: Q4
 (1.26, 5.86)
 </td>
 <td>
-(1.15, 5.37)
+(1.02, 4.76)
 </td>
 <td>
-(1.15, 5.39)
+(1.02, 4.76)
 </td>
 <td>
-(1.16, 5.42)
+(1.03, 4.79)
 </td>
 </tr>
 <tr>
@@ -1404,10 +1618,10 @@ DHA+EPA/O6: Q2
 1.36
 </td>
 <td>
-1.35
+1.30
 </td>
 <td>
-1.31
+1.26
 </td>
 </tr>
 <tr>
@@ -1417,13 +1631,13 @@ DHA+EPA/O6: Q2
 (0.88, 2.01)
 </td>
 <td>
-(0.90, 2.06)
+(0.90, 2.05)
 </td>
 <td>
-(0.85, 2.13)
+(0.82, 2.05)
 </td>
 <td>
-(0.83, 2.07)
+(0.79, 1.99)
 </td>
 </tr>
 <tr>
@@ -1446,13 +1660,13 @@ DHA+EPA/O6: Q3
 1.53
 </td>
 <td>
-1.38
-</td>
-<td>
 1.36
 </td>
 <td>
-1.32
+1.25
+</td>
+<td>
+1.22
 </td>
 </tr>
 <tr>
@@ -1462,13 +1676,13 @@ DHA+EPA/O6: Q3
 (1.02, 2.29)
 </td>
 <td>
-(0.92, 2.09)
+(0.90, 2.05)
 </td>
 <td>
-(0.77, 2.40)
+(0.71, 2.18)
 </td>
 <td>
-(0.75, 2.34)
+(0.69, 2.13)
 </td>
 </tr>
 <tr>
@@ -1491,13 +1705,13 @@ DHA+EPA/O6: Q4
 1.23
 </td>
 <td>
-1.06
+0.83
 </td>
 <td>
-1.04
+0.77
 </td>
 <td>
-1.01
+0.75
 </td>
 </tr>
 <tr>
@@ -1507,13 +1721,13 @@ DHA+EPA/O6: Q4
 (0.75, 2.01)
 </td>
 <td>
-(0.64, 1.75)
+(0.49, 1.42)
 </td>
 <td>
-(0.56, 1.92)
+(0.40, 1.45)
 </td>
 <td>
-(0.55, 1.88)
+(0.39, 1.42)
 </td>
 </tr>
 <tr>
@@ -1536,13 +1750,13 @@ ALA/O6: Q2
 0.88
 </td>
 <td>
-0.84
+0.88
 </td>
 <td>
-0.84
+0.87
 </td>
 <td>
-0.83
+0.86
 </td>
 </tr>
 <tr>
@@ -1552,13 +1766,13 @@ ALA/O6: Q2
 (0.54, 1.43)
 </td>
 <td>
-(0.52, 1.37)
+(0.54, 1.43)
 </td>
 <td>
-(0.52, 1.37)
+(0.54, 1.42)
 </td>
 <td>
-(0.51, 1.35)
+(0.53, 1.41)
 </td>
 </tr>
 <tr>
@@ -1581,13 +1795,13 @@ ALA/O6: Q3
 0.61
 </td>
 <td>
-0.56
+0.61
 </td>
 <td>
-0.56
+0.60
 </td>
 <td>
-0.55
+0.60
 </td>
 </tr>
 <tr>
@@ -1597,13 +1811,13 @@ ALA/O6: Q3
 (0.34, 1.09)
 </td>
 <td>
-(0.31, 1.00)
+(0.34, 1.08)
 </td>
 <td>
-(0.31, 1.00)
+(0.34, 1.08)
 </td>
 <td>
-(0.31, 0.99)
+(0.33, 1.06)
 </td>
 </tr>
 <tr>
@@ -1626,13 +1840,13 @@ ALA/O6: Q4
 0.64
 </td>
 <td>
-0.57
+0.63
 </td>
 <td>
-0.56
+0.63
 </td>
 <td>
-0.56
+0.62
 </td>
 </tr>
 <tr>
@@ -1642,13 +1856,56 @@ ALA/O6: Q4
 (0.33, 1.22)
 </td>
 <td>
-(0.29, 1.09)
+(0.33, 1.21)
 </td>
 <td>
-(0.29, 1.09)
+(0.33, 1.21)
 </td>
 <td>
-(0.29, 1.07)
+(0.32, 1.19)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+FOil: Yes
+</td>
+<td>
+</td>
+<td>
+1.90
+</td>
+<td>
+1.92
+</td>
+<td>
+1.92
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(1.28, 2.82)
+</td>
+<td>
+(1.29, 2.86)
+</td>
+<td>
+(1.29, 2.86)
 </td>
 </tr>
 <tr>
@@ -1670,13 +1927,13 @@ Age.: 30-39
 <td>
 </td>
 <td>
-0.52
+0.54
 </td>
 <td>
-0.52
+0.54
 </td>
 <td>
-0.53
+0.55
 </td>
 </tr>
 <tr>
@@ -1685,13 +1942,13 @@ Age.: 30-39
 <td>
 </td>
 <td>
-(0.29, 0.93)
-</td>
-<td>
-(0.29, 0.92)
+(0.30, 0.96)
 </td>
 <td>
 (0.30, 0.95)
+</td>
+<td>
+(0.31, 0.98)
 </td>
 </tr>
 <tr>
@@ -1713,13 +1970,13 @@ Age.: 40-59
 <td>
 </td>
 <td>
-1.09
+1.11
 </td>
 <td>
-1.08
+1.10
 </td>
 <td>
-1.09
+1.10
 </td>
 </tr>
 <tr>
@@ -1728,13 +1985,13 @@ Age.: 40-59
 <td>
 </td>
 <td>
-(0.83, 1.43)
+(0.84, 1.46)
 </td>
 <td>
-(0.82, 1.43)
+(0.84, 1.45)
 </td>
 <td>
-(0.83, 1.43)
+(0.84, 1.45)
 </td>
 </tr>
 <tr>
@@ -1756,13 +2013,13 @@ Race: Black
 <td>
 </td>
 <td>
-1.64
+1.72
 </td>
 <td>
-1.64
+1.71
 </td>
 <td>
-1.58
+1.65
 </td>
 </tr>
 <tr>
@@ -1771,13 +2028,13 @@ Race: Black
 <td>
 </td>
 <td>
-(1.24, 2.16)
+(1.30, 2.26)
 </td>
 <td>
-(1.24, 2.17)
+(1.30, 2.26)
 </td>
 <td>
-(1.19, 2.09)
+(1.25, 2.18)
 </td>
 </tr>
 <tr>
@@ -1820,7 +2077,7 @@ Sex.: Male
 (0.08, 0.23)
 </td>
 <td>
-(0.08, 0.22)
+(0.08, 0.23)
 </td>
 </tr>
 <tr>
@@ -1842,13 +2099,13 @@ Educ: HS or less
 <td>
 </td>
 <td>
-0.72
+0.73
 </td>
 <td>
-0.72
+0.73
 </td>
 <td>
-0.70
+0.71
 </td>
 </tr>
 <tr>
@@ -1857,13 +2114,13 @@ Educ: HS or less
 <td>
 </td>
 <td>
+(0.51, 1.07)
+</td>
+<td>
 (0.50, 1.05)
 </td>
 <td>
 (0.49, 1.04)
-</td>
-<td>
-(0.48, 1.02)
 </td>
 </tr>
 <tr>
@@ -1891,7 +2148,7 @@ Educ: Some college
 0.88
 </td>
 <td>
-0.87
+0.86
 </td>
 </tr>
 <tr>
@@ -1900,7 +2157,7 @@ Educ: Some college
 <td>
 </td>
 <td>
-(0.66, 1.18)
+(0.66, 1.19)
 </td>
 <td>
 (0.65, 1.18)
@@ -1931,10 +2188,10 @@ Smkg: Ever
 1.72
 </td>
 <td>
-1.71
+1.70
 </td>
 <td>
-1.68
+1.67
 </td>
 </tr>
 <tr>
@@ -1946,10 +2203,10 @@ Smkg: Ever
 (1.28, 2.32)
 </td>
 <td>
-(1.27, 2.31)
+(1.26, 2.29)
 </td>
 <td>
-(1.25, 2.27)
+(1.24, 2.25)
 </td>
 </tr>
 <tr>
@@ -1973,10 +2230,10 @@ Diet: Vegetarians
 <td>
 </td>
 <td>
-0.96
+0.89
 </td>
 <td>
-1.00
+0.92
 </td>
 </tr>
 <tr>
@@ -1987,10 +2244,10 @@ Diet: Vegetarians
 <td>
 </td>
 <td>
-(0.62, 1.49)
+(0.58, 1.36)
 </td>
 <td>
-(0.64, 1.55)
+(0.60, 1.42)
 </td>
 </tr>
 <tr>
@@ -2014,10 +2271,10 @@ Diet: Pesco veg
 <td>
 </td>
 <td>
-0.87
+0.86
 </td>
 <td>
-0.91
+0.90
 </td>
 </tr>
 <tr>
@@ -2028,10 +2285,10 @@ Diet: Pesco veg
 <td>
 </td>
 <td>
-(0.56, 1.35)
+(0.56, 1.33)
 </td>
 <td>
-(0.59, 1.41)
+(0.58, 1.39)
 </td>
 </tr>
 <tr>

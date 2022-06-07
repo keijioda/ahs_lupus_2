@@ -164,6 +164,22 @@ lupus$n3pfa_ea    <- rowSums(lupus[c("p183_ea", "p184_ea", "p205_ea", "p225_ea",
 lupus$n6pfa_ea    <- rowSums(lupus[c("p182_ea", "p204_ea")])
 lupus$p205p226_ea <- rowSums(lupus[c("p205_ea", "p226_ea")])
 
+# Sum omaga fa energy-adjusted dietary values
+lupus$n3pfa_diet_ea    <- rowSums(lupus[c("p183diet_ea", "p184diet_ea", "p205diet_ea", "p225diet_ea", "p226diet_ea")])
+lupus$n6pfa_diet_ea    <- rowSums(lupus[c("p182diet_ea", "p204diet_ea")])
+lupus$p205p226_diet_ea <- rowSums(lupus[c("p205diet_ea", "p226diet_ea")])
+
+# Ratio of dietary to total intake (after energy-adjustment)
+lupus %>% 
+  mutate(p183_diet_ratio     = p183diet_ea / p183_ea,
+         n3pfa_diet_ratio    = n3pfa_diet_ea / n3pfa_ea,
+         n6pfa_diet_ratio    = n6pfa_diet_ea / n6pfa_ea,
+         p205p226_diet_ratio = p205p226_diet_ea / p205p226_ea) %>% 
+  pivot_longer(ends_with("_ratio"), names_to = "var", values_to = "value") %>% 
+  mutate(var = factor(var, levels = c("p183_diet_ratio", "p205p226_diet_ratio", "n3pfa_diet_ratio", "n6pfa_diet_ratio"))) %>% 
+  group_by(var) %>% 
+  summarize(mean = round(mean(value, na.rm = TRUE), 4))
+
 # Calculate ratio of FA
 # Get quartiles of ratio variables
 lupus <- lupus %>% 
@@ -217,6 +233,12 @@ lupus %>%
   facet_grid(~var, scales = "free") +
   labs(x = "Energy-adjusted intake (gram/day")
 
+# Check Spearman correlations
+lupus %>% 
+  select(all_of(table_vars)) %>% 
+  cor(method = "spearman") %>% 
+  round(3)
+
 # Table by SLE status
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
@@ -248,6 +270,16 @@ lupus %>%
   facet_grid(~var, scales = "free") +
   labs(x = "Ratio of energy-adjusted FA intake (gram/day")
 
+# Check Spearman correlations
+lupus %>% 
+  select(all_of(table_vars)) %>% 
+  cor(method = "spearman") %>% 
+  round(3)
+
+# Check VIFs
+temp <- lm(as.numeric(prev_sle) ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat, data = lupus)
+car::vif(temp)
+  
 # Table by SLE status
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
@@ -275,7 +307,7 @@ lupus_md$agecat <- relevel(lupus_md$agecat, ref = ">=60")
 
 fm <- formula(prev_sle ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat)
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m2 <- update(m1, .~. + take_fo + agecat + black + sex + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. +  bmicat)
 
@@ -293,7 +325,7 @@ var_labels <- c("O3/O6: Q2",
                 "ALA/O6: Q2",
                 "ALA/O6: Q3",
                 "ALA/O6: Q4",
-                # "FOil: Yes",
+                "FOil: Yes",
                 "Age.: 30-39", 
                 "Age.: 40-59", 
                 "Race: Black", 

@@ -201,6 +201,18 @@ lupus %>%
   labs(x = "Energy-adjusted intake (gram/day")
 ```
 
+* A Spearman correlation matrix among energy-adjusted ALA, EPA + DHA, total omega-3, and total omega-6 is shown below
+  * ALA is moderately positively correlated with omega-3 and omega-6 fatty acids.
+  
+```{r echo = FALSE}
+# Check Spearman correlations
+lupus %>% 
+  select(all_of(table_vars)) %>% 
+  cor(method = "spearman") %>% 
+  round(3) %>% 
+  knitr::kable()
+```
+
 * Median (IQR) intake (gram/day) of energy-adjusted ALA, EPA + DHA, total omega-3, and total omega-6 by cases/non-cases:
   * For EPA + DHA and total omega-3, those with SLE had significantly higher intake than those without SLE.
 
@@ -220,6 +232,27 @@ lupus %>%
             tfoot = "P-values were from Mann-Whitney tests")
 ```
 
+* Proportions of (energy-adjusted) dietary intake out of the total intake (dietary + supplement) are shown below. Over 90% of the total intake were from dietary intake, not supplements.
+
+```{r echo = FALSE}
+# Sum omaga fa energy-adjusted dietary values
+lupus$n3pfa_diet_ea    <- rowSums(lupus[c("p183diet_ea", "p184diet_ea", "p205diet_ea", "p225diet_ea", "p226diet_ea")])
+lupus$n6pfa_diet_ea    <- rowSums(lupus[c("p182diet_ea", "p204diet_ea")])
+lupus$p205p226_diet_ea <- rowSums(lupus[c("p205diet_ea", "p226diet_ea")])
+
+# Ratio of dietary to total intake (after energy-adjustment)
+lupus %>% 
+  mutate(p183_diet_ratio     = p183diet_ea / p183_ea,
+         n3pfa_diet_ratio    = n3pfa_diet_ea / n3pfa_ea,
+         n6pfa_diet_ratio    = n6pfa_diet_ea / n6pfa_ea,
+         p205p226_diet_ratio = p205p226_diet_ea / p205p226_ea) %>% 
+  pivot_longer(ends_with("_ratio"), names_to = "var", values_to = "value") %>% 
+  mutate(var = factor(var, levels = c("p183_diet_ratio", "p205p226_diet_ratio", "n3pfa_diet_ratio", "n6pfa_diet_ratio"))) %>% 
+  group_by(var) %>% 
+  summarize(mean = round(mean(value, na.rm = TRUE), 4)) %>% 
+  knitr::kable()
+```
+
 * Three ratios of fatty acids, Omega-3/Omega-6, (DHA + EPA)/Omega-6, ALA/Omega-6, were calculated based on energy-adjusted intake, i.e., both the numerator and denominator were energy-adjusted values.
   * Distribution of the three ratios were highly right-skewed:
   
@@ -236,6 +269,18 @@ lupus %>%
   geom_histogram(bins = 50) +
   facet_grid(~var, scales = "free") +
   labs(x = "Ratio of energy-adjusted FA intake (gram/day")
+```
+
+* A Spearman correlation matrix among three ratio variables is shown below.
+  * Omega-3/omema-6 ratio is highly correlated with ALA/omega-6 ratio.
+
+```{r echo = FALSE}
+# Check Spearman correlations
+lupus %>% 
+  select(all_of(table_vars)) %>% 
+  cor(method = "spearman") %>% 
+  round(3) %>% 
+  knitr::kable()
 ```
 
 * Median (IQR) ratio of energy-adjusted fatty acids by cases/non-cases:
@@ -309,7 +354,7 @@ lupus %>%
 
 * Four logistic models were fitted using prevalent SLE as the outcome.
   * Model 1 includes: quartile groups of omega-3/omega-6, (DHA + EPA)/omega-6, and ALA/omaga-6
-  * Model 2 adds age groups, race, gender, education level, and smoking status (never/enver)
+  * Model 2 adds fish oil supplement (no/yes), age groups, race, gender, education level, and smoking status (never/enver)
   * Model 3 further adds dietary pattern
   * Model 4 further adds BMI groups
   * (Should we keep fish oil supplement?)
@@ -325,7 +370,7 @@ lupus_md$agecat <- relevel(lupus_md$agecat, ref = ">=60")
 
 fm <- formula(prev_sle ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat)
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m2 <- update(m1, .~. + take_fo + agecat + black + sex + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. +  bmicat)
 
@@ -343,7 +388,7 @@ var_labels <- c("O3/O6: Q2",
                 "ALA/O6: Q2",
                 "ALA/O6: Q3",
                 "ALA/O6: Q4",
-                # "FOil: Yes",
+                "FOil: Yes",
                 "Age.: 30-39", 
                 "Age.: 40-59", 
                 "Race: Black", 
