@@ -159,6 +159,10 @@ lupus[omega_diet_vars_ea] <- lapply(lupus[omega_diet_vars], kcal_adjust, kcal = 
 calc_total_ea <- function(var) rowSums(lupus[c(paste0(var, "diet_ea"), paste0(var, "supp"))])
 lupus[omega_vars_ea] <- lapply(omega_vars, calc_total_ea)
 
+# Sum omaga fa unadjusted values
+lupus$n6pfa       <- rowSums(lupus[c("p182", "p204")])
+lupus$p205p226    <- rowSums(lupus[c("p205", "p226")])
+
 # Sum omaga fa energy-adjusted values
 lupus$n3pfa_ea    <- rowSums(lupus[c("p183_ea", "p184_ea", "p205_ea", "p225_ea", "p226_ea")])
 lupus$n6pfa_ea    <- rowSums(lupus[c("p182_ea", "p204_ea")])
@@ -195,7 +199,7 @@ lupus <- lupus %>%
 
 # Descriptive table
 # Demographics and lifestyles
-table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat")
+table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat", "kcal")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4)
 
@@ -221,6 +225,7 @@ lupus %>%
   summarize(min = min(p183_o6), max = max(p183_o6))
 
 # Omega-3 and -6 fatty acids
+#table_vars <- c("p183", "p205p226", "n3pfa", "n6pfa")
 table_vars <- c("p183_ea", "p205p226_ea", "n3pfa_ea", "n6pfa_ea")
 
 # Check distribution

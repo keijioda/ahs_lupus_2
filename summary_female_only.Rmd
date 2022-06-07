@@ -102,7 +102,7 @@ levels(lupus$vegstat3) <- c("Vegetarians", "Vegetarians", "Pesco", "Non-veg", "N
   * Variables were categorized following the original manuscript
 
 ```{r echo = FALSE}
-table_vars <- c("age", "agecat", "black", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat")
+table_vars <- c("age", "agecat", "black", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat", "kcal")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4) %>% 
   kableone()
@@ -215,7 +215,7 @@ lupus %>%
 ```
 
 * Median (IQR) intake (gram/day) of energy-adjusted ALA, EPA + DHA, total omega-3, and total omega-6 by cases/non-cases:
-  * For EPA + DHA and total omega-3, those with SLE had significantly higher intake than those without SLE.
+  * For EPA + DHA, those with SLE had significantly higher intake than those without SLE.
 
 ```{r echo = FALSE}
 lupus %>% 

@@ -428,6 +428,24 @@ Obese
 <td style="text-align:left;">
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+kcal (mean (SD))
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1759.85 (710.88)
+</td>
+<td style="text-align:left;">
+1788.80 (744.77)
+</td>
+<td style="text-align:left;">
+0.5469
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -648,8 +666,8 @@ n6pfa_ea
 
 -   Median (IQR) intake (gram/day) of energy-adjusted ALA, EPA + DHA,
     total omega-3, and total omega-6 by cases/non-cases:
-    -   For EPA + DHA and total omega-3, those with SLE had
-        significantly higher intake than those without SLE.
+    -   For EPA + DHA, those with SLE had significantly higher intake
+        than those without SLE.
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>

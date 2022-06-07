@@ -465,6 +465,24 @@ Obese
 <td style="text-align:left;">
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+kcal (mean (SD))
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1805.09 (719.61)
+</td>
+<td style="text-align:left;">
+1790.44 (745.65)
+</td>
+<td style="text-align:left;">
+0.7543
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
 </tbody>
 </table>
 
