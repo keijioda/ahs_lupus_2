@@ -582,6 +582,11 @@ Omega-6
         DPA and DHA.
     -   Energy-adjusted total omega-6 fatty acid intake was calculated
         as the sum of the following energy-adjusted FAs: LA, AA
+-   Distributions of energy-adjusted ALA, EPA + DHA, total omega-3, and
+    total omega-6 are highly right-skewed:
+
+![](summary_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
 -   Median (IQR) intake (gram/day) of energy-adjusted ALA, EPA + DHA,
     total omega-3, and total omega-6 by cases/non-cases:
     -   For EPA + DHA and total omega-3, those with SLE had
@@ -675,6 +680,13 @@ P-values were from Mann-Whitney tests
 </tfoot>
 </table>
 
+-   Three ratios of fatty acids, Omega-3/Omega-6, (DHA + EPA)/Omega-6,
+    ALA/Omega-6, were calculated based on energy-adjusted intake, i.e.,
+    both the numerator and denominator were energy-adjusted values.
+    -   Distribution of the three ratios were highly right-skewed:
+
+![](summary_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
 -   Median (IQR) ratio of energy-adjusted fatty acids by
     cases/non-cases:
     -   For all ratios, those with SLE had significantly higher intake
@@ -684,7 +696,7 @@ P-values were from Mann-Whitney tests
 <thead>
 <tr>
 <td colspan="4" style="text-align: left;">
-Median (IQR) ratio of fatty acids
+Median (IQR) ratio of energy-adjusted fatty acid intake
 </td>
 </tr>
 <tr>
@@ -752,4 +764,1389 @@ P-values were from Mann-Whitney tests
 </td>
 </tr>
 </tfoot>
+</table>
+
+## Quartiles of FA ratios
+
+-   The three FA ratio variables were categorized into quartile groups.
+    Frequency tables by SLE status were shown below
+    -   For omega-3/omega-6 and (DHA + EPA)/omega-6, the SLE group had
+        significantly more subjects in higher quartile groups, compared
+        to the non-SLE group.
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+No
+</th>
+<th style="text-align:left;">
+Yes
+</th>
+<th style="text-align:left;">
+p
+</th>
+<th style="text-align:left;">
+test
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+77558
+</td>
+<td style="text-align:left;">
+237
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+o3_o6_cat (%)
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+19404 (25.0)
+</td>
+<td style="text-align:left;">
+45 (19.0)
+</td>
+<td style="text-align:left;">
+0.0011
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+19398 (25.0)
+</td>
+<td style="text-align:left;">
+51 (21.5)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+19393 (25.0)
+</td>
+<td style="text-align:left;">
+56 (23.6)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+19363 (25.0)
+</td>
+<td style="text-align:left;">
+85 (35.9)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p205p226_o6_cat (%)
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+19409 (25.0)
+</td>
+<td style="text-align:left;">
+40 (16.9)
+</td>
+<td style="text-align:left;">
+0.0047
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+19396 (25.0)
+</td>
+<td style="text-align:left;">
+53 (22.4)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+19381 (25.0)
+</td>
+<td style="text-align:left;">
+68 (28.7)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+19372 (25.0)
+</td>
+<td style="text-align:left;">
+76 (32.1)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p183_o6_cat (%)
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+19397 (25.0)
+</td>
+<td style="text-align:left;">
+52 (21.9)
+</td>
+<td style="text-align:left;">
+0.1724
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+19389 (25.0)
+</td>
+<td style="text-align:left;">
+60 (25.3)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+19397 (25.0)
+</td>
+<td style="text-align:left;">
+52 (21.9)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+19375 (25.0)
+</td>
+<td style="text-align:left;">
+73 (30.8)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+
+-   Cut-off values of quartiles were shown below:
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+o3_o6_cat
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+0.0123213
+</td>
+<td style="text-align:right;">
+0.0944276
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+0.0944280
+</td>
+<td style="text-align:right;">
+0.1120813
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+0.1120822
+</td>
+<td style="text-align:right;">
+0.1340812
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:right;">
+0.1340813
+</td>
+<td style="text-align:right;">
+1.5989165
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+p205p226_o6_cat
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0002002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+0.0002002
+</td>
+<td style="text-align:right;">
+0.0020488
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+0.0020489
+</td>
+<td style="text-align:right;">
+0.0135019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:right;">
+0.0135022
+</td>
+<td style="text-align:right;">
+1.0617338
+</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+p183_o6_cat
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+0.0119299
+</td>
+<td style="text-align:right;">
+0.0888628
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:right;">
+0.0888631
+</td>
+<td style="text-align:right;">
+0.1032511
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:right;">
+0.1032512
+</td>
+<td style="text-align:right;">
+0.1186923
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:right;">
+0.1186936
+</td>
+<td style="text-align:right;">
+1.4032401
+</td>
+</tr>
+</tbody>
+</table>
+
+## Logistic models
+
+-   Four logistic models were fitted using prevalent SLE as the outcome.
+    -   Model 1 includes: quartile groups of omega-3/omega-6, (DHA +
+        EPA)/omega-6, and ALA/omaga-6
+    -   Model 2 adds age groups, race, gender, education level, and
+        smoking status (never/enver)
+    -   Model 3 further adds dietary pattern
+    -   Model 4 further adds BMI groups
+    -   (Should we keep fish oil supplement?)
+-   The table below shows estimated odds ratios and 95% Wald confidence
+    intervals from each logistic model:
+
+<table style="text-align:center">
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+Outcome: Prevalent SLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Model 1
+</td>
+<td>
+Model 2
+</td>
+<td>
+Model 3
+</td>
+<td>
+Model 4
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+O3/O6: Q2
+</td>
+<td>
+1.29
+</td>
+<td>
+1.26
+</td>
+<td>
+1.26
+</td>
+<td>
+1.26
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.75, 2.20)
+</td>
+<td>
+(0.73, 2.15)
+</td>
+<td>
+(0.74, 2.15)
+</td>
+<td>
+(0.74, 2.16)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+O3/O6: Q3
+</td>
+<td>
+1.69
+</td>
+<td>
+1.63
+</td>
+<td>
+1.63
+</td>
+<td>
+1.63
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.89, 3.22)
+</td>
+<td>
+(0.85, 3.10)
+</td>
+<td>
+(0.85, 3.11)
+</td>
+<td>
+(0.86, 3.12)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+O3/O6: Q4
+</td>
+<td>
+2.72
+</td>
+<td>
+2.49
+</td>
+<td>
+2.49
+</td>
+<td>
+2.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.26, 5.86)
+</td>
+<td>
+(1.15, 5.37)
+</td>
+<td>
+(1.15, 5.39)
+</td>
+<td>
+(1.16, 5.42)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+DHA+EPA/O6: Q2
+</td>
+<td>
+1.33
+</td>
+<td>
+1.36
+</td>
+<td>
+1.35
+</td>
+<td>
+1.31
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.88, 2.01)
+</td>
+<td>
+(0.90, 2.06)
+</td>
+<td>
+(0.85, 2.13)
+</td>
+<td>
+(0.83, 2.07)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+DHA+EPA/O6: Q3
+</td>
+<td>
+1.53
+</td>
+<td>
+1.38
+</td>
+<td>
+1.36
+</td>
+<td>
+1.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.02, 2.29)
+</td>
+<td>
+(0.92, 2.09)
+</td>
+<td>
+(0.77, 2.40)
+</td>
+<td>
+(0.75, 2.34)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+DHA+EPA/O6: Q4
+</td>
+<td>
+1.23
+</td>
+<td>
+1.06
+</td>
+<td>
+1.04
+</td>
+<td>
+1.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.75, 2.01)
+</td>
+<td>
+(0.64, 1.75)
+</td>
+<td>
+(0.56, 1.92)
+</td>
+<td>
+(0.55, 1.88)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+ALA/O6: Q2
+</td>
+<td>
+0.88
+</td>
+<td>
+0.84
+</td>
+<td>
+0.84
+</td>
+<td>
+0.83
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.54, 1.43)
+</td>
+<td>
+(0.52, 1.37)
+</td>
+<td>
+(0.52, 1.37)
+</td>
+<td>
+(0.51, 1.35)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+ALA/O6: Q3
+</td>
+<td>
+0.61
+</td>
+<td>
+0.56
+</td>
+<td>
+0.56
+</td>
+<td>
+0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.34, 1.09)
+</td>
+<td>
+(0.31, 1.00)
+</td>
+<td>
+(0.31, 1.00)
+</td>
+<td>
+(0.31, 0.99)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+ALA/O6: Q4
+</td>
+<td>
+0.64
+</td>
+<td>
+0.57
+</td>
+<td>
+0.56
+</td>
+<td>
+0.56
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.33, 1.22)
+</td>
+<td>
+(0.29, 1.09)
+</td>
+<td>
+(0.29, 1.09)
+</td>
+<td>
+(0.29, 1.07)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Age.: 30-39
+</td>
+<td>
+</td>
+<td>
+0.52
+</td>
+<td>
+0.52
+</td>
+<td>
+0.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.29, 0.93)
+</td>
+<td>
+(0.29, 0.92)
+</td>
+<td>
+(0.30, 0.95)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Age.: 40-59
+</td>
+<td>
+</td>
+<td>
+1.09
+</td>
+<td>
+1.08
+</td>
+<td>
+1.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.83, 1.43)
+</td>
+<td>
+(0.82, 1.43)
+</td>
+<td>
+(0.83, 1.43)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Race: Black
+</td>
+<td>
+</td>
+<td>
+1.64
+</td>
+<td>
+1.64
+</td>
+<td>
+1.58
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(1.24, 2.16)
+</td>
+<td>
+(1.24, 2.17)
+</td>
+<td>
+(1.19, 2.09)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Sex.: Male
+</td>
+<td>
+</td>
+<td>
+0.14
+</td>
+<td>
+0.14
+</td>
+<td>
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.08, 0.23)
+</td>
+<td>
+(0.08, 0.23)
+</td>
+<td>
+(0.08, 0.22)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Educ: HS or less
+</td>
+<td>
+</td>
+<td>
+0.72
+</td>
+<td>
+0.72
+</td>
+<td>
+0.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.50, 1.05)
+</td>
+<td>
+(0.49, 1.04)
+</td>
+<td>
+(0.48, 1.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Educ: Some college
+</td>
+<td>
+</td>
+<td>
+0.88
+</td>
+<td>
+0.88
+</td>
+<td>
+0.87
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.66, 1.18)
+</td>
+<td>
+(0.65, 1.18)
+</td>
+<td>
+(0.64, 1.16)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Smkg: Ever
+</td>
+<td>
+</td>
+<td>
+1.72
+</td>
+<td>
+1.71
+</td>
+<td>
+1.68
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(1.28, 2.32)
+</td>
+<td>
+(1.27, 2.31)
+</td>
+<td>
+(1.25, 2.27)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Diet: Vegetarians
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.96
+</td>
+<td>
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.62, 1.49)
+</td>
+<td>
+(0.64, 1.55)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Diet: Pesco veg
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.87
+</td>
+<td>
+0.91
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.56, 1.35)
+</td>
+<td>
+(0.59, 1.41)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BMI.: Overweight
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.28
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.93, 1.77)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BMI.: Obese
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.95, 1.85)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+77,795
+</td>
+<td>
+77,795
+</td>
+<td>
+77,795
+</td>
+<td>
+77,795
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
 </table>

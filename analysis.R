@@ -177,38 +177,47 @@ lupus <- lupus %>%
          p205p226_o6_cat = ntile(p205p226_o6, 4),
          p205p226_o6_cat = factor(p205p226_o6_cat))
 
-lupus %>% ggplot(aes(x = o3_o6))       + geom_histogram()
-lupus %>% ggplot(aes(x = p183_o6))     + geom_histogram()
-lupus %>% ggplot(aes(x = p205p226_o6)) + geom_histogram()
-
 # Descriptive table
 # Demographics and lifestyles
 table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4)
 
-# FA quartiles
+# FA quartiles by SLE status
+table_vars <- c("o3_o6_cat", "p205p226_o6_cat", "p183_o6_cat")
+lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
+  print(showAllLevels = TRUE, pDigits = 4)
+
+# Cut-off values
 lupus %>% 
   select(starts_with("o3_o6")) %>% 
   group_by(o3_o6_cat) %>% 
   summarize(min = min(o3_o6), max = max(o3_o6))
 
 lupus %>% 
-  select(starts_with("p183_o6")) %>% 
-  group_by(p183_o6_cat) %>% 
-  summarize(min = min(p183_o6), max = max(p183_o6))
-
-lupus %>% 
   select(starts_with("p205p226_o6")) %>% 
   group_by(p205p226_o6_cat) %>% 
   summarize(min = min(p205p226_o6), max = max(p205p226_o6))
 
-table_vars <- c("o3_o6_cat", "p183_o6_cat", "p205p226_o6_cat")
-lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
-  print(showAllLevels = TRUE, pDigits = 4)
+lupus %>% 
+  select(starts_with("p183_o6")) %>% 
+  group_by(p183_o6_cat) %>% 
+  summarize(min = min(p183_o6), max = max(p183_o6))
 
 # Omega-3 and -6 fatty acids
 table_vars <- c("p183_ea", "p205p226_ea", "n3pfa_ea", "n6pfa_ea")
+
+# Check distribution
+lupus %>% 
+  select(all_of(table_vars)) %>% 
+  pivot_longer(p183_ea:n6pfa_ea, names_to = "var", values_to = "value") %>% 
+  mutate(var = factor(var, levels = table_vars))  %>% 
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 50) +
+  facet_grid(~var, scales = "free") +
+  labs(x = "Energy-adjusted intake (gram/day")
+
+# Table by SLE status
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
 
@@ -228,6 +237,18 @@ lupus %>%
 
 # Ratios
 table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
+
+# Check distribution
+lupus %>% 
+  select(all_of(table_vars)) %>% 
+  pivot_longer(o3_o6:p183_o6, names_to = "var", values_to = "value") %>% 
+  mutate(var = factor(var, levels = table_vars))  %>% 
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 50) +
+  facet_grid(~var, scales = "free") +
+  labs(x = "Ratio of energy-adjusted FA intake (gram/day")
+
+# Table by SLE status
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
 
@@ -254,7 +275,7 @@ lupus_md$agecat <- relevel(lupus_md$agecat, ref = ">=60")
 
 fm <- formula(prev_sle ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat)
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + take_fo + agecat + black + sex + educat3 + smkever)
+m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. +  bmicat)
 
@@ -272,7 +293,7 @@ var_labels <- c("O3/O6: Q2",
                 "ALA/O6: Q2",
                 "ALA/O6: Q3",
                 "ALA/O6: Q4",
-                "FOil: Yes",
+                # "FOil: Yes",
                 "Age.: 30-39", 
                 "Age.: 40-59", 
                 "Race: Black", 
