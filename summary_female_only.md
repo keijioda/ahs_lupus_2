@@ -1408,16 +1408,15 @@ max
 </tbody>
 </table>
 
-## Logistic models
+## Logistic models with all three ratio variables
 
 -   Four logistic models were fitted using prevalent SLE as the outcome.
     -   Model 1 includes: quartile groups of omega-3/omega-6, (DHA +
-        EPA)/omega-6, and ALA/omaga-6
-    -   Model 2 adds fish oil supplement (no/yes), age groups, race,
-        education level, and smoking status (never/enver)
+        EPA)/omega-6, ALA/omaga-6, and kcal (per 100 kcal)
+    -   Model 2 adds age groups, race, education level, and smoking
+        status (never/ever)
     -   Model 3 further adds dietary pattern
     -   Model 4 further adds BMI groups
-    -   (Should we keep fish oil supplement?)
 -   The table below shows estimated odds ratios and 95% Wald confidence
     intervals from each logistic model:
 
@@ -1461,13 +1460,13 @@ O3/O6: Q2
 1.60
 </td>
 <td>
-1.54
+1.59
 </td>
 <td>
-1.54
+1.59
 </td>
 <td>
-1.54
+1.59
 </td>
 </tr>
 <tr>
@@ -1477,13 +1476,13 @@ O3/O6: Q2
 (0.93, 2.74)
 </td>
 <td>
-(0.90, 2.63)
+(0.93, 2.73)
 </td>
 <td>
-(0.90, 2.63)
+(0.93, 2.73)
 </td>
 <td>
-(0.90, 2.64)
+(0.93, 2.73)
 </td>
 </tr>
 <tr>
@@ -1506,13 +1505,13 @@ O3/O6: Q3
 1.83
 </td>
 <td>
-1.71
+1.82
 </td>
 <td>
-1.71
+1.82
 </td>
 <td>
-1.71
+1.83
 </td>
 </tr>
 <tr>
@@ -1522,13 +1521,13 @@ O3/O6: Q3
 (0.95, 3.54)
 </td>
 <td>
-(0.88, 3.29)
+(0.94, 3.52)
 </td>
 <td>
-(0.89, 3.30)
+(0.94, 3.53)
 </td>
 <td>
-(0.89, 3.31)
+(0.95, 3.54)
 </td>
 </tr>
 <tr>
@@ -1548,32 +1547,32 @@ O3/O6: Q3
 O3/O6: Q4
 </td>
 <td>
-2.82
+2.81
 </td>
 <td>
-2.43
+2.71
 </td>
 <td>
-2.44
+2.71
 </td>
 <td>
-2.45
+2.73
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.28, 6.19)
+(1.28, 6.17)
 </td>
 <td>
-(1.11, 5.36)
+(1.23, 5.96)
 </td>
 <td>
-(1.11, 5.38)
+(1.23, 5.98)
 </td>
 <td>
-(1.11, 5.42)
+(1.24, 6.02)
 </td>
 </tr>
 <tr>
@@ -1599,10 +1598,10 @@ DHA+EPA/O6: Q2
 1.19
 </td>
 <td>
-1.19
+1.24
 </td>
 <td>
-1.16
+1.21
 </td>
 </tr>
 <tr>
@@ -1612,13 +1611,13 @@ DHA+EPA/O6: Q2
 (0.78, 1.85)
 </td>
 <td>
-(0.77, 1.83)
+(0.77, 1.84)
 </td>
 <td>
-(0.73, 1.93)
+(0.76, 2.00)
 </td>
 <td>
-(0.71, 1.88)
+(0.75, 1.96)
 </td>
 </tr>
 <tr>
@@ -1638,32 +1637,32 @@ DHA+EPA/O6: Q2
 DHA+EPA/O6: Q3
 </td>
 <td>
-1.55
+1.54
 </td>
 <td>
-1.31
+1.34
 </td>
 <td>
-1.32
+1.44
 </td>
 <td>
-1.29
+1.41
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(1.02, 2.35)
+(1.02, 2.34)
 </td>
 <td>
-(0.86, 2.00)
+(0.88, 2.04)
 </td>
 <td>
-(0.74, 2.36)
+(0.80, 2.60)
 </td>
 <td>
-(0.72, 2.32)
+(0.78, 2.55)
 </td>
 </tr>
 <tr>
@@ -1686,13 +1685,13 @@ DHA+EPA/O6: Q4
 1.28
 </td>
 <td>
-0.84
+1.05
 </td>
 <td>
-0.84
+1.12
 </td>
 <td>
-0.82
+1.09
 </td>
 </tr>
 <tr>
@@ -1702,13 +1701,13 @@ DHA+EPA/O6: Q4
 (0.77, 2.12)
 </td>
 <td>
-(0.49, 1.45)
+(0.62, 1.76)
 </td>
 <td>
-(0.43, 1.63)
+(0.59, 2.13)
 </td>
 <td>
-(0.42, 1.60)
+(0.58, 2.08)
 </td>
 </tr>
 <tr>
@@ -1731,13 +1730,13 @@ ALA/O6: Q2
 0.62
 </td>
 <td>
-0.64
+0.61
 </td>
 <td>
-0.64
+0.61
 </td>
 <td>
-0.63
+0.61
 </td>
 </tr>
 <tr>
@@ -1747,13 +1746,13 @@ ALA/O6: Q2
 (0.38, 1.01)
 </td>
 <td>
-(0.39, 1.04)
+(0.38, 1.00)
 </td>
 <td>
-(0.39, 1.04)
+(0.38, 1.00)
 </td>
 <td>
-(0.39, 1.03)
+(0.37, 0.99)
 </td>
 </tr>
 <tr>
@@ -1776,13 +1775,13 @@ ALA/O6: Q3
 0.47
 </td>
 <td>
-0.50
+0.47
 </td>
 <td>
-0.50
+0.47
 </td>
 <td>
-0.49
+0.46
 </td>
 </tr>
 <tr>
@@ -1792,13 +1791,13 @@ ALA/O6: Q3
 (0.27, 0.84)
 </td>
 <td>
-(0.28, 0.88)
+(0.26, 0.82)
 </td>
 <td>
-(0.28, 0.88)
+(0.26, 0.82)
 </td>
 <td>
-(0.28, 0.87)
+(0.26, 0.82)
 </td>
 </tr>
 <tr>
@@ -1821,13 +1820,13 @@ ALA/O6: Q4
 0.55
 </td>
 <td>
-0.61
+0.55
 </td>
 <td>
-0.60
+0.55
 </td>
 <td>
-0.60
+0.55
 </td>
 </tr>
 <tr>
@@ -1837,13 +1836,13 @@ ALA/O6: Q4
 (0.29, 1.05)
 </td>
 <td>
-(0.32, 1.16)
+(0.29, 1.05)
 </td>
 <td>
-(0.32, 1.16)
+(0.29, 1.05)
 </td>
 <td>
-(0.31, 1.15)
+(0.28, 1.04)
 </td>
 </tr>
 <tr>
@@ -1860,33 +1859,35 @@ ALA/O6: Q4
 </tr>
 <tr>
 <td style="text-align:left">
-FOil: Yes
+Kcal/100
 </td>
 <td>
+1.00
 </td>
 <td>
-1.81
+1.00
 </td>
 <td>
-1.81
+1.00
 </td>
 <td>
-1.81
+1.00
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
+(0.99, 1.02)
 </td>
 <td>
-(1.21, 2.72)
+(0.98, 1.02)
 </td>
 <td>
-(1.20, 2.73)
+(0.98, 1.02)
 </td>
 <td>
-(1.20, 2.73)
+(0.98, 1.02)
 </td>
 </tr>
 <tr>
@@ -1908,13 +1909,13 @@ Age.: 30-39
 <td>
 </td>
 <td>
-0.63
+0.61
+</td>
+<td>
+0.61
 </td>
 <td>
 0.63
-</td>
-<td>
-0.65
 </td>
 </tr>
 <tr>
@@ -1923,13 +1924,13 @@ Age.: 30-39
 <td>
 </td>
 <td>
-(0.35, 1.13)
+(0.34, 1.09)
+</td>
+<td>
+(0.34, 1.09)
 </td>
 <td>
 (0.35, 1.12)
-</td>
-<td>
-(0.36, 1.16)
 </td>
 </tr>
 <tr>
@@ -1951,13 +1952,13 @@ Age.: 40-59
 <td>
 </td>
 <td>
-1.27
+1.25
 </td>
 <td>
-1.27
+1.25
 </td>
 <td>
-1.28
+1.26
 </td>
 </tr>
 <tr>
@@ -1966,13 +1967,13 @@ Age.: 40-59
 <td>
 </td>
 <td>
-(0.95, 1.70)
+(0.94, 1.67)
 </td>
 <td>
-(0.95, 1.69)
+(0.93, 1.67)
 </td>
 <td>
-(0.95, 1.70)
+(0.94, 1.68)
 </td>
 </tr>
 <tr>
@@ -1994,13 +1995,13 @@ Race: Black
 <td>
 </td>
 <td>
-1.76
+1.68
 </td>
 <td>
-1.76
+1.69
 </td>
 <td>
-1.71
+1.63
 </td>
 </tr>
 <tr>
@@ -2009,13 +2010,682 @@ Race: Black
 <td>
 </td>
 <td>
-(1.32, 2.34)
+(1.26, 2.23)
 </td>
 <td>
-(1.32, 2.35)
+(1.27, 2.25)
 </td>
 <td>
-(1.28, 2.28)
+(1.22, 2.19)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Educ: HS or less
+</td>
+<td>
+</td>
+<td>
+0.71
+</td>
+<td>
+0.72
+</td>
+<td>
+0.71
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.48, 1.05)
+</td>
+<td>
+(0.48, 1.06)
+</td>
+<td>
+(0.48, 1.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Educ: Some college
+</td>
+<td>
+</td>
+<td>
+0.87
+</td>
+<td>
+0.87
+</td>
+<td>
+0.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.64, 1.18)
+</td>
+<td>
+(0.64, 1.19)
+</td>
+<td>
+(0.64, 1.17)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Smkg: Ever
+</td>
+<td>
+</td>
+<td>
+1.87
+</td>
+<td>
+1.86
+</td>
+<td>
+1.84
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(1.37, 2.53)
+</td>
+<td>
+(1.37, 2.53)
+</td>
+<td>
+(1.36, 2.51)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Diet: Vegetarians
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.07
+</td>
+<td>
+1.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.67, 1.70)
+</td>
+<td>
+(0.69, 1.75)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Diet: Pesco veg
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.91
+</td>
+<td>
+0.93
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.58, 1.42)
+</td>
+<td>
+(0.60, 1.46)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BMI.: Overweight
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.94, 1.83)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BMI.: Obese
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.86, 1.73)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+50,542
+</td>
+<td>
+50,542
+</td>
+<td>
+50,542
+</td>
+<td>
+50,542
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+
+## Logistic models with omega-3/omega-6 ratio
+
+-   Four logistic models were fitted using prevalent SLE as the outcome.
+    -   Model 1 includes: quartile groups of omega-3/omega-6 and kcal
+        (per 100 kcal)
+    -   Model 2 adds age groups, race, education level, and smoking
+        status (never/ever)
+    -   Model 3 further adds dietary pattern
+    -   Model 4 further adds BMI groups
+-   The table below shows estimated odds ratios and 95% Wald confidence
+    intervals from each logistic model:
+
+<table style="text-align:center">
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+Outcome: Prevalent SLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Model 1
+</td>
+<td>
+Model 2
+</td>
+<td>
+Model 3
+</td>
+<td>
+Model 4
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+O3/O6: Q2
+</td>
+<td>
+1.14
+</td>
+<td>
+1.09
+</td>
+<td>
+1.07
+</td>
+<td>
+1.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.75, 1.71)
+</td>
+<td>
+(0.72, 1.64)
+</td>
+<td>
+(0.71, 1.61)
+</td>
+<td>
+(0.70, 1.60)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+O3/O6: Q3
+</td>
+<td>
+1.16
+</td>
+<td>
+1.07
+</td>
+<td>
+1.03
+</td>
+<td>
+1.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.77, 1.75)
+</td>
+<td>
+(0.71, 1.61)
+</td>
+<td>
+(0.68, 1.56)
+</td>
+<td>
+(0.67, 1.55)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+O3/O6: Q4
+</td>
+<td>
+1.82
+</td>
+<td>
+1.53
+</td>
+<td>
+1.45
+</td>
+<td>
+1.45
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.25, 2.64)
+</td>
+<td>
+(1.05, 2.24)
+</td>
+<td>
+(0.98, 2.16)
+</td>
+<td>
+(0.98, 2.15)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Kcal/100
+</td>
+<td>
+1.01
+</td>
+<td>
+1.00
+</td>
+<td>
+1.00
+</td>
+<td>
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.99, 1.02)
+</td>
+<td>
+(0.99, 1.02)
+</td>
+<td>
+(0.99, 1.02)
+</td>
+<td>
+(0.98, 1.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Age.: 30-39
+</td>
+<td>
+</td>
+<td>
+0.61
+</td>
+<td>
+0.60
+</td>
+<td>
+0.62
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.34, 1.09)
+</td>
+<td>
+(0.34, 1.07)
+</td>
+<td>
+(0.35, 1.10)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Age.: 40-59
+</td>
+<td>
+</td>
+<td>
+1.25
+</td>
+<td>
+1.24
+</td>
+<td>
+1.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.93, 1.66)
+</td>
+<td>
+(0.93, 1.65)
+</td>
+<td>
+(0.93, 1.66)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Race: Black
+</td>
+<td>
+</td>
+<td>
+1.74
+</td>
+<td>
+1.70
+</td>
+<td>
+1.64
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(1.32, 2.29)
+</td>
+<td>
+(1.28, 2.25)
+</td>
+<td>
+(1.24, 2.19)
 </td>
 </tr>
 <tr>
@@ -2052,13 +2722,682 @@ Educ: HS or less
 <td>
 </td>
 <td>
-(0.49, 1.07)
+(0.50, 1.08)
 </td>
 <td>
-(0.49, 1.07)
+(0.49, 1.06)
 </td>
 <td>
-(0.48, 1.06)
+(0.48, 1.05)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Educ: Some college
+</td>
+<td>
+</td>
+<td>
+0.88
+</td>
+<td>
+0.87
+</td>
+<td>
+0.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.65, 1.20)
+</td>
+<td>
+(0.64, 1.18)
+</td>
+<td>
+(0.63, 1.17)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Smkg: Ever
+</td>
+<td>
+</td>
+<td>
+1.91
+</td>
+<td>
+1.87
+</td>
+<td>
+1.85
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(1.41, 2.58)
+</td>
+<td>
+(1.37, 2.54)
+</td>
+<td>
+(1.36, 2.51)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Diet: Vegetarians
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.85
+</td>
+<td>
+0.89
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.61, 1.18)
+</td>
+<td>
+(0.63, 1.24)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Diet: Pesco veg
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.92
+</td>
+<td>
+0.95
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.59, 1.43)
+</td>
+<td>
+(0.60, 1.48)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BMI.: Overweight
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.31
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.94, 1.83)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BMI.: Obese
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.86, 1.73)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+50,542
+</td>
+<td>
+50,542
+</td>
+<td>
+50,542
+</td>
+<td>
+50,542
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+
+## Logistic models with (DHA + EPA)/omega-6 ratio
+
+-   Four logistic models were fitted using prevalent SLE as the outcome.
+    -   Model 1 includes: quartile groups of (DHA + EPA)/omega-6 and
+        kcal (per 100 kcal)
+    -   Model 2 adds age groups, race, education level, and smoking
+        status (never/ever)
+    -   Model 3 further adds dietary pattern
+    -   Model 4 further adds BMI groups
+-   The table below shows estimated odds ratios and 95% Wald confidence
+    intervals from each logistic model:
+
+<table style="text-align:center">
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+Outcome: Prevalent SLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Model 1
+</td>
+<td>
+Model 2
+</td>
+<td>
+Model 3
+</td>
+<td>
+Model 4
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+DHA+EPA/O6: Q2
+</td>
+<td>
+1.18
+</td>
+<td>
+1.18
+</td>
+<td>
+1.22
+</td>
+<td>
+1.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.77, 1.83)
+</td>
+<td>
+(0.76, 1.82)
+</td>
+<td>
+(0.75, 1.97)
+</td>
+<td>
+(0.74, 1.93)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+DHA+EPA/O6: Q3
+</td>
+<td>
+1.71
+</td>
+<td>
+1.47
+</td>
+<td>
+1.58
+</td>
+<td>
+1.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.14, 2.55)
+</td>
+<td>
+(0.97, 2.21)
+</td>
+<td>
+(0.88, 2.83)
+</td>
+<td>
+(0.86, 2.78)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+DHA+EPA/O6: Q4
+</td>
+<td>
+1.90
+</td>
+<td>
+1.52
+</td>
+<td>
+1.62
+</td>
+<td>
+1.59
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1.28, 2.81)
+</td>
+<td>
+(1.01, 2.29)
+</td>
+<td>
+(0.93, 2.84)
+</td>
+<td>
+(0.91, 2.79)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Kcal/100
+</td>
+<td>
+1.00
+</td>
+<td>
+1.00
+</td>
+<td>
+1.00
+</td>
+<td>
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.99, 1.02)
+</td>
+<td>
+(0.98, 1.02)
+</td>
+<td>
+(0.98, 1.02)
+</td>
+<td>
+(0.98, 1.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Age.: 30-39
+</td>
+<td>
+</td>
+<td>
+0.59
+</td>
+<td>
+0.59
+</td>
+<td>
+0.61
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.33, 1.06)
+</td>
+<td>
+(0.33, 1.05)
+</td>
+<td>
+(0.34, 1.08)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Age.: 40-59
+</td>
+<td>
+</td>
+<td>
+1.23
+</td>
+<td>
+1.23
+</td>
+<td>
+1.24
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.92, 1.65)
+</td>
+<td>
+(0.92, 1.64)
+</td>
+<td>
+(0.93, 1.65)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Race: Black
+</td>
+<td>
+</td>
+<td>
+1.70
+</td>
+<td>
+1.71
+</td>
+<td>
+1.66
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(1.28, 2.26)
+</td>
+<td>
+(1.28, 2.28)
+</td>
+<td>
+(1.24, 2.22)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Educ: HS or less
+</td>
+<td>
+</td>
+<td>
+0.72
+</td>
+<td>
+0.72
+</td>
+<td>
+0.71
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.49, 1.06)
+</td>
+<td>
+(0.49, 1.06)
+</td>
+<td>
+(0.48, 1.05)
 </td>
 </tr>
 <tr>
@@ -2123,13 +3462,13 @@ Smkg: Ever
 <td>
 </td>
 <td>
-1.86
+1.87
+</td>
+<td>
+1.87
 </td>
 <td>
 1.85
-</td>
-<td>
-1.83
 </td>
 </tr>
 <tr>
@@ -2138,13 +3477,13 @@ Smkg: Ever
 <td>
 </td>
 <td>
-(1.37, 2.53)
+(1.38, 2.53)
 </td>
 <td>
-(1.36, 2.52)
+(1.37, 2.54)
 </td>
 <td>
-(1.35, 2.49)
+(1.36, 2.51)
 </td>
 </tr>
 <tr>
@@ -2168,10 +3507,10 @@ Diet: Vegetarians
 <td>
 </td>
 <td>
-0.99
+1.07
 </td>
 <td>
-1.02
+1.09
 </td>
 </tr>
 <tr>
@@ -2182,10 +3521,10 @@ Diet: Vegetarians
 <td>
 </td>
 <td>
-(0.63, 1.55)
+(0.67, 1.70)
 </td>
 <td>
-(0.64, 1.60)
+(0.69, 1.75)
 </td>
 </tr>
 <tr>
@@ -2209,10 +3548,10 @@ Diet: Pesco veg
 <td>
 </td>
 <td>
-0.90
+0.92
 </td>
 <td>
-0.92
+0.94
 </td>
 </tr>
 <tr>
@@ -2223,10 +3562,679 @@ Diet: Pesco veg
 <td>
 </td>
 <td>
-(0.57, 1.40)
+(0.59, 1.43)
 </td>
 <td>
-(0.59, 1.45)
+(0.60, 1.48)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BMI.: Overweight
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.31
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.94, 1.82)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BMI.: Obese
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.20
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.85, 1.70)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+50,542
+</td>
+<td>
+50,542
+</td>
+<td>
+50,542
+</td>
+<td>
+50,542
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+
+## Logistic models with ALA/omega-6 ratio
+
+-   Four logistic models were fitted using prevalent SLE as the outcome.
+    -   Model 1 includes: quartile groups of ALA/omega-6 and kcal (per
+        100 kcal)
+    -   Model 2 adds age groups, race, education level, and smoking
+        status (never/ever)
+    -   Model 3 further adds dietary pattern
+    -   Model 4 further adds BMI groups
+-   The table below shows estimated odds ratios and 95% Wald confidence
+    intervals from each logistic model:
+
+<table style="text-align:center">
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="4">
+Outcome: Prevalent SLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Model 1
+</td>
+<td>
+Model 2
+</td>
+<td>
+Model 3
+</td>
+<td>
+Model 4
+</td>
+</tr>
+<tr>
+<td colspan="5" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+ALA/O6: Q2
+</td>
+<td>
+0.89
+</td>
+<td>
+0.86
+</td>
+<td>
+0.84
+</td>
+<td>
+0.84
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.61, 1.31)
+</td>
+<td>
+(0.59, 1.26)
+</td>
+<td>
+(0.58, 1.24)
+</td>
+<td>
+(0.57, 1.23)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+ALA/O6: Q3
+</td>
+<td>
+0.82
+</td>
+<td>
+0.77
+</td>
+<td>
+0.75
+</td>
+<td>
+0.74
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.55, 1.21)
+</td>
+<td>
+(0.52, 1.14)
+</td>
+<td>
+(0.51, 1.11)
+</td>
+<td>
+(0.50, 1.10)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+ALA/O6: Q4
+</td>
+<td>
+1.21
+</td>
+<td>
+1.13
+</td>
+<td>
+1.10
+</td>
+<td>
+1.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.85, 1.73)
+</td>
+<td>
+(0.79, 1.61)
+</td>
+<td>
+(0.77, 1.57)
+</td>
+<td>
+(0.77, 1.56)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Kcal/100
+</td>
+<td>
+1.01
+</td>
+<td>
+1.00
+</td>
+<td>
+1.00
+</td>
+<td>
+1.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.99, 1.02)
+</td>
+<td>
+(0.99, 1.02)
+</td>
+<td>
+(0.99, 1.02)
+</td>
+<td>
+(0.98, 1.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Age.: 30-39
+</td>
+<td>
+</td>
+<td>
+0.61
+</td>
+<td>
+0.60
+</td>
+<td>
+0.62
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.34, 1.10)
+</td>
+<td>
+(0.34, 1.08)
+</td>
+<td>
+(0.35, 1.11)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Age.: 40-59
+</td>
+<td>
+</td>
+<td>
+1.26
+</td>
+<td>
+1.25
+</td>
+<td>
+1.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.94, 1.68)
+</td>
+<td>
+(0.93, 1.67)
+</td>
+<td>
+(0.94, 1.68)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Race: Black
+</td>
+<td>
+</td>
+<td>
+1.85
+</td>
+<td>
+1.77
+</td>
+<td>
+1.71
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(1.41, 2.43)
+</td>
+<td>
+(1.34, 2.34)
+</td>
+<td>
+(1.29, 2.27)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Educ: HS or less
+</td>
+<td>
+</td>
+<td>
+0.74
+</td>
+<td>
+0.72
+</td>
+<td>
+0.71
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.50, 1.10)
+</td>
+<td>
+(0.48, 1.06)
+</td>
+<td>
+(0.48, 1.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Educ: Some college
+</td>
+<td>
+</td>
+<td>
+0.89
+</td>
+<td>
+0.87
+</td>
+<td>
+0.86
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.66, 1.21)
+</td>
+<td>
+(0.64, 1.18)
+</td>
+<td>
+(0.63, 1.17)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Smkg: Ever
+</td>
+<td>
+</td>
+<td>
+1.94
+</td>
+<td>
+1.87
+</td>
+<td>
+1.85
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(1.43, 2.62)
+</td>
+<td>
+(1.38, 2.55)
+</td>
+<td>
+(1.36, 2.52)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Diet: Vegetarians
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.78
+</td>
+<td>
+0.81
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.57, 1.07)
+</td>
+<td>
+(0.59, 1.12)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Diet: Pesco veg
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.91
+</td>
+<td>
+0.94
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.58, 1.43)
+</td>
+<td>
+(0.60, 1.47)
 </td>
 </tr>
 <tr>

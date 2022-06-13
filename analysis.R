@@ -305,22 +305,51 @@ lupus %>%
 # Logistic regression
 # Change references
 lupus_md <- lupus %>% 
-  mutate(kcal100 = kcal / 100)
-lupus_md$vegstat3 <- relevel(lupus_md$vegstat3, ref = "Non-veg")
-lupus_md$educat3 <- relevel(lupus_md$educat3, ref = "Col grad")
-lupus_md$agecat <- relevel(lupus_md$agecat, ref = ">=60")
+  mutate(kcal100  = kcal / 100,
+         vegstat3 = relevel(vegstat3, ref = "Non-veg"),
+         educat3  = relevel(educat3, ref = "Col grad"),
+         agecat   = relevel(agecat, ref = ">=60"))
 
-fm <- formula(prev_sle ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat)
+covar_labels <- c("Kcal/100",
+                  "Age.: 30-39", 
+                  "Age.: 40-59", 
+                  "Race: Black",
+                  "Sex.: Male",
+                  "Educ: HS or less",
+                  "Educ: Some college",
+                  "Smkg: Ever", 
+                  "Diet: Vegetarians",
+                  "Diet: Pesco veg",
+                  "BMI.: Overweight",
+                  "BMI.: Obese")
+
+# Function for stargazer
+my_stargazer <- function(x){
+  stargazer::stargazer(x, 
+                       type = "text", 
+                       digits = 2,
+                       dep.var.caption = "",
+                       dep.var.labels = "Outcome: Prevalent SLE",
+                       model.numbers = FALSE,
+                       column.labels = c("Model 1", "Model 2", "Model 3", "Model 4"),
+                       covariate.labels = var_labels,
+                       apply.coef = exp, 
+                       ci.custom = ci, 
+                       star.cutoffs = NA, 
+                       omit = "Constant", 
+                       omit.stat = c("aic", "ll"),
+                       omit.table.layout = "n")
+}
+
+fm <- formula(prev_sle ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + take_fo + agecat + black + sex + educat3 + smkever)
+m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
-m4 <- update(m3, .~. +  bmicat)
+m4 <- update(m3, .~. + bmicat)
 
 models <- list(m1, m2, m3, m4)
-ci <- list(exp(confint.default(m1)), 
-           exp(confint.default(m2)), 
-           exp(confint.default(m3)), 
-           exp(confint.default(m4)))
+ci <- lapply(models, \(x) exp(confint.default(x)))
+
 var_labels <- c("O3/O6: Q2",
                 "O3/O6: Q3",
                 "O3/O6: Q4",
@@ -330,29 +359,57 @@ var_labels <- c("O3/O6: Q2",
                 "ALA/O6: Q2",
                 "ALA/O6: Q3",
                 "ALA/O6: Q4",
-                "FOil: Yes",
-                "Age.: 30-39", 
-                "Age.: 40-59", 
-                "Race: Black", 
-                "Sex.: Male", 
-                "Educ: HS or less",
-                "Educ: Some college",
-                "Smkg: Ever", 
-                "Diet: Vegetarians", 
-                "Diet: Pesco veg", 
-                "BMI.: Overweight",
-                "BMI.: Obese")
-stargazer::stargazer(models, 
-                     type = "text", 
-                     digits = 2,
-                     dep.var.caption = "",
-                     dep.var.labels = "Outcome: Prevalent SLE",
-                     model.numbers = FALSE,
-                     column.labels = c("Model 1", "Model 2", "Model 3", "Model 4"),
-                     covariate.labels = var_labels,
-                     apply.coef = exp, 
-                     ci.custom = ci, 
-                     star.cutoffs = NA, 
-                     omit = "Constant", 
-                     omit.stat = c("aic", "ll"),
-                     omit.table.layout = "n")
+                covar_labels)
+
+my_stargazer(models)
+
+# Logistic regression with omega-3/omega-6 ratio
+fm <- formula(prev_sle ~ o3_o6_cat + I(kcal/100))
+m1 <- glm(fm, family = binomial, data = lupus_md)
+m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m3 <- update(m2, .~. + vegstat3)
+m4 <- update(m3, .~. + bmicat)
+
+models <- list(m1, m2, m3, m4)
+ci <- lapply(models, \(x) exp(confint.default(x)))
+
+var_labels <- c("O3/O6: Q2",
+                "O3/O6: Q3",
+                "O3/O6: Q4",
+                covar_labels)
+
+my_stargazer(models)
+
+# Logistic regression with (DHA + EPA)/omega-6 ratio
+fm <- formula(prev_sle ~ p205p226_o6_cat + I(kcal/100))
+m1 <- glm(fm, family = binomial, data = lupus_md)
+m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m3 <- update(m2, .~. + vegstat3)
+m4 <- update(m3, .~. + bmicat)
+
+models <- list(m1, m2, m3, m4)
+ci <- lapply(models, \(x) exp(confint.default(x)))
+
+var_labels <- c("DHA+EPA/O6: Q2",
+                "DHA+EPA/O6: Q3",
+                "DHA+EPA/O6: Q4",
+                covar_labels)
+
+my_stargazer(models)
+
+# Logistic regression with ALA/omega-6 ratio
+fm <- formula(prev_sle ~ p183_o6_cat + I(kcal/100))
+m1 <- glm(fm, family = binomial, data = lupus_md)
+m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m3 <- update(m2, .~. + vegstat3)
+m4 <- update(m3, .~. + bmicat)
+
+models <- list(m1, m2, m3, m4)
+ci <- lapply(models, \(x) exp(confint.default(x)))
+
+var_labels <- c("ALA/O6: Q2",
+                "ALA/O6: Q3",
+                "ALA/O6: Q4",
+                covar_labels)
+
+my_stargazer(models)
