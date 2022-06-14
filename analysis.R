@@ -380,6 +380,31 @@ var_labels <- c("O3/O6: Q2",
 
 my_stargazer(models)
 
+# Testing out splines
+library(splines)
+fm <- formula(prev_sle ~ ns(o3_o6, df = 4) + I(kcal/100))
+m1 <- glm(fm, family = binomial, data = lupus_md)
+summary(m1)
+
+df_pred <- data.frame(o3_o6 = seq(0.05, 0.15, by = 0.001), kcal = 1800)
+test <- predict(m1, newdata = df_pred, type = "link", se.fit = TRUE)
+
+df_pred$fit <- test$fit
+df_pred$se  <- test$se.fit
+
+df_pred$diff <- df_pred$fit - df_pred[71, "fit"]
+df_pred$logOR_se <- sqrt(df_pred$se ^ 2 + df_pred[71, "se"] ^ 2)
+
+df_pred$OR <- exp(df_pred$diff)
+df_pred$OR_lower <- exp(df_pred$diff - qnorm(0.975) * df_pred$logOR_se)
+df_pred$OR_upper <- exp(df_pred$diff + qnorm(0.975) * df_pred$logOR_se)
+
+df_pred %>% 
+  ggplot(aes(x = o3_o6, y = OR)) + 
+  geom_ribbon(aes(ymin = OR_lower, ymax = OR_upper), color = "lightgray", alpha = 0.2) +
+  geom_line() +
+  geom_hline(yintercept = 1, linetype = "dashed")
+
 # Logistic regression with (DHA + EPA)/omega-6 ratio
 fm <- formula(prev_sle ~ p205p226_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
