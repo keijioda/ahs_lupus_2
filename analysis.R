@@ -235,8 +235,20 @@ lupus %>%
   mutate(var = factor(var, levels = table_vars))  %>% 
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50) +
-  facet_grid(~var, scales = "free") +
-  labs(x = "Energy-adjusted intake (gram/day")
+  facet_wrap(~var, scales = "free", ncol = 4) +
+  labs(x = "Energy-adjusted intake (gram/day)")
+
+# Density plot by SLE status
+lupus %>% 
+  select(all_of(table_vars), prev_sle) %>% 
+  pivot_longer(p183_ea:n6pfa_ea, names_to = "var", values_to = "value") %>% 
+  mutate(var = factor(var, levels = table_vars))  %>% 
+  ggplot(aes(x = value, fill = prev_sle)) +
+  geom_density(alpha = 0.5) +
+  scale_x_continuous(trans="pseudo_log") +
+  facet_wrap(~var, scales = "free", ncol = 4) +
+  labs(x = "Energy-adjusted intake (gram/day)", fill = "Prevalent SLE") +
+  theme(legend.position = "bottom")
 
 # Check Spearman correlations
 lupus %>% 
@@ -272,8 +284,8 @@ lupus %>%
   mutate(var = factor(var, levels = table_vars))  %>% 
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50) +
-  facet_grid(~var, scales = "free") +
-  labs(x = "Ratio of energy-adjusted FA intake (gram/day")
+  facet_wrap(~var, scales = "free", ncol = 3) +
+  labs(x = "Ratio of energy-adjusted FA intake (gram/day)")
 
 # Check Spearman correlations
 lupus %>% 
@@ -282,8 +294,8 @@ lupus %>%
   round(3)
 
 # Check VIFs
-temp <- lm(as.numeric(prev_sle) ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat, data = lupus)
-car::vif(temp)
+lm(as.numeric(prev_sle) ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat, data = lupus) %>% 
+  car::vif()
   
 # Table by SLE status
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%

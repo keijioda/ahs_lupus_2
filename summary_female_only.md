@@ -568,6 +568,11 @@ Omega-6
 
 ![](summary_female_only_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
+-   Density plots by prevalent SLE status are shown below. Note that the
+    x-axis is in a pseudo-log scale:
+
+![](summary_female_only_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
 -   A Spearman correlation matrix among energy-adjusted ALA, EPA + DHA,
     total omega-3, and total omega-6 is shown below
     -   ALA is moderately positively correlated with omega-3 and omega-6
@@ -813,7 +818,7 @@ n6pfa_diet_ratio
     both the numerator and denominator were energy-adjusted values.
     -   Distribution of the three ratios were highly right-skewed:
 
-![](summary_female_only_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](summary_female_only_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 -   A Spearman correlation matrix among three ratio variables is shown
     below.

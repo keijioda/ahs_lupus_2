@@ -198,8 +198,24 @@ lupus %>%
   mutate(var = factor(var, levels = table_vars))  %>% 
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50) +
-  facet_grid(~var, scales = "free") +
+  facet_wrap(~var, scales = "free", ncol = 4) +
   labs(x = "Energy-adjusted intake (gram/day")
+```
+
+* Density plots by prevalent SLE status are shown below. Note that the x-axis is in a pseudo-log scale:
+
+```{r echo = FALSE, fig.width = 10, fig.height = 3.5}
+# Density plot by SLE status
+lupus %>% 
+  select(all_of(table_vars), prev_sle) %>% 
+  pivot_longer(p183_ea:n6pfa_ea, names_to = "var", values_to = "value") %>% 
+  mutate(var = factor(var, levels = table_vars))  %>% 
+  ggplot(aes(x = value, fill = prev_sle)) +
+  geom_density(alpha = 0.5) +
+  scale_x_continuous(trans="pseudo_log") +
+  facet_wrap(~var, scales = "free", ncol = 4) +
+  labs(x = "Energy-adjusted intake (gram/day)", fill = "Prevalent SLE") +
+  theme(legend.position = "bottom")
 ```
 
 * A Spearman correlation matrix among energy-adjusted ALA, EPA + DHA, total omega-3, and total omega-6 is shown below
@@ -268,8 +284,8 @@ lupus %>%
   mutate(var = factor(var, levels = table_vars))  %>% 
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50) +
-  facet_grid(~var, scales = "free") +
-  labs(x = "Ratio of energy-adjusted FA intake (gram/day")
+  facet_wrap(~var, scales = "free", ncol = 3) +
+  labs(x = "Ratio of energy-adjusted FA intake (gram/day)")
 ```
 
 * A Spearman correlation matrix among three ratio variables is shown below.
