@@ -168,10 +168,15 @@ lupus[omega_diet_vars_ea] <- lapply(lupus[omega_diet_vars], kcal_adjust, kcal = 
 calc_total_ea <- function(var) rowSums(lupus[c(paste0(var, "diet_ea"), paste0(var, "supp"))])
 lupus[omega_vars_ea] <- lapply(omega_vars, calc_total_ea)
 
-# Sum omaga fa energy-adjusted values
+# Sum omega fa energy-adjusted values
 lupus$n3pfa_ea    <- rowSums(lupus[c("p183_ea", "p184_ea", "p205_ea", "p225_ea", "p226_ea")])
 lupus$n6pfa_ea    <- rowSums(lupus[c("p182_ea", "p204_ea")])
 lupus$p205p226_ea <- rowSums(lupus[c("p205_ea", "p226_ea")])
+
+# Sum omega fa energy-adjusted dietary values
+lupus$n3pfa_diet_ea    <- rowSums(lupus[c("p183diet_ea", "p184diet_ea", "p205diet_ea", "p225diet_ea", "p226diet_ea")])
+lupus$n6pfa_diet_ea    <- rowSums(lupus[c("p182diet_ea", "p204diet_ea")])
+lupus$p205p226_diet_ea <- rowSums(lupus[c("p205diet_ea", "p226diet_ea")])
 
 # Calculate ratio of FA
 lupus <- lupus %>% 
@@ -233,12 +238,17 @@ lupus %>%
   * For EPA + DHA and total omega-3, those with SLE had significantly higher intake than those without SLE.
 
 ```{r echo = FALSE}
+# Table by SLE status
+table_vars <- c("p183_ea", "p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea", "n6pfa_ea")
+
 lupus %>% 
-  set_column_labels(prev_sle    = "Prevalent SLE", 
-                    p183_ea     = "ALA",
-                    p205p226_ea = "DHA + EPA",
-                    n3pfa_ea    = "Omega-3",
-                    n6pfa_ea    = "Omega-6") %>% 
+  set_column_labels(prev_sle          = "Prevalent SLE", 
+                    p183_ea           = "ALA",
+                    p205p226_ea       = "DHA + EPA",
+                    p205p226_diet_ea  = "DHA + EPA dietary",
+                    n3pfa_ea          = "Omega-3",
+                    n3pfa_diet_ea     = "Omega-3 dietary",
+                    n6pfa_ea          = "Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
                         continuous_fn = describeMedian,

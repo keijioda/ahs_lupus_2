@@ -763,6 +763,20 @@ DHA + EPA
 </tr>
 <tr>
 <td style="text-align: left;">
+DHA + EPA dietary
+</td>
+<td style="text-align: center;">
+0.02 (0.00 - 0.14)
+</td>
+<td style="text-align: center;">
+0.04 (0.00 - 0.17)
+</td>
+<td style="text-align: center;">
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
 Omega-3
 </td>
 <td style="text-align: center;">
@@ -773,6 +787,20 @@ Omega-3
 </td>
 <td style="text-align: center;">
 0.018
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Omega-3 dietary
+</td>
+<td style="text-align: center;">
+1.52 (1.20 - 1.90)
+</td>
+<td style="text-align: center;">
+1.56 (1.24 - 1.91)
+</td>
+<td style="text-align: center;">
+0.28
 </td>
 </tr>
 <tr>

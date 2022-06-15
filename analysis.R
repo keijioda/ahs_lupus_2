@@ -173,6 +173,11 @@ lupus$n3pfa_diet_ea    <- rowSums(lupus[c("p183diet_ea", "p184diet_ea", "p205die
 lupus$n6pfa_diet_ea    <- rowSums(lupus[c("p182diet_ea", "p204diet_ea")])
 lupus$p205p226_diet_ea <- rowSums(lupus[c("p205diet_ea", "p226diet_ea")])
 
+# Sum omega fa supplement values
+lupus$n3pfa_supp    <- rowSums(lupus[c("p183supp", "p184supp", "p205supp", "p225supp", "p226supp")])
+lupus$n6pfa_supp    <- rowSums(lupus[c("p182supp", "p204supp")])
+lupus$p205p226_supp <- rowSums(lupus[c("p205supp", "p226supp")])
+
 # Ratio of dietary to total intake (after energy-adjustment)
 lupus %>% 
   mutate(p183_diet_ratio     = p183diet_ea / p183_ea,
@@ -256,16 +261,17 @@ lupus %>%
   cor(method = "spearman") %>% 
   round(3)
 
-# Table by SLE status
-lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
-  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
+# Table by SLE status, separately for dietary and supplement intake
+table_vars <- c("p183_ea", "p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea", "n6pfa_ea")
 
 lupus %>% 
-  set_column_labels(prev_sle    = "Prevalent SLE", 
-                    p183_ea     = "ALA",
-                    p205p226_ea = "DHA + EPA",
-                    n3pfa_ea    = "Omega-3",
-                    n6pfa_ea    = "Omega-6") %>% 
+  set_column_labels(prev_sle          = "Prevalent SLE", 
+                    p183_ea           = "ALA",
+                    p205p226_ea       = "DHA + EPA",
+                    p205p226_diet_ea  = "DHA + EPA dietary",
+                    n3pfa_ea          = "Omega-3",
+                    n3pfa_diet_ea     = "Omega-3 dietary",
+                    n6pfa_ea          = "Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
                         continuous_fn = describeMedian,
@@ -273,6 +279,10 @@ lupus %>%
                         statistics = TRUE) %>% 
   htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
             tfoot = "P-values were from Mann-Whitney tests")
+
+lupus %>% 
+  select(starts_with("fish"), p205supp, p226supp) %>% 
+  filter(fishoil == 2)
 
 # Ratios
 table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
@@ -296,7 +306,7 @@ lupus %>%
 # Check VIFs
 lm(as.numeric(prev_sle) ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat, data = lupus) %>% 
   car::vif()
-  
+
 # Table by SLE status
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
