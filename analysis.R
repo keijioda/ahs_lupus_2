@@ -159,10 +159,6 @@ lupus[omega_diet_vars_ea] <- lapply(lupus[omega_diet_vars], kcal_adjust, kcal = 
 calc_total_ea <- function(var) rowSums(lupus[c(paste0(var, "diet_ea"), paste0(var, "supp"))])
 lupus[omega_vars_ea] <- lapply(omega_vars, calc_total_ea)
 
-# Sum omega fa unadjusted values
-lupus$n6pfa       <- rowSums(lupus[c("p182", "p204")])
-lupus$p205p226    <- rowSums(lupus[c("p205", "p226")])
-
 # Sum omega fa energy-adjusted values
 lupus$n3pfa_ea    <- rowSums(lupus[c("p183_ea", "p184_ea", "p205_ea", "p225_ea", "p226_ea")])
 lupus$n6pfa_ea    <- rowSums(lupus[c("p182_ea", "p204_ea")])
@@ -172,11 +168,6 @@ lupus$p205p226_ea <- rowSums(lupus[c("p205_ea", "p226_ea")])
 lupus$n3pfa_diet_ea    <- rowSums(lupus[c("p183diet_ea", "p184diet_ea", "p205diet_ea", "p225diet_ea", "p226diet_ea")])
 lupus$n6pfa_diet_ea    <- rowSums(lupus[c("p182diet_ea", "p204diet_ea")])
 lupus$p205p226_diet_ea <- rowSums(lupus[c("p205diet_ea", "p226diet_ea")])
-
-# Sum omega fa supplement values
-lupus$n3pfa_supp    <- rowSums(lupus[c("p183supp", "p184supp", "p205supp", "p225supp", "p226supp")])
-lupus$n6pfa_supp    <- rowSums(lupus[c("p182supp", "p204supp")])
-lupus$p205p226_supp <- rowSums(lupus[c("p205supp", "p226supp")])
 
 # Ratio of dietary to total intake (after energy-adjustment)
 lupus %>% 
@@ -261,7 +252,7 @@ lupus %>%
   cor(method = "spearman") %>% 
   round(3)
 
-# Table by SLE status, separately for dietary and supplement intake
+# Table by SLE status
 table_vars <- c("p183_ea", "p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea", "n6pfa_ea")
 
 lupus %>% 

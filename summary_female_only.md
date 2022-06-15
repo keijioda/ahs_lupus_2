@@ -685,10 +685,10 @@ Median (IQR) energy-adjusted intake of fatty acids (gram/day)
 <th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-No
+No<br /> (n = 50,322)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Yes
+Yes<br /> (n = 220)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 P-value
@@ -791,8 +791,9 @@ P-values were from Mann-Whitney tests
 </table>
 
 -   Proportions of (energy-adjusted) dietary intake out of the total
-    intake (dietary + supplement) are shown below. Over 90% of the total
-    intake were from dietary intake, not supplements.
+    intake (dietary + supplement) are shown below.
+    -   Over 90% of the total intake were from dietary intake, not
+        supplements.
 
 <table>
 <thead>
@@ -841,12 +842,105 @@ n6pfa_diet_ratio
 </tbody>
 </table>
 
+-   Intake of fatty acids (dietary and total) among those who use fish
+    oil supplement:
+    -   Total intake of EPA + DHA is much greater, and most of its
+        intake is from supplementary sources
+
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="4" style="text-align: left;">
+Median (IQR) energy-adjusted intake of fatty acids (gram/day)
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+No<br /> (n = 5,547)
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Yes<br /> (n = 43)
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+P-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">
+DHA + EPA
+</td>
+<td style="text-align: center;">
+0.42 (0.30 - 0.62)
+</td>
+<td style="text-align: center;">
+0.48 (0.32 - 0.77)
+</td>
+<td style="text-align: center;">
+0.17
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+DHA + EPA dietary
+</td>
+<td style="text-align: center;">
+0.09 (0.01 - 0.19)
+</td>
+<td style="text-align: center;">
+0.10 (0.03 - 0.23)
+</td>
+<td style="text-align: center;">
+0.32
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Omega-3
+</td>
+<td style="text-align: center;">
+1.99 (1.59 - 2.48)
+</td>
+<td style="text-align: center;">
+1.94 (1.59 - 2.51)
+</td>
+<td style="text-align: center;">
+1.00
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: left;">
+Omega-3 dietary
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+1.57 (1.24 - 1.97)
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+1.55 (1.19 - 1.90)
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+0.57
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="4">
+P-values were from Mann-Whitney tests
+</td>
+</tr>
+</tfoot>
+</table>
+
 -   Three ratios of fatty acids, Omega-3/Omega-6, (DHA + EPA)/Omega-6,
     ALA/Omega-6, were calculated based on energy-adjusted intake, i.e.,
     both the numerator and denominator were energy-adjusted values.
     -   Distribution of the three ratios were highly right-skewed:
 
-![](summary_female_only_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](summary_female_only_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 -   A Spearman correlation matrix among three ratio variables is shown
     below.
@@ -931,10 +1025,10 @@ Median (IQR) ratio of energy-adjusted fatty acid intake
 <th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-No
+No<br /> (n = 50,322)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Yes
+Yes<br /> (n = 220)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 P-value

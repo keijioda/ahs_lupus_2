@@ -252,6 +252,7 @@ lupus %>%
                     n6pfa_ea          = "Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
+                        header_count = "(n = %s)",
                         continuous_fn = describeMedian,
                         digits = 2,
                         statistics = TRUE) %>% 
@@ -259,7 +260,8 @@ lupus %>%
             tfoot = "P-values were from Mann-Whitney tests")
 ```
 
-* Proportions of (energy-adjusted) dietary intake out of the total intake (dietary + supplement) are shown below. Over 90% of the total intake were from dietary intake, not supplements.
+* Proportions of (energy-adjusted) dietary intake out of the total intake (dietary + supplement) are shown below. 
+  * Over 90% of the total intake were from dietary intake, not supplements.
 
 ```{r echo = FALSE}
 # Sum omaga fa energy-adjusted dietary values
@@ -278,6 +280,30 @@ lupus %>%
   group_by(var) %>% 
   summarize(mean = round(mean(value, na.rm = TRUE), 4)) %>% 
   knitr::kable()
+```
+
+* Intake of fatty acids (dietary and total) among those who use fish oil supplement:
+  * Total intake of EPA + DHA is much greater, and most of its intake is from supplementary sources
+
+```{r echo = FALSE}
+# Fish oil supplement users only
+table_vars <- c("p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea")
+
+lupus %>% 
+  filter(take_fo == "Yes") %>% 
+  set_column_labels(prev_sle          = "Prevalent SLE", 
+                    p205p226_ea       = "DHA + EPA",
+                    p205p226_diet_ea  = "DHA + EPA dietary",
+                    n3pfa_ea          = "Omega-3",
+                    n3pfa_diet_ea     = "Omega-3 dietary") %>% 
+  getDescriptionStatsBy(all_of(table_vars), 
+                        by = prev_sle, 
+                        header_count = "(n = %s)",
+                        continuous_fn = describeMedian,
+                        digits = 2,
+                        statistics = TRUE) %>% 
+  htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
+            tfoot = "P-values were from Mann-Whitney tests")
 ```
 
 * Three ratios of fatty acids, Omega-3/Omega-6, (DHA + EPA)/Omega-6, ALA/Omega-6, were calculated based on energy-adjusted intake, i.e., both the numerator and denominator were energy-adjusted values.
@@ -322,6 +348,7 @@ lupus %>%
                     p183_o6     = "ALA/Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
+                        header_count = "(n = %s)",
                         continuous_fn = describeMedian,
                         digits = 4,
                         statistics = TRUE) %>% 
