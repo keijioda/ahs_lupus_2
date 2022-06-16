@@ -477,3 +477,35 @@ lupus %>%
   import_labels(my_labels, name_from="name", label_from="label") %>%
   crosstable(sley, by = fishoily, percent_digits = 0) %>% 
   as_flextable(compact = TRUE)
+
+lupus %>%
+  filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
+  mutate(sley = factor(sley, labels = c("<5 years ago", "5-9 years ago", "10-14 years ago", "15-19 years ago", "20+ years ago")),
+         fishoily = factor(fishoily, labels = c("0-1 year", "2-4 years", "5-9 years", "10+ years"))) %>% 
+  set_column_labels(sley = "SLE",
+                    fishoily = "Fish oil supplement") %>% 
+  getDescriptionStatsBy(sley, by = fishoily)
+
+library(table1)
+test <- lupus
+test %>%
+  filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
+  mutate(`Diagnosed with SLE` = factor(sley, labels = c("<5 years ago", "5-9 years ago", "10-14 years ago", "15-19 years ago", "20+ years ago")),
+         fishoily = factor(fishoily, labels = c("0-1 year", "2-4 years", "5-9 years", "10+ years"))) %>% 
+  table1(~ `Diagnosed with SLE` | fishoily, data = ., 
+         rowlabelhead = "Fish oil supplement: For how long", 
+         overall = FALSE)
+
+library(gtsummary)
+test %>%
+  filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
+  transmute(sley = factor(sley, labels = c("<5 years ago", "5-9 years ago", "10-14 years ago", "15-19 years ago", "20+ years ago")),
+            fishoily = factor(fishoily, labels = c("0-1 year", "2-4 years", "5-9 years", "10+ years"))) %>% 
+  tbl_cross(
+    row = sley,
+    col = fishoily,
+    percent = "none",
+    label = list(sley ~ "Diagnosed with SLE", fishoily ~ "Fish oil supplement use: For how long")
+  )  %>% 
+  bold_labels() %>% 
+  bold_levels()

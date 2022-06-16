@@ -112,13 +112,20 @@ lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
 
 * Among those who were diagnosed with SLE and takes fish oil supplement, a crosstab was created between years since diagnosis and the duration of the supplement use:
 
-```{r echo = FALSE}
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(gtsummary)
 lupus %>%
-  filter(prev_sle == "Yes", sley > 0) %>% 
-  mutate(`SLE Dx` = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
-         `Fish oil supplement: For how long` = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", "10+ yrs"))) %>% 
-  select(`SLE Dx`, `Fish oil supplement: For how long`) %>% 
-  table() 
+  filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
+  transmute(sley = factor(sley, labels = c("<5 years ago", "5-9 years ago", "10-14 years ago", "15-19 years ago", "20+ years ago")),
+            fishoily = factor(fishoily, labels = c("0-1 year", "2-4 years", "5-9 years", "10+ years"))) %>% 
+  tbl_cross(
+    row = sley,
+    col = fishoily,
+    percent = "none",
+    label = list(sley ~ "Diagnosed with SLE", fishoily ~ "Fish oil supplement use: For how long")
+  )  %>% 
+  bold_labels() %>% 
+  bold_levels()
 ```
 
 ## Energy-adjusted fatty acid intake
