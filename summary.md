@@ -492,12 +492,12 @@ kcal (mean (SD))
     supplement, a crosstab was created between years since diagnosis and
     the duration of the supplement use:
 
-<div id="wcmnsshzoi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="uzxaempoua" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#wcmnsshzoi .gt_table {
+#uzxaempoua .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -522,7 +522,7 @@ kcal (mean (SD))
   border-left-color: #D3D3D3;
 }
 
-#wcmnsshzoi .gt_heading {
+#uzxaempoua .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -534,7 +534,7 @@ kcal (mean (SD))
   border-right-color: #D3D3D3;
 }
 
-#wcmnsshzoi .gt_title {
+#uzxaempoua .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -546,7 +546,7 @@ kcal (mean (SD))
   border-bottom-width: 0;
 }
 
-#wcmnsshzoi .gt_subtitle {
+#uzxaempoua .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -558,13 +558,13 @@ kcal (mean (SD))
   border-top-width: 0;
 }
 
-#wcmnsshzoi .gt_bottom_border {
+#uzxaempoua .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wcmnsshzoi .gt_col_headings {
+#uzxaempoua .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -579,7 +579,7 @@ kcal (mean (SD))
   border-right-color: #D3D3D3;
 }
 
-#wcmnsshzoi .gt_col_heading {
+#uzxaempoua .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -599,7 +599,7 @@ kcal (mean (SD))
   overflow-x: hidden;
 }
 
-#wcmnsshzoi .gt_column_spanner_outer {
+#uzxaempoua .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -611,15 +611,15 @@ kcal (mean (SD))
   padding-right: 4px;
 }
 
-#wcmnsshzoi .gt_column_spanner_outer:first-child {
+#uzxaempoua .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wcmnsshzoi .gt_column_spanner_outer:last-child {
+#uzxaempoua .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wcmnsshzoi .gt_column_spanner {
+#uzxaempoua .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -631,7 +631,7 @@ kcal (mean (SD))
   width: 100%;
 }
 
-#wcmnsshzoi .gt_group_heading {
+#uzxaempoua .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -656,7 +656,7 @@ kcal (mean (SD))
   vertical-align: middle;
 }
 
-#wcmnsshzoi .gt_empty_group_heading {
+#uzxaempoua .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -671,15 +671,15 @@ kcal (mean (SD))
   vertical-align: middle;
 }
 
-#wcmnsshzoi .gt_from_md > :first-child {
+#uzxaempoua .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wcmnsshzoi .gt_from_md > :last-child {
+#uzxaempoua .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wcmnsshzoi .gt_row {
+#uzxaempoua .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -698,7 +698,7 @@ kcal (mean (SD))
   overflow-x: hidden;
 }
 
-#wcmnsshzoi .gt_stub {
+#uzxaempoua .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -711,7 +711,7 @@ kcal (mean (SD))
   padding-right: 5px;
 }
 
-#wcmnsshzoi .gt_stub_row_group {
+#uzxaempoua .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -725,11 +725,11 @@ kcal (mean (SD))
   vertical-align: top;
 }
 
-#wcmnsshzoi .gt_row_group_first td {
+#uzxaempoua .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wcmnsshzoi .gt_summary_row {
+#uzxaempoua .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -739,16 +739,16 @@ kcal (mean (SD))
   padding-right: 5px;
 }
 
-#wcmnsshzoi .gt_first_summary_row {
+#uzxaempoua .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wcmnsshzoi .gt_first_summary_row.thick {
+#uzxaempoua .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wcmnsshzoi .gt_last_summary_row {
+#uzxaempoua .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -758,7 +758,7 @@ kcal (mean (SD))
   border-bottom-color: #D3D3D3;
 }
 
-#wcmnsshzoi .gt_grand_summary_row {
+#uzxaempoua .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -768,7 +768,7 @@ kcal (mean (SD))
   padding-right: 5px;
 }
 
-#wcmnsshzoi .gt_first_grand_summary_row {
+#uzxaempoua .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -778,11 +778,11 @@ kcal (mean (SD))
   border-top-color: #D3D3D3;
 }
 
-#wcmnsshzoi .gt_striped {
+#uzxaempoua .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wcmnsshzoi .gt_table_body {
+#uzxaempoua .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -791,7 +791,7 @@ kcal (mean (SD))
   border-bottom-color: #D3D3D3;
 }
 
-#wcmnsshzoi .gt_footnotes {
+#uzxaempoua .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -805,7 +805,7 @@ kcal (mean (SD))
   border-right-color: #D3D3D3;
 }
 
-#wcmnsshzoi .gt_footnote {
+#uzxaempoua .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -814,7 +814,7 @@ kcal (mean (SD))
   padding-right: 5px;
 }
 
-#wcmnsshzoi .gt_sourcenotes {
+#uzxaempoua .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -828,7 +828,7 @@ kcal (mean (SD))
   border-right-color: #D3D3D3;
 }
 
-#wcmnsshzoi .gt_sourcenote {
+#uzxaempoua .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -836,36 +836,36 @@ kcal (mean (SD))
   padding-right: 5px;
 }
 
-#wcmnsshzoi .gt_left {
+#uzxaempoua .gt_left {
   text-align: left;
 }
 
-#wcmnsshzoi .gt_center {
+#uzxaempoua .gt_center {
   text-align: center;
 }
 
-#wcmnsshzoi .gt_right {
+#uzxaempoua .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wcmnsshzoi .gt_font_normal {
+#uzxaempoua .gt_font_normal {
   font-weight: normal;
 }
 
-#wcmnsshzoi .gt_font_bold {
+#uzxaempoua .gt_font_bold {
   font-weight: bold;
 }
 
-#wcmnsshzoi .gt_font_italic {
+#uzxaempoua .gt_font_italic {
   font-style: italic;
 }
 
-#wcmnsshzoi .gt_super {
+#uzxaempoua .gt_super {
   font-size: 65%;
 }
 
-#wcmnsshzoi .gt_two_val_uncert {
+#uzxaempoua .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -874,31 +874,31 @@ kcal (mean (SD))
   margin-left: 0.1em;
 }
 
-#wcmnsshzoi .gt_footnote_marks {
+#uzxaempoua .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#wcmnsshzoi .gt_asterisk {
+#uzxaempoua .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wcmnsshzoi .gt_slash_mark {
+#uzxaempoua .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#wcmnsshzoi .gt_fraction_numerator {
+#uzxaempoua .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#wcmnsshzoi .gt_fraction_denominator {
+#uzxaempoua .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;

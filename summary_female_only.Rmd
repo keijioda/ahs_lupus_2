@@ -112,7 +112,7 @@ lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
 
 * Among those who were diagnosed with SLE and takes fish oil supplement, a crosstab was created between years since diagnosis and the duration of the supplement use:
 
-```{r echo = FALSE, warning = FALSE, message = FALSE}
+```{r echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
 library(gtsummary)
 lupus %>%
   filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
