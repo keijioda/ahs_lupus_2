@@ -490,7 +490,7 @@ kcal (mean (SD))
 
 -   Among those who were diagnosed with SLE and takes fish oil
     supplement, a crosstab was created between years since diagnosis and
-    the duration of the supplement use:
+    the duration of fish oil supplement use:
 
 <table>
 <thead>
@@ -498,26 +498,26 @@ kcal (mean (SD))
 <th style="text-align:left;">
 </th>
 <th style="text-align:center;">
-**0-1 year**
+0-1 year
 </th>
 <th style="text-align:center;">
-**2-4 years**
+2-4 years
 </th>
 <th style="text-align:center;">
-**5-9 years**
+5-9 years
 </th>
 <th style="text-align:center;">
-**10+ years**
+10+ years
 </th>
 <th style="text-align:center;">
-**Total**
+Total
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-**Diagnosed with SLE**
+Diagnosed with SLE
 </td>
 <td style="text-align:center;">
 </td>
@@ -532,7 +532,7 @@ kcal (mean (SD))
 </tr>
 <tr>
 <td style="text-align:left;">
-**\<5 years ago**
+\<5 years ago
 </td>
 <td style="text-align:center;">
 7
@@ -552,7 +552,7 @@ kcal (mean (SD))
 </tr>
 <tr>
 <td style="text-align:left;">
-**5-9 years ago**
+5-9 years ago
 </td>
 <td style="text-align:center;">
 1
@@ -572,7 +572,7 @@ kcal (mean (SD))
 </tr>
 <tr>
 <td style="text-align:left;">
-**10-14 years ago**
+10-14 years ago
 </td>
 <td style="text-align:center;">
 3
@@ -592,7 +592,7 @@ kcal (mean (SD))
 </tr>
 <tr>
 <td style="text-align:left;">
-**15-19 years ago**
+15-19 years ago
 </td>
 <td style="text-align:center;">
 2
@@ -612,7 +612,7 @@ kcal (mean (SD))
 </tr>
 <tr>
 <td style="text-align:left;">
-**20+ years ago**
+20+ years ago
 </td>
 <td style="text-align:center;">
 2
@@ -632,7 +632,7 @@ kcal (mean (SD))
 </tr>
 <tr>
 <td style="text-align:left;">
-**Total**
+Total
 </td>
 <td style="text-align:center;">
 15

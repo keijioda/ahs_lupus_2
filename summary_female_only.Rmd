@@ -110,9 +110,9 @@ lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
 
 ## Diagnosis of SLE and use of fish oil supplement
 
-* Among those who were diagnosed with SLE and takes fish oil supplement, a crosstab was created between years since diagnosis and the duration of the supplement use:
+* Among those who were diagnosed with SLE and takes fish oil supplement, a crosstab was created between years since diagnosis and the duration of fish oil supplement use:
 
-```{r echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
+```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(gtsummary)
 lupus %>%
   filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
@@ -124,8 +124,7 @@ lupus %>%
     percent = "none",
     label = list(sley ~ "Diagnosed with SLE", fishoily ~ "Fish oil supplement use: For how long")
   )  %>% 
-  bold_labels() %>% 
-  bold_levels()
+  as_kable()
 ```
 
 ## Energy-adjusted fatty acid intake
