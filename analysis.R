@@ -458,9 +458,9 @@ my_stargazer(models)
 # Fishoil use and timing of dx
 lupus %>%
   filter(prev_sle == "Yes", sley > 0) %>% 
-  mutate(sley = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
-         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", "10+ yrs"))) %>% 
-  select(sley, fishoily) %>% 
+  mutate(`SLE Dx` = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
+         `Fish oil supplement: For how long` = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", "10+ yrs"))) %>% 
+  select(`SLE Dx`, `Fish oil supplement: For how long`) %>% 
   table()
 
 library(crosstable)
@@ -477,5 +477,3 @@ lupus %>%
   import_labels(my_labels, name_from="name", label_from="label") %>%
   crosstable(sley, by = fishoily, percent_digits = 0) %>% 
   as_flextable(compact = TRUE)
-
-
