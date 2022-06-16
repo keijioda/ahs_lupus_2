@@ -486,6 +486,22 @@ kcal (mean (SD))
 </tbody>
 </table>
 
+## Diagnosis of SLE and use of fish oil supplement
+
+-   Among those who were diagnosed with SLE and takes fish oil
+    supplement, a crosstab was created between years since diagnosis and
+    the duration of the supplement use:
+
+<!-- -->
+
+    ##                Fish oil supplement: For how long
+    ## SLE Dx          0-1 yr 2-4 yrs 5-9 yrs 10+ yrs
+    ##   <5 yrs ago         7       7       2       3
+    ##   5-9 yrs ago        1       2       0       1
+    ##   10-14 yrs ago      3       4       0       1
+    ##   15-19 yrs ago      2       1       0       0
+    ##   20+ yrs ago        2       1       2       1
+
 ## Energy-adjusted fatty acid intake
 
 -   The nutrient intake data include the following fatty acids
@@ -603,12 +619,12 @@ Omega-6
 -   Distributions of energy-adjusted ALA, EPA + DHA, total omega-3, and
     total omega-6 are highly right-skewed:
 
-![](summary_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](summary_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 -   Density plots by prevalent SLE status are shown below. Note that the
     x-axis is in a pseudo-log scale:
 
-![](summary_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](summary_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 -   A Spearman correlation matrix among energy-adjusted ALA, EPA + DHA,
     total omega-3, and total omega-6 is shown below
@@ -977,7 +993,7 @@ P-values were from Mann-Whitney tests
     both the numerator and denominator were energy-adjusted values.
     -   Distribution of the three ratios were highly right-skewed:
 
-![](summary_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](summary_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 -   A Spearman correlation matrix among three ratio variables is shown
     below.

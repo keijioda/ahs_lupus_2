@@ -169,6 +169,11 @@ lupus$n3pfa_diet_ea    <- rowSums(lupus[c("p183diet_ea", "p184diet_ea", "p205die
 lupus$n6pfa_diet_ea    <- rowSums(lupus[c("p182diet_ea", "p204diet_ea")])
 lupus$p205p226_diet_ea <- rowSums(lupus[c("p205diet_ea", "p226diet_ea")])
 
+# Sum omega fa supplement values
+lupus$n3pfa_supp    <- rowSums(lupus[c("p183supp", "p184supp", "p205supp", "p225supp", "p226supp")])
+lupus$n6pfa_supp    <- rowSums(lupus[c("p182supp", "p204supp")])
+lupus$p205p226_supp <- rowSums(lupus[c("p205supp", "p226supp")])
+
 # Ratio of dietary to total intake (after energy-adjustment)
 lupus %>% 
   mutate(p183_diet_ratio     = p183diet_ea / p183_ea,
@@ -265,15 +270,37 @@ lupus %>%
                     n6pfa_ea          = "Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
+                        header_count = "(n = %s)",
                         continuous_fn = describeMedian,
                         digits = 2,
                         statistics = TRUE) %>% 
   htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
             tfoot = "P-values were from Mann-Whitney tests")
 
+# Fish oil supplement
 lupus %>% 
-  select(starts_with("fish"), p205supp, p226supp) %>% 
-  filter(fishoil == 2)
+  select(take_fo, fishoila, p205supp, p226supp) %>% 
+  filter(take_fo == "Yes") %>% 
+  arrange(fishoila) %>% 
+  distinct()
+
+table_vars <- c("p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea")
+
+lupus %>% 
+  filter(take_fo == "Yes") %>% 
+  set_column_labels(prev_sle          = "Prevalent SLE", 
+                    p205p226_ea       = "DHA + EPA",
+                    p205p226_diet_ea  = "DHA + EPA dietary",
+                    n3pfa_ea          = "Omega-3",
+                    n3pfa_diet_ea     = "Omega-3 dietary") %>% 
+  getDescriptionStatsBy(all_of(table_vars), 
+                        by = prev_sle, 
+                        header_count = "(n = %s)",
+                        continuous_fn = describeMedian,
+                        digits = 2,
+                        statistics = TRUE) %>% 
+  htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
+            tfoot = "P-values were from Mann-Whitney tests")
 
 # Ratios
 table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
@@ -309,6 +336,7 @@ lupus %>%
                     p183_o6     = "ALA/Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
+                        header_count = "(n = %s)",
                         continuous_fn = describeMedian,
                         digits = 4,
                         statistics = TRUE) %>% 
@@ -426,3 +454,28 @@ var_labels <- c("ALA/O6: Q2",
                 covar_labels)
 
 my_stargazer(models)
+
+# Fishoil use and timing of dx
+lupus %>%
+  filter(prev_sle == "Yes", sley > 0) %>% 
+  mutate(sley = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
+         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", "10+ yrs"))) %>% 
+  select(sley, fishoily) %>% 
+  table()
+
+library(crosstable)
+my_labels = read.table(header=TRUE, text="
+  name      label
+  sley      'SLE: Years since diagnosis'
+  fishoily  'Fish oil supplement:  \nFor how many years'
+")
+
+lupus %>%
+  filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
+  mutate(sley = factor(sley, labels = c("<5 years ago", "5-9 years ago", "10-14 years ago", "15-19 years ago", "20+ years ago")),
+         fishoily = factor(fishoily, labels = c("0-1 year", "2-4 years", "5-9 years", "10+ years"))) %>% 
+  import_labels(my_labels, name_from="name", label_from="label") %>%
+  crosstable(sley, by = fishoily, percent_digits = 0) %>% 
+  as_flextable(compact = TRUE)
+
+
