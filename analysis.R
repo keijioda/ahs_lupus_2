@@ -411,6 +411,28 @@ m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
+m5 <- update(m1, .~. + take_fo + o3_o6_cat:take_fo)
+summary(m5)
+drop1(m5, test = "LRT")
+library(emmeans)
+emmeans(m5, ~ o3_o6_cat | take_fo, type = "response") %>% 
+  pairs(reverse = TRUE) %>% 
+  confint()
+
+m6 <- update(m2, .~. + o3_o6_cat:black)
+summary(m6)
+drop1(m6, test = "LRT")
+emmeans(m6, ~ o3_o6_cat | black, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
+m7 <- update(m3, .~. + o3_o6_cat:vegstat3)
+summary(m7)
+drop1(m7, test = "LRT")
+emmeans(m7, ~ o3_o6_cat | vegstat3, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
 models <- list(m1, m2, m3, m4)
 ci <- lapply(models, \(x) exp(confint.default(x)))
 
@@ -431,6 +453,27 @@ m4 <- update(m3, .~. + bmicat)
 models <- list(m1, m2, m3, m4)
 ci <- lapply(models, \(x) exp(confint.default(x)))
 
+m5 <- update(m1, .~. + take_fo + p205p226_o6_cat:take_fo)
+summary(m5)
+drop1(m5, test = "LRT")
+emmeans(m5, ~ p205p226_o6_cat | take_fo, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
+m6 <- update(m2, .~. + p205p226_o6_cat:black)
+summary(m6)
+drop1(m6, test = "LRT")
+emmeans(m6, ~ p205p226_o6_cat | black, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
+m7 <- update(m3, .~. + p205p226_o6_cat:vegstat3)
+summary(m7)
+drop1(m7, test = "LRT")
+emmeans(m7, ~ p205p226_o6_cat | vegstat3, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
 var_labels <- c("DHA+EPA/O6: Q2",
                 "DHA+EPA/O6: Q3",
                 "DHA+EPA/O6: Q4",
@@ -445,6 +488,27 @@ m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
+m5 <- update(m1, .~. + take_fo + p183_o6_cat:take_fo)
+summary(m5)
+drop1(m5, test = "LRT")
+emmeans(m5, ~ p183_o6_cat | take_fo, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
+m6 <- update(m2, .~. + p183_o6_cat:black)
+summary(m6)
+drop1(m6, test = "LRT")
+emmeans(m6, ~ p183_o6_cat | black, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
+m7 <- update(m3, .~. + p183_o6_cat:vegstat3)
+summary(m7)
+drop1(m7, test = "LRT")
+emmeans(m7, ~ p183_o6_cat | vegstat3, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
 models <- list(m1, m2, m3, m4)
 ci <- lapply(models, \(x) exp(confint.default(x)))
 
@@ -456,10 +520,13 @@ var_labels <- c("ALA/O6: Q2",
 my_stargazer(models)
 
 # Fishoil use and timing of dx
+sle_lab  <- paste(c("<5", "5-9", "10-14", "15-19", "20+"), "years ago")
+supp_lab <- c("0-1 year", "2-4 years", "5-9 years", "10+ years")
+
 lupus %>%
   filter(prev_sle == "Yes", sley > 0) %>% 
-  mutate(`SLE Dx` = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
-         `Fish oil supplement: For how long` = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", "10+ yrs"))) %>% 
+  mutate(`SLE Dx` = factor(sley, labels = sle_lab),
+         `Fish oil supplement: For how long` = factor(fishoily, labels = supp_lab)) %>% 
   select(`SLE Dx`, `Fish oil supplement: For how long`) %>% 
   table()
 
@@ -472,17 +539,17 @@ my_labels = read.table(header=TRUE, text="
 
 lupus %>%
   filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
-  mutate(sley = factor(sley, labels = c("<5 years ago", "5-9 years ago", "10-14 years ago", "15-19 years ago", "20+ years ago")),
-         fishoily = factor(fishoily, labels = c("0-1 year", "2-4 years", "5-9 years", "10+ years"))) %>% 
-  import_labels(my_labels, name_from="name", label_from="label") %>%
+  mutate(sley = factor(sley, labels = sle_lab),
+         fishoily = factor(fishoily, labels = supp_lab)) %>% 
+  import_labels(my_labels, name_from = "name", label_from = "label") %>%
   crosstable(sley, by = fishoily, percent_digits = 0) %>% 
-  as_flextable(compact = TRUE)
+  flextable::as_flextable(compact = TRUE)
 
 library(gtsummary)
 lupus %>%
   filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
-  transmute(sley = factor(sley, labels = c("<5 years ago", "5-9 years ago", "10-14 years ago", "15-19 years ago", "20+ years ago")),
-            fishoily = factor(fishoily, labels = c("0-1 year", "2-4 years", "5-9 years", "10+ years"))) %>% 
+  transmute(sley = factor(sley, labels = sle_lab),
+            fishoily = factor(fishoily, labels = supp_lab)) %>% 
   tbl_cross(
     row = sley,
     col = fishoily,

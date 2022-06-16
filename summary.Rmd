@@ -113,10 +113,12 @@ lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(gtsummary)
+sle_lab  <- paste(c("<5", "5-9", "10-14", "15-19", "20+"), "years ago")
+supp_lab <- c("0-1 year", "2-4 years", "5-9 years", "10+ years")
 lupus %>%
   filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
-  transmute(sley = factor(sley, labels = c("<5 years ago", "5-9 years ago", "10-14 years ago", "15-19 years ago", "20+ years ago")),
-            fishoily = factor(fishoily, labels = c("0-1 year", "2-4 years", "5-9 years", "10+ years"))) %>% 
+  transmute(sley = factor(sley, labels = sle_lab),
+            fishoily = factor(fishoily, labels = supp_lab)) %>% 
   tbl_cross(
     row = sley,
     col = fishoily,
