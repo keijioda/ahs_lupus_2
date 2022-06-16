@@ -124,7 +124,8 @@ lupus %>%
     label = list(sley ~ "Diagnosed with SLE", fishoily ~ "Fish oil supplement use: For how long")
   )  %>% 
   bold_labels() %>% 
-  bold_levels()
+  bold_levels() %>% 
+  as_kable()
 ```
 
 ## Energy-adjusted fatty acid intake
