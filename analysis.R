@@ -159,19 +159,20 @@ lupus[omega_diet_vars_ea] <- lapply(lupus[omega_diet_vars], kcal_adjust, kcal = 
 calc_total_ea <- function(var) rowSums(lupus[c(paste0(var, "diet_ea"), paste0(var, "supp"))])
 lupus[omega_vars_ea] <- lapply(omega_vars, calc_total_ea)
 
-# Sum omaga fa unadjusted values
-lupus$n6pfa       <- rowSums(lupus[c("p182", "p204")])
-lupus$p205p226    <- rowSums(lupus[c("p205", "p226")])
-
-# Sum omaga fa energy-adjusted values
+# Sum omega fa energy-adjusted values
 lupus$n3pfa_ea    <- rowSums(lupus[c("p183_ea", "p184_ea", "p205_ea", "p225_ea", "p226_ea")])
 lupus$n6pfa_ea    <- rowSums(lupus[c("p182_ea", "p204_ea")])
 lupus$p205p226_ea <- rowSums(lupus[c("p205_ea", "p226_ea")])
 
-# Sum omaga fa energy-adjusted dietary values
+# Sum omega fa energy-adjusted dietary values
 lupus$n3pfa_diet_ea    <- rowSums(lupus[c("p183diet_ea", "p184diet_ea", "p205diet_ea", "p225diet_ea", "p226diet_ea")])
 lupus$n6pfa_diet_ea    <- rowSums(lupus[c("p182diet_ea", "p204diet_ea")])
 lupus$p205p226_diet_ea <- rowSums(lupus[c("p205diet_ea", "p226diet_ea")])
+
+# Sum omega fa supplement values
+lupus$n3pfa_supp    <- rowSums(lupus[c("p183supp", "p184supp", "p205supp", "p225supp", "p226supp")])
+lupus$n6pfa_supp    <- rowSums(lupus[c("p182supp", "p204supp")])
+lupus$p205p226_supp <- rowSums(lupus[c("p205supp", "p226supp")])
 
 # Ratio of dietary to total intake (after energy-adjustment)
 lupus %>% 
@@ -235,8 +236,20 @@ lupus %>%
   mutate(var = factor(var, levels = table_vars))  %>% 
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50) +
-  facet_grid(~var, scales = "free") +
-  labs(x = "Energy-adjusted intake (gram/day")
+  facet_wrap(~var, scales = "free", ncol = 4) +
+  labs(x = "Energy-adjusted intake (gram/day)")
+
+# Density plot by SLE status
+lupus %>% 
+  select(all_of(table_vars), prev_sle) %>% 
+  pivot_longer(p183_ea:n6pfa_ea, names_to = "var", values_to = "value") %>% 
+  mutate(var = factor(var, levels = table_vars))  %>% 
+  ggplot(aes(x = value, fill = prev_sle)) +
+  geom_density(alpha = 0.5) +
+  scale_x_continuous(trans="pseudo_log") +
+  facet_wrap(~var, scales = "free", ncol = 4) +
+  labs(x = "Energy-adjusted intake (gram/day)", fill = "Prevalent SLE") +
+  theme(legend.position = "bottom")
 
 # Density plot by sle status
 lupus %>% 
@@ -257,17 +270,44 @@ lupus %>%
   round(3)
 
 # Table by SLE status
-lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
-  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
+table_vars <- c("p183_ea", "p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea", "n6pfa_ea")
 
 lupus %>% 
-  set_column_labels(prev_sle    = "Prevalent SLE", 
-                    p183_ea     = "ALA",
-                    p205p226_ea = "DHA + EPA",
-                    n3pfa_ea    = "Omega-3",
-                    n6pfa_ea    = "Omega-6") %>% 
+  set_column_labels(prev_sle          = "Prevalent SLE", 
+                    p183_ea           = "ALA",
+                    p205p226_ea       = "DHA + EPA",
+                    p205p226_diet_ea  = "DHA + EPA dietary",
+                    n3pfa_ea          = "Omega-3",
+                    n3pfa_diet_ea     = "Omega-3 dietary",
+                    n6pfa_ea          = "Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
+                        header_count = "(n = %s)",
+                        continuous_fn = describeMedian,
+                        digits = 2,
+                        statistics = TRUE) %>% 
+  htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
+            tfoot = "P-values were from Mann-Whitney tests")
+
+# Fish oil supplement
+lupus %>% 
+  select(take_fo, fishoila, p205supp, p226supp) %>% 
+  filter(take_fo == "Yes") %>% 
+  arrange(fishoila) %>% 
+  distinct()
+
+table_vars <- c("p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea")
+
+lupus %>% 
+  filter(take_fo == "Yes") %>% 
+  set_column_labels(prev_sle          = "Prevalent SLE", 
+                    p205p226_ea       = "DHA + EPA",
+                    p205p226_diet_ea  = "DHA + EPA dietary",
+                    n3pfa_ea          = "Omega-3",
+                    n3pfa_diet_ea     = "Omega-3 dietary") %>% 
+  getDescriptionStatsBy(all_of(table_vars), 
+                        by = prev_sle, 
+                        header_count = "(n = %s)",
                         continuous_fn = describeMedian,
                         header_count = "(n = %s)",
                         digits = 2,
@@ -285,7 +325,11 @@ lupus %>%
   mutate(var = factor(var, levels = table_vars))  %>% 
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50) +
+<<<<<<< HEAD
   facet_grid(~var, scales = "free") +
+=======
+  facet_wrap(~var, scales = "free", ncol = 3) +
+>>>>>>> ca475042cd384539982dabf9bcec73d15bced76e
   labs(x = "Ratio of energy-adjusted FA intake (gram/day)")
 
 # Check Spearman correlations
@@ -295,9 +339,9 @@ lupus %>%
   round(3)
 
 # Check VIFs
-temp <- lm(as.numeric(prev_sle) ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat, data = lupus)
-car::vif(temp)
-  
+lm(as.numeric(prev_sle) ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat, data = lupus) %>% 
+  car::vif()
+
 # Table by SLE status
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
@@ -309,6 +353,7 @@ lupus %>%
                     p183_o6     = "ALA/Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
+                        header_count = "(n = %s)",
                         continuous_fn = describeMedian,
                         header_count = "(n = %s)",
                         digits = 4,
@@ -384,6 +429,28 @@ m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
+m5 <- update(m1, .~. + take_fo + o3_o6_cat:take_fo)
+summary(m5)
+drop1(m5, test = "LRT")
+library(emmeans)
+emmeans(m5, ~ o3_o6_cat | take_fo, type = "response") %>% 
+  pairs(reverse = TRUE) %>% 
+  confint()
+
+m6 <- update(m2, .~. + o3_o6_cat:black)
+summary(m6)
+drop1(m6, test = "LRT")
+emmeans(m6, ~ o3_o6_cat | black, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
+m7 <- update(m3, .~. + o3_o6_cat:vegstat3)
+summary(m7)
+drop1(m7, test = "LRT")
+emmeans(m7, ~ o3_o6_cat | vegstat3, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
 models <- list(m1, m2, m3, m4)
 ci <- lapply(models, \(x) exp(confint.default(x)))
 
@@ -394,31 +461,6 @@ var_labels <- c("O3/O6: Q2",
 
 my_stargazer(models)
 
-# Testing out splines
-library(splines)
-fm <- formula(prev_sle ~ ns(o3_o6, df = 4) + I(kcal/100))
-m1 <- glm(fm, family = binomial, data = lupus_md)
-summary(m1)
-
-df_pred <- data.frame(o3_o6 = seq(0.05, 0.15, by = 0.001), kcal = 1800)
-test <- predict(m1, newdata = df_pred, type = "link", se.fit = TRUE)
-
-df_pred$fit <- test$fit
-df_pred$se  <- test$se.fit
-
-df_pred$diff <- df_pred$fit - df_pred[71, "fit"]
-df_pred$logOR_se <- sqrt(df_pred$se ^ 2 + df_pred[71, "se"] ^ 2)
-
-df_pred$OR <- exp(df_pred$diff)
-df_pred$OR_lower <- exp(df_pred$diff - qnorm(0.975) * df_pred$logOR_se)
-df_pred$OR_upper <- exp(df_pred$diff + qnorm(0.975) * df_pred$logOR_se)
-
-df_pred %>% 
-  ggplot(aes(x = o3_o6, y = OR)) + 
-  geom_ribbon(aes(ymin = OR_lower, ymax = OR_upper), color = "lightgray", alpha = 0.2) +
-  geom_line() +
-  geom_hline(yintercept = 1, linetype = "dashed")
-
 # Logistic regression with (DHA + EPA)/omega-6 ratio
 fm <- formula(prev_sle ~ p205p226_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
@@ -428,6 +470,27 @@ m4 <- update(m3, .~. + bmicat)
 
 models <- list(m1, m2, m3, m4)
 ci <- lapply(models, \(x) exp(confint.default(x)))
+
+m5 <- update(m1, .~. + take_fo + p205p226_o6_cat:take_fo)
+summary(m5)
+drop1(m5, test = "LRT")
+emmeans(m5, ~ p205p226_o6_cat | take_fo, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
+m6 <- update(m2, .~. + p205p226_o6_cat:black)
+summary(m6)
+drop1(m6, test = "LRT")
+emmeans(m6, ~ p205p226_o6_cat | black, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
+m7 <- update(m3, .~. + p205p226_o6_cat:vegstat3)
+summary(m7)
+drop1(m7, test = "LRT")
+emmeans(m7, ~ p205p226_o6_cat | vegstat3, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
 
 var_labels <- c("DHA+EPA/O6: Q2",
                 "DHA+EPA/O6: Q3",
@@ -443,6 +506,27 @@ m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
+m5 <- update(m1, .~. + take_fo + p183_o6_cat:take_fo)
+summary(m5)
+drop1(m5, test = "LRT")
+emmeans(m5, ~ p183_o6_cat | take_fo, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
+m6 <- update(m2, .~. + p183_o6_cat:black)
+summary(m6)
+drop1(m6, test = "LRT")
+emmeans(m6, ~ p183_o6_cat | black, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
+m7 <- update(m3, .~. + p183_o6_cat:vegstat3)
+summary(m7)
+drop1(m7, test = "LRT")
+emmeans(m7, ~ p183_o6_cat | vegstat3, type = "response") %>% 
+  pairs(reverse = TRUE, adjust = "none") %>% 
+  confint()
+
 models <- list(m1, m2, m3, m4)
 ci <- lapply(models, \(x) exp(confint.default(x)))
 
@@ -453,6 +537,45 @@ var_labels <- c("ALA/O6: Q2",
 
 my_stargazer(models)
 
+# Fishoil use and timing of dx
+sle_lab  <- paste(c("<5", "5-9", "10-14", "15-19", "20+"), "years ago")
+supp_lab <- c("0-1 year", "2-4 years", "5-9 years", "10+ years")
+
+lupus %>%
+  filter(prev_sle == "Yes", sley > 0) %>% 
+  mutate(`SLE Dx` = factor(sley, labels = sle_lab),
+         `Fish oil supplement: For how long` = factor(fishoily, labels = supp_lab)) %>% 
+  select(`SLE Dx`, `Fish oil supplement: For how long`) %>% 
+  table()
+
+library(crosstable)
+my_labels = read.table(header=TRUE, text="
+  name      label
+  sley      'SLE: Years since diagnosis'
+  fishoily  'Fish oil supplement:  \nFor how many years'
+")
+
+lupus %>%
+  filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
+  mutate(sley = factor(sley, labels = sle_lab),
+         fishoily = factor(fishoily, labels = supp_lab)) %>% 
+  import_labels(my_labels, name_from = "name", label_from = "label") %>%
+  crosstable(sley, by = fishoily, percent_digits = 0) %>% 
+  flextable::as_flextable(compact = TRUE)
+
+library(gtsummary)
+lupus %>%
+  filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
+  transmute(sley = factor(sley, labels = sle_lab),
+            fishoily = factor(fishoily, labels = supp_lab)) %>% 
+  tbl_cross(
+    row = sley,
+    col = fishoily,
+    percent = "none",
+    label = list(sley ~ "Diagnosed with SLE", fishoily ~ "Fish oil supplement use: For how long")
+  )  %>% 
+  bold_labels() %>% 
+  bold_levels()
 
 # Incident cases of SLE
 # Need to exclude prevalent SLE

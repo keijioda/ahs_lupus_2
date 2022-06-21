@@ -486,6 +486,173 @@ kcal (mean (SD))
 </tbody>
 </table>
 
+## Diagnosis of SLE and use of fish oil supplement
+
+-   Among those who were diagnosed with SLE and takes fish oil
+    supplement, a crosstab was created between years since diagnosis and
+    the duration of fish oil supplement use:
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+0-1 year
+</th>
+<th style="text-align:center;">
+2-4 years
+</th>
+<th style="text-align:center;">
+5-9 years
+</th>
+<th style="text-align:center;">
+10+ years
+</th>
+<th style="text-align:center;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Diagnosed with SLE
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+\<5 years ago
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5-9 years ago
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10-14 years ago
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15-19 years ago
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20+ years ago
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+40
+</td>
+</tr>
+</tbody>
+</table>
+
 ## Energy-adjusted fatty acid intake
 
 -   The nutrient intake data include the following fatty acids
@@ -603,12 +770,12 @@ Omega-6
 -   Distributions of energy-adjusted ALA, EPA + DHA, total omega-3, and
     total omega-6 are highly right-skewed:
 
-![](summary_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](summary_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 -   Density plots by prevalent SLE status are shown below. Note that the
     x-axis is in a pseudo-log scale:
 
-![](summary_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](summary_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 -   A Spearman correlation matrix among energy-adjusted ALA, EPA + DHA,
     total omega-3, and total omega-6 is shown below
@@ -763,6 +930,20 @@ DHA + EPA
 </tr>
 <tr>
 <td style="text-align: left;">
+DHA + EPA dietary
+</td>
+<td style="text-align: center;">
+0.02 (0.00 - 0.14)
+</td>
+<td style="text-align: center;">
+0.04 (0.00 - 0.17)
+</td>
+<td style="text-align: center;">
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
 Omega-3
 </td>
 <td style="text-align: center;">
@@ -773,6 +954,20 @@ Omega-3
 </td>
 <td style="text-align: center;">
 0.018
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Omega-3 dietary
+</td>
+<td style="text-align: center;">
+1.52 (1.20 - 1.90)
+</td>
+<td style="text-align: center;">
+1.56 (1.24 - 1.91)
+</td>
+<td style="text-align: center;">
+0.28
 </td>
 </tr>
 <tr>
@@ -800,8 +995,9 @@ P-values were from Mann-Whitney tests
 </table>
 
 -   Proportions of (energy-adjusted) dietary intake out of the total
-    intake (dietary + supplement) are shown below. Over 90% of the total
-    intake were from dietary intake, not supplements.
+    intake (dietary + supplement) are shown below.
+    -   Over 90% of the total intake were from dietary intake, not
+        supplements.
 
 <table>
 <thead>
@@ -850,12 +1046,105 @@ n6pfa_diet_ratio
 </tbody>
 </table>
 
+-   Intake of fatty acids (dietary and total) among those who use fish
+    oil supplement:
+    -   Total intake of EPA + DHA is much greater, and most of its
+        intake is from supplementary sources
+
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="4" style="text-align: left;">
+Median (IQR) energy-adjusted intake of fatty acids (gram/day)
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+No<br /> (n = 8,152)
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Yes<br /> (n = 46)
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+P-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">
+DHA + EPA
+</td>
+<td style="text-align: center;">
+0.43 (0.30 - 0.62)
+</td>
+<td style="text-align: center;">
+0.48 (0.31 - 0.82)
+</td>
+<td style="text-align: center;">
+0.17
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+DHA + EPA dietary
+</td>
+<td style="text-align: center;">
+0.09 (0.01 - 0.20)
+</td>
+<td style="text-align: center;">
+0.11 (0.03 - 0.25)
+</td>
+<td style="text-align: center;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Omega-3
+</td>
+<td style="text-align: center;">
+2.01 (1.61 - 2.51)
+</td>
+<td style="text-align: center;">
+2.07 (1.62 - 2.55)
+</td>
+<td style="text-align: center;">
+0.64
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: left;">
+Omega-3 dietary
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+1.58 (1.25 - 1.98)
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+1.62 (1.23 - 2.05)
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+0.90
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="4">
+P-values were from Mann-Whitney tests
+</td>
+</tr>
+</tfoot>
+</table>
+
 -   Three ratios of fatty acids, Omega-3/Omega-6, (DHA + EPA)/Omega-6,
     ALA/Omega-6, were calculated based on energy-adjusted intake, i.e.,
     both the numerator and denominator were energy-adjusted values.
     -   Distribution of the three ratios were highly right-skewed:
 
-![](summary_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](summary_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 -   A Spearman correlation matrix among three ratio variables is shown
     below.

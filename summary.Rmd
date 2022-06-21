@@ -107,6 +107,27 @@ lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   kableone()
 ```
 
+## Diagnosis of SLE and use of fish oil supplement
+
+* Among those who were diagnosed with SLE and takes fish oil supplement, a crosstab was created between years since diagnosis and the duration of fish oil supplement use:
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(gtsummary)
+sle_lab  <- paste(c("<5", "5-9", "10-14", "15-19", "20+"), "years ago")
+supp_lab <- c("0-1 year", "2-4 years", "5-9 years", "10+ years")
+lupus %>%
+  filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
+  transmute(sley = factor(sley, labels = sle_lab),
+            fishoily = factor(fishoily, labels = supp_lab)) %>% 
+  tbl_cross(
+    row = sley,
+    col = fishoily,
+    percent = "none",
+    label = list(sley ~ "Diagnosed with SLE", fishoily ~ "Fish oil supplement use: For how long")
+  )  %>% 
+  as_kable()
+```
+
 ## Energy-adjusted fatty acid intake
 
 * The nutrient intake data include the following fatty acids
@@ -168,10 +189,15 @@ lupus[omega_diet_vars_ea] <- lapply(lupus[omega_diet_vars], kcal_adjust, kcal = 
 calc_total_ea <- function(var) rowSums(lupus[c(paste0(var, "diet_ea"), paste0(var, "supp"))])
 lupus[omega_vars_ea] <- lapply(omega_vars, calc_total_ea)
 
-# Sum omaga fa energy-adjusted values
+# Sum omega fa energy-adjusted values
 lupus$n3pfa_ea    <- rowSums(lupus[c("p183_ea", "p184_ea", "p205_ea", "p225_ea", "p226_ea")])
 lupus$n6pfa_ea    <- rowSums(lupus[c("p182_ea", "p204_ea")])
 lupus$p205p226_ea <- rowSums(lupus[c("p205_ea", "p226_ea")])
+
+# Sum omega fa energy-adjusted dietary values
+lupus$n3pfa_diet_ea    <- rowSums(lupus[c("p183diet_ea", "p184diet_ea", "p205diet_ea", "p225diet_ea", "p226diet_ea")])
+lupus$n6pfa_diet_ea    <- rowSums(lupus[c("p182diet_ea", "p204diet_ea")])
+lupus$p205p226_diet_ea <- rowSums(lupus[c("p205diet_ea", "p226diet_ea")])
 
 # Calculate ratio of FA
 lupus <- lupus %>% 
@@ -197,8 +223,8 @@ lupus %>%
   mutate(var = factor(var, levels = table_vars))  %>% 
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50) +
-  facet_grid(~var, scales = "free") +
-  labs(x = "Energy-adjusted intake (gram/day")
+  facet_wrap(~var, scales = "free", ncol = 4) +
+  labs(x = "Energy-adjusted intake (gram/day)")
 ```
 
 * Density plots by prevalent SLE status are shown below. Note that the x-axis is in a pseudo-log scale:
@@ -233,23 +259,29 @@ lupus %>%
   * For EPA + DHA and total omega-3, those with SLE had significantly higher intake than those without SLE.
 
 ```{r echo = FALSE}
+# Table by SLE status
+table_vars <- c("p183_ea", "p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea", "n6pfa_ea")
+
 lupus %>% 
-  set_column_labels(prev_sle    = "Prevalent SLE", 
-                    p183_ea     = "ALA",
-                    p205p226_ea = "DHA + EPA",
-                    n3pfa_ea    = "Omega-3",
-                    n6pfa_ea    = "Omega-6") %>% 
+  set_column_labels(prev_sle          = "Prevalent SLE", 
+                    p183_ea           = "ALA",
+                    p205p226_ea       = "DHA + EPA",
+                    p205p226_diet_ea  = "DHA + EPA dietary",
+                    n3pfa_ea          = "Omega-3",
+                    n3pfa_diet_ea     = "Omega-3 dietary",
+                    n6pfa_ea          = "Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
-                        continuous_fn = describeMedian,
                         header_count = "(n = %s)",
+                        continuous_fn = describeMedian,
                         digits = 2,
                         statistics = TRUE) %>% 
   htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
             tfoot = "P-values were from Mann-Whitney tests")
 ```
 
-* Proportions of (energy-adjusted) dietary intake out of the total intake (dietary + supplement) are shown below. Over 90% of the total intake were from dietary intake, not supplements.
+* Proportions of (energy-adjusted) dietary intake out of the total intake (dietary + supplement) are shown below. 
+  * Over 90% of the total intake were from dietary intake, not supplements.
 
 ```{r echo = FALSE}
 # Sum omaga fa energy-adjusted dietary values
@@ -270,6 +302,30 @@ lupus %>%
   knitr::kable()
 ```
 
+* Intake of fatty acids (dietary and total) among those who use fish oil supplement:
+  * Total intake of EPA + DHA is much greater, and most of its intake is from supplementary sources
+
+```{r echo = FALSE}
+# Fish oil supplement users only
+table_vars <- c("p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea")
+
+lupus %>% 
+  filter(take_fo == "Yes") %>% 
+  set_column_labels(prev_sle          = "Prevalent SLE", 
+                    p205p226_ea       = "DHA + EPA",
+                    p205p226_diet_ea  = "DHA + EPA dietary",
+                    n3pfa_ea          = "Omega-3",
+                    n3pfa_diet_ea     = "Omega-3 dietary") %>% 
+  getDescriptionStatsBy(all_of(table_vars), 
+                        by = prev_sle, 
+                        header_count = "(n = %s)",
+                        continuous_fn = describeMedian,
+                        digits = 2,
+                        statistics = TRUE) %>% 
+  htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
+            tfoot = "P-values were from Mann-Whitney tests")
+```
+
 * Three ratios of fatty acids, Omega-3/Omega-6, (DHA + EPA)/Omega-6, ALA/Omega-6, were calculated based on energy-adjusted intake, i.e., both the numerator and denominator were energy-adjusted values.
   * Distribution of the three ratios were highly right-skewed:
   
@@ -284,8 +340,8 @@ lupus %>%
   mutate(var = factor(var, levels = table_vars))  %>% 
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50) +
-  facet_grid(~var, scales = "free") +
-  labs(x = "Ratio of energy-adjusted FA intake (gram/day")
+  facet_wrap(~var, scales = "free", ncol = 3) +
+  labs(x = "Ratio of energy-adjusted FA intake (gram/day)")
 ```
 
 * A Spearman correlation matrix among three ratio variables is shown below.
@@ -312,8 +368,8 @@ lupus %>%
                     p183_o6     = "ALA/Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
-                        continuous_fn = describeMedian,
                         header_count = "(n = %s)",
+                        continuous_fn = describeMedian,
                         digits = 4,
                         statistics = TRUE) %>% 
   htmlTable(caption = "Median (IQR) ratio of energy-adjusted fatty acid intake",

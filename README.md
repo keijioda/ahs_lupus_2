@@ -1,2 +1,2 @@
-# ahs_lupus_2
-AHS-2 Lupus Study 2
+# AHS-2 lupus fatty acids study
+A cross-sectional study examining the association between SLE and omega-3/omega-6 intake
