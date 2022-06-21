@@ -238,6 +238,18 @@ lupus %>%
   facet_grid(~var, scales = "free") +
   labs(x = "Energy-adjusted intake (gram/day")
 
+# Density plot by sle status
+lupus %>% 
+  select(all_of(table_vars), prev_sle) %>% 
+  pivot_longer(p183_ea:n6pfa_ea, names_to = "var", values_to = "value") %>% 
+  mutate(var = factor(var, levels = table_vars))  %>% 
+  ggplot(aes(x = value, fill = prev_sle)) +
+  geom_density(alpha = 0.5) +
+  scale_x_continuous(trans = "pseudo_log") +
+  facet_wrap(~var, scales = "free", ncol = 4) +
+  labs(x = "Energy-adjusted intake (gram/day)", fill = "Prevalent SLE") +
+  theme(legend.position = "bottom")
+
 # Check Spearman correlations
 lupus %>% 
   select(all_of(table_vars)) %>% 
@@ -257,6 +269,7 @@ lupus %>%
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
                         continuous_fn = describeMedian,
+                        header_count = "(n = %s)",
                         digits = 2,
                         statistics = TRUE) %>% 
   htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
@@ -273,7 +286,7 @@ lupus %>%
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50) +
   facet_grid(~var, scales = "free") +
-  labs(x = "Ratio of energy-adjusted FA intake (gram/day")
+  labs(x = "Ratio of energy-adjusted FA intake (gram/day)")
 
 # Check Spearman correlations
 lupus %>% 
@@ -297,6 +310,7 @@ lupus %>%
   getDescriptionStatsBy(all_of(table_vars), 
                         by = prev_sle, 
                         continuous_fn = describeMedian,
+                        header_count = "(n = %s)",
                         digits = 4,
                         statistics = TRUE) %>% 
   htmlTable(caption = "Median (IQR) ratio of fatty acids",
@@ -438,3 +452,106 @@ var_labels <- c("ALA/O6: Q2",
                 covar_labels)
 
 my_stargazer(models)
+
+
+# Incident cases of SLE
+# Need to exclude prevalent SLE
+# Need the date of HHF3 returned
+lupus %>% 
+  select(sex, sle_dx, sle_tx, prev_sle) %>% 
+  filter(!is.na(sle_dx))
+
+# There are 105 participants who indicated their 1st diagnosis after 2001, but...
+lupus %>% 
+  filter(!is.na(sle_dx)) %>% 
+  tally()
+
+# There are 70 incident cases (after exclusing prevalent cases)
+lupus %>% 
+  filter(!is.na(sle_dx), prev_sle == "No") %>% 
+  tally()
+
+lupus %>%
+  filter(prev_sle == "No") %>% 
+  select(sle_dx) %>% 
+  table()
+
+# Among them, 26 have been treated in the last 12 months
+lupus %>% 
+  filter(!is.na(sle_dx), prev_sle == "No") %>% 
+  select(sle_tx) %>% 
+  table(useNA = "ifany")
+
+# Create a data for incident analysis
+lupus_inc <- lupus %>%
+  filter(prev_sle == "No") %>% 
+  mutate(inc_sle = if_else(!is.na(sle_dx), 1, 0),
+         inc_sle = factor(inc_sle, labels = c("No", "Yes")))
+
+lupus_inc %>% 
+  select(inc_sle) %>% 
+  table()
+
+# Frequency table of dx period
+lupus_inc %>% 
+  group_by(sle_dx) %>% 
+  filter(!is.na(sle_dx)) %>% 
+  tally() %>% 
+  mutate(Percent = round(n / sum(n) * 100, 1))
+
+# Compare FAs
+table_vars <- c("p183_ea", "p205p226_ea", "n3pfa_ea", "n6pfa_ea")
+
+# Table by SLE status
+lupus_inc %>% 
+  CreateTableOne(table_vars, strata = "inc_sle", data = .) %>%
+  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
+
+lupus_inc %>% 
+  set_column_labels(inc_sle     = "Incident SLE", 
+                    p183_ea     = "ALA",
+                    p205p226_ea = "DHA + EPA",
+                    n3pfa_ea    = "Omega-3",
+                    n6pfa_ea    = "Omega-6") %>% 
+  getDescriptionStatsBy(all_of(table_vars), 
+                        by = inc_sle, 
+                        continuous_fn = describeMedian,
+                        header_count = "(n = %s)",
+                        digits = 2,
+                        statistics = TRUE) %>% 
+  htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
+            tfoot = "P-values were from Mann-Whitney tests")
+
+# Density plot by sle status
+lupus_inc %>% 
+  select(all_of(table_vars), inc_sle) %>% 
+  pivot_longer(p183_ea:n6pfa_ea, names_to = "var", values_to = "value") %>% 
+  mutate(var = factor(var, levels = table_vars))  %>% 
+  ggplot(aes(x = value, fill = inc_sle)) +
+  geom_density(alpha = 0.5) +
+  scale_x_continuous(trans = "pseudo_log") +
+  facet_wrap(~var, scales = "free", ncol = 4) +
+  labs(x = "Energy-adjusted intake (gram/day)", fill = "Incident SLE") +
+  theme(legend.position = "bottom")
+
+# Ratios
+table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
+
+# Table by SLE status
+lupus_inc %>% 
+  CreateTableOne(table_vars, strata = "inc_sle", data = .) %>%
+  print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
+
+lupus_inc %>% 
+  set_column_labels(inc_sle     = "Incident SLE", 
+                    o3_o6       = "Omega-3/Omega-6",
+                    p205p226_o6 = "(DHA + EPA)/Omega-6",
+                    p183_o6     = "ALA/Omega-6") %>% 
+  getDescriptionStatsBy(all_of(table_vars), 
+                        by = inc_sle, 
+                        continuous_fn = describeMedian,
+                        header_count = "(n = %s)",
+                        digits = 4,
+                        statistics = TRUE) %>% 
+  htmlTable(caption = "Median (IQR) ratio of fatty acids",
+            tfoot = "P-values were from Mann-Whitney tests")

@@ -568,6 +568,11 @@ Omega-6
 
 ![](summary_female_only_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
+-   Density plots by prevalent SLE status are shown below. Note that the
+    x-axis is in a pseudo-log scale:
+
+![](summary_female_only_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
 -   A Spearman correlation matrix among energy-adjusted ALA, EPA + DHA,
     total omega-3, and total omega-6 is shown below
     -   ALA is moderately positively correlated with omega-3 and omega-6
@@ -680,10 +685,10 @@ Median (IQR) energy-adjusted intake of fatty acids (gram/day)
 <th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-No
+No<br /> (n = 50,322)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Yes
+Yes<br /> (n = 220)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 P-value
@@ -813,7 +818,7 @@ n6pfa_diet_ratio
     both the numerator and denominator were energy-adjusted values.
     -   Distribution of the three ratios were highly right-skewed:
 
-![](summary_female_only_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](summary_female_only_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 -   A Spearman correlation matrix among three ratio variables is shown
     below.
@@ -898,10 +903,10 @@ Median (IQR) ratio of energy-adjusted fatty acid intake
 <th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-No
+No<br /> (n = 50,322)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Yes
+Yes<br /> (n = 220)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 P-value
@@ -4352,4 +4357,239 @@ Observations
 <td colspan="5" style="border-bottom: 1px solid black">
 </td>
 </tr>
+</table>
+
+## Incident cases of SLE
+
+-   Incident cases of SLE were identified using [HHF3 Question
+    10](https://wiki.ahs2.org/_media/hhf3:hhf3-page-03.jpg).
+    -   The question asked when they were first diagnosed with SLE after
+        2001 in three time periods: 2002-2004, 2005-2006, and 2007-2008.
+    -   There were 98 participants who indicated their first diagnosis
+        after 2001. However, after excluding prevalent cases, there were
+        64 incident cases of SLE. Among them, 25 cases indicated that
+        they were treated for SLE for the past 12 months.
+-   A frequency table of diagnosis periods:
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+sle_dx
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+Percent
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2002-2004
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+46.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-2006
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+20.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-2008
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+32.8
+</td>
+</tr>
+</tbody>
+</table>
+
+-   Energy-adjusted FA intake was compared between cases and non-cases.
+    **Note that the following analysis is not very valid, since the
+    current data do not have a variable indicating which participants
+    returned the HHF3 questionnaire.**
+
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="4" style="text-align: left;">
+Median (IQR) energy-adjusted intake of fatty acids (gram/day)
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+No<br /> (n = 50,258)
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Yes<br /> (n = 64)
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+P-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">
+ALA
+</td>
+<td style="text-align: center;">
+1.40 (1.11 - 1.76)
+</td>
+<td style="text-align: center;">
+1.34 (1.12 - 1.56)
+</td>
+<td style="text-align: center;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+DHA + EPA
+</td>
+<td style="text-align: center;">
+0.03 (0.00 - 0.18)
+</td>
+<td style="text-align: center;">
+0.03 (0.00 - 0.22)
+</td>
+<td style="text-align: center;">
+0.90
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Omega-3
+</td>
+<td style="text-align: center;">
+1.55 (1.22 - 1.97)
+</td>
+<td style="text-align: center;">
+1.55 (1.21 - 1.83)
+</td>
+<td style="text-align: center;">
+0.62
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: left;">
+Omega-6
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+13.73 (10.96 - 16.70)
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+13.13 (10.73 - 15.56)
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+0.18
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="4">
+P-values were from Mann-Whitney tests
+</td>
+</tr>
+</tfoot>
+</table>
+
+-   Ratios of energy-adjusted FA intake were compared between cases and
+    non-cases. **Note that the following analysis is not very valid,
+    since the current data do not have a variable indicating which
+    participants returned the HHF3 questionnaire.**
+
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="4" style="text-align: left;">
+Median (IQR) ratio of fatty acids
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+No<br /> (n = 50,258)
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Yes<br /> (n = 64)
+</th>
+<th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+P-value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">
+Omega-3/Omega-6
+</td>
+<td style="text-align: center;">
+0.1144 (0.0966 - 0.1368)
+</td>
+<td style="text-align: center;">
+0.1143 (0.0971 - 0.1419)
+</td>
+<td style="text-align: center;">
+0.94
+</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+(DHA + EPA)/Omega-6
+</td>
+<td style="text-align: center;">
+0.0022 (0.0002 - 0.0141)
+</td>
+<td style="text-align: center;">
+0.0023 (0.0002 - 0.0168)
+</td>
+<td style="text-align: center;">
+0.97
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: left;">
+ALA/Omega-6
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+0.1051 (0.0908 - 0.1209)
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+0.1024 (0.0914 - 0.1221)
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+0.76
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="4">
+P-values were from Mann-Whitney tests
+</td>
+</tr>
+</tfoot>
 </table>
