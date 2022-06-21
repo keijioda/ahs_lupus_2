@@ -4712,9 +4712,9 @@ Percent
 </table>
 
 -   Energy-adjusted FA intake was compared between cases and non-cases.
-    **Note that the following analysis is not very valid, since the
-    current data do not have a variable indicating which participants
-    returned the HHF3 questionnaire.**
+    **Note that this is preliminary analysis, since the current data do
+    not have a variable indicating which participants returned the HHF3
+    questionnaire.**
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
@@ -4805,9 +4805,9 @@ P-values were from Mann-Whitney tests
 </table>
 
 -   Ratios of energy-adjusted FA intake were compared between cases and
-    non-cases. **Note that the following analysis is not very valid,
-    since the current data do not have a variable indicating which
-    participants returned the HHF3 questionnaire.**
+    non-cases. **Note that this is preliminary analysis, since the
+    current data do not have a variable indicating which participants
+    returned the HHF3 questionnaire.**
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>

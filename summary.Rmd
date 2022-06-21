@@ -603,7 +603,7 @@ lupus_inc %>%
   knitr::kable()
 ```
 
-* Energy-adjusted FA intake was compared between cases and non-cases. **Note that the following analysis is not very valid, since the current data do not have a variable indicating which participants returned the HHF3 questionnaire.**
+* Energy-adjusted FA intake was compared between cases and non-cases. **Note that this is preliminary analysis, since the current data do not have a variable indicating which participants returned the HHF3 questionnaire.**
 
 ```{r echo = FALSE}
 # Compare FAs
@@ -626,7 +626,7 @@ lupus_inc %>%
             tfoot = "P-values were from Mann-Whitney tests")
 ```
 
-* Ratios of energy-adjusted FA intake were compared between cases and non-cases. **Note that the following analysis is not very valid, since the current data do not have a variable indicating which participants returned the HHF3 questionnaire.**
+* Ratios of energy-adjusted FA intake were compared between cases and non-cases. **Note that this is preliminary analysis, since the current data do not have a variable indicating which participants returned the HHF3 questionnaire.**
 
 ```{r echo = FALSE}
 # Ratios
