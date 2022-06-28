@@ -211,17 +211,14 @@ lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
 
 # Cut-off values
 lupus %>% 
-  select(starts_with("o3_o6")) %>% 
   group_by(o3_o6_cat) %>% 
   summarize(min = min(o3_o6), max = max(o3_o6))
 
 lupus %>% 
-  select(starts_with("p205p226_o6")) %>% 
   group_by(p205p226_o6_cat) %>% 
   summarize(min = min(p205p226_o6), max = max(p205p226_o6))
 
 lupus %>% 
-  select(starts_with("p183_o6")) %>% 
   group_by(p183_o6_cat) %>% 
   summarize(min = min(p183_o6), max = max(p183_o6))
 
@@ -325,11 +322,7 @@ lupus %>%
   mutate(var = factor(var, levels = table_vars))  %>% 
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50) +
-<<<<<<< HEAD
   facet_grid(~var, scales = "free") +
-=======
-  facet_wrap(~var, scales = "free", ncol = 3) +
->>>>>>> ca475042cd384539982dabf9bcec73d15bced76e
   labs(x = "Ratio of energy-adjusted FA intake (gram/day)")
 
 # Check Spearman correlations
@@ -429,28 +422,6 @@ m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
-m5 <- update(m1, .~. + take_fo + o3_o6_cat:take_fo)
-summary(m5)
-drop1(m5, test = "LRT")
-library(emmeans)
-emmeans(m5, ~ o3_o6_cat | take_fo, type = "response") %>% 
-  pairs(reverse = TRUE) %>% 
-  confint()
-
-m6 <- update(m2, .~. + o3_o6_cat:black)
-summary(m6)
-drop1(m6, test = "LRT")
-emmeans(m6, ~ o3_o6_cat | black, type = "response") %>% 
-  pairs(reverse = TRUE, adjust = "none") %>% 
-  confint()
-
-m7 <- update(m3, .~. + o3_o6_cat:vegstat3)
-summary(m7)
-drop1(m7, test = "LRT")
-emmeans(m7, ~ o3_o6_cat | vegstat3, type = "response") %>% 
-  pairs(reverse = TRUE, adjust = "none") %>% 
-  confint()
-
 models <- list(m1, m2, m3, m4)
 ci <- lapply(models, \(x) exp(confint.default(x)))
 
@@ -471,27 +442,6 @@ m4 <- update(m3, .~. + bmicat)
 models <- list(m1, m2, m3, m4)
 ci <- lapply(models, \(x) exp(confint.default(x)))
 
-m5 <- update(m1, .~. + take_fo + p205p226_o6_cat:take_fo)
-summary(m5)
-drop1(m5, test = "LRT")
-emmeans(m5, ~ p205p226_o6_cat | take_fo, type = "response") %>% 
-  pairs(reverse = TRUE, adjust = "none") %>% 
-  confint()
-
-m6 <- update(m2, .~. + p205p226_o6_cat:black)
-summary(m6)
-drop1(m6, test = "LRT")
-emmeans(m6, ~ p205p226_o6_cat | black, type = "response") %>% 
-  pairs(reverse = TRUE, adjust = "none") %>% 
-  confint()
-
-m7 <- update(m3, .~. + p205p226_o6_cat:vegstat3)
-summary(m7)
-drop1(m7, test = "LRT")
-emmeans(m7, ~ p205p226_o6_cat | vegstat3, type = "response") %>% 
-  pairs(reverse = TRUE, adjust = "none") %>% 
-  confint()
-
 var_labels <- c("DHA+EPA/O6: Q2",
                 "DHA+EPA/O6: Q3",
                 "DHA+EPA/O6: Q4",
@@ -505,27 +455,6 @@ m1 <- glm(fm, family = binomial, data = lupus_md)
 m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
-
-m5 <- update(m1, .~. + take_fo + p183_o6_cat:take_fo)
-summary(m5)
-drop1(m5, test = "LRT")
-emmeans(m5, ~ p183_o6_cat | take_fo, type = "response") %>% 
-  pairs(reverse = TRUE, adjust = "none") %>% 
-  confint()
-
-m6 <- update(m2, .~. + p183_o6_cat:black)
-summary(m6)
-drop1(m6, test = "LRT")
-emmeans(m6, ~ p183_o6_cat | black, type = "response") %>% 
-  pairs(reverse = TRUE, adjust = "none") %>% 
-  confint()
-
-m7 <- update(m3, .~. + p183_o6_cat:vegstat3)
-summary(m7)
-drop1(m7, test = "LRT")
-emmeans(m7, ~ p183_o6_cat | vegstat3, type = "response") %>% 
-  pairs(reverse = TRUE, adjust = "none") %>% 
-  confint()
 
 models <- list(m1, m2, m3, m4)
 ci <- lapply(models, \(x) exp(confint.default(x)))
