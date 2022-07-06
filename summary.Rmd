@@ -21,16 +21,24 @@ search_var <- function(df, pattern, ...) {
 # Read data: n = 93,467 and 111 variables
 filepath <- "./data/lupus-initial-dataset-v1-2022-04-25.csv"
 lupus0  <- read_csv(filepath)
-dim(lupus0)
-names(lupus0)
-n_distinct(lupus0$analysisid)
 
+# Additional n-6 variables
 filepath <- "./data/lupus-initial-dataset-v2-2022-06-03.csv"
 lupus00  <- read_csv(filepath)
-dim(lupus00)
 
+# Cod liver oil
+filepath <- "./data/lupus-dataset-hhf3-codliver-v3-2022-06-29.csv"
+lupus00a  <- read_csv(filepath)
+
+# HHF3
+filepath <- "./data/lupus-hhf3-return-date.csv"
+lupus00b <- read_csv(filepath)
+
+# Merge all files
 lupus0 <- lupus0 %>% 
-  inner_join(select(lupus00, analysisid, starts_with("p182"), starts_with("p204")))
+  inner_join(select(lupus00, analysisid, starts_with("p182"), starts_with("p204"))) %>% 
+  left_join(select(lupus00a, analysisid, codliver, hhf3)) %>% 
+  left_join(select(lupus00b, analysisid, hhf3_returned))
 
 # Include non-Hispanic White or Black
 # Exclude age < 30
@@ -57,7 +65,8 @@ lupus <- lupus0 %>%
     educat3 = factor(educat3, labels = c("HS or less", "Some college", "Col grad")),
     # take_vd = ifelse(!is.na(vitd) & vitd == 2, 1, 0),
     # take_vd = factor(take_vd, labels = c("No", "Yes")),
-    take_fo = ifelse(!is.na(fishoil) & fishoil == 2, 1, 0),
+    # take_fo = ifelse(!is.na(fishoil) & fishoil == 2, 1, 0),
+    take_fo = ifelse((!is.na(fishoil) & fishoil == 2) | (!is.na(codliver) & codliver == 1), 1, 0),
     take_fo = factor(take_fo, labels = c("No", "Yes")),
     bmicat  = cut(bmi, breaks = c(0, 25, 30, Inf), right = FALSE),
     bmicat  = factor(bmicat, labels = c("Normal", "Overweight", "Obese")),
@@ -99,6 +108,7 @@ levels(lupus$vegstat3) <- c("Vegetarians", "Vegetarians", "Pesco", "Non-veg", "N
 
 * Descriptive table stratified by cases/non-cases
   * Variables were categorized following the original manuscript
+  * Use of fish oil supplement (``take_fo``) now includes cod liver oil
 
 ```{r echo = FALSE}
 table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat", "kcal")
@@ -581,16 +591,18 @@ my_stargazer(models)
 
 ## Incident cases of SLE
 
-* Incident cases of SLE were identified using [HHF3 Question 10](https://wiki.ahs2.org/_media/hhf3:hhf3-page-03.jpg).
-  * The question asked when they were first diagnosed with SLE after 2001 in three time periods: 2002-2004, 2005-2006, and 2007-2008.
-  * There were `r lupus %>% filter(!is.na(sle_dx)) %>% count()` participants who indicated their first diagnosis after 2001. However, after excluding prevalent cases, there were `r lupus %>% filter(!is.na(sle_dx), prev_sle == "No") %>% count()` incident cases of SLE. Among them, `r lupus %>% filter(!is.na(sle_dx), prev_sle == "No", sle_tx == "Yes") %>% count()` cases indicated that they were treated for SLE for the past 12 months.
-
 ```{r echo = FALSE}
 lupus_inc <- lupus %>%
+  filter(hhf3 == TRUE) %>% 
   filter(prev_sle == "No") %>% 
   mutate(inc_sle = if_else(!is.na(sle_dx), 1, 0),
          inc_sle = factor(inc_sle, labels = c("No", "Yes")))
 ```
+
+* Incident cases of SLE were identified using [HHF3 Question 10](https://wiki.ahs2.org/_media/hhf3:hhf3-page-03.jpg).
+  * There were *n* = `r lupus %>% filter(hhf3 == TRUE) %>% nrow()` subjects who returned HHF3 questionnaire. This included `r lupus %>% filter(hhf3 == TRUE, prev_sle == "Yes") %>% nrow()` prevalent cases at baseline.
+  * The question asked when they were first diagnosed with SLE after 2001 in three time periods: 2002-2004, 2005-2006, and 2007-2008.
+  * There were `r lupus %>% filter(!is.na(sle_dx)) %>% count()` participants who indicated their first diagnosis after 2001. However, after excluding prevalent cases, there were `r lupus %>% filter(!is.na(sle_dx), prev_sle == "No") %>% count()` incident cases of SLE. Among them, `r lupus %>% filter(!is.na(sle_dx), prev_sle == "No", sle_tx == "Yes") %>% count()` cases indicated that they were treated for SLE for the past 12 months.
 
 * A frequency table of diagnosis periods:
 
@@ -603,7 +615,7 @@ lupus_inc %>%
   knitr::kable()
 ```
 
-* Energy-adjusted FA intake was compared between cases and non-cases. **Note that this is preliminary analysis, since the current data do not have a variable indicating which participants returned the HHF3 questionnaire.**
+* Energy-adjusted FA intake was compared between cases and non-cases. 
 
 ```{r echo = FALSE}
 # Compare FAs
@@ -626,7 +638,7 @@ lupus_inc %>%
             tfoot = "P-values were from Mann-Whitney tests")
 ```
 
-* Ratios of energy-adjusted FA intake were compared between cases and non-cases. **Note that this is preliminary analysis, since the current data do not have a variable indicating which participants returned the HHF3 questionnaire.**
+* Ratios of energy-adjusted FA intake were compared between cases and non-cases. 
 
 ```{r echo = FALSE}
 # Ratios

@@ -5,7 +5,7 @@ AHS-2 lupus study 2
 
 -   Filename: `lupus-initial-dataset-v1-2022-04-25.csv`
     -   Data received on 4/25/2022
-    -   Includes *n* = 93467 subjects and 115 variables
+    -   Includes *n* = 93467 subjects and 118 variables
     -   No imputations
 -   To create an analytic file:
     -   Included only non-Hispanic White or Black
@@ -32,6 +32,8 @@ AHS-2 lupus study 2
 
 -   Descriptive table stratified by cases/non-cases
     -   Variables were categorized following the original manuscript
+    -   Use of fish oil supplement (`take_fo`) now includes cod liver
+        oil
 
 <table>
 <thead>
@@ -366,10 +368,10 @@ take_fo (%)
 No
 </td>
 <td style="text-align:left;">
-69406 (89.5)
+68383 (88.2)
 </td>
 <td style="text-align:left;">
-191 (80.6)
+182 (76.8)
 </td>
 <td style="text-align:left;">
 \<0.0001
@@ -384,10 +386,10 @@ No
 Yes
 </td>
 <td style="text-align:left;">
-8152 (10.5)
+9175 (11.8)
 </td>
 <td style="text-align:left;">
-46 (19.4)
+55 (23.2)
 </td>
 <td style="text-align:left;">
 </td>
@@ -1062,10 +1064,10 @@ Median (IQR) energy-adjusted intake of fatty acids (gram/day)
 <th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-No<br /> (n = 8,152)
+No<br /> (n = 9,175)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-Yes<br /> (n = 46)
+Yes<br /> (n = 55)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 P-value
@@ -1078,13 +1080,13 @@ P-value
 DHA + EPA
 </td>
 <td style="text-align: center;">
-0.43 (0.30 - 0.62)
+0.46 (0.31 - 0.82)
 </td>
 <td style="text-align: center;">
-0.48 (0.31 - 0.82)
+0.55 (0.35 - 0.93)
 </td>
 <td style="text-align: center;">
-0.17
+0.075
 </td>
 </tr>
 <tr>
@@ -1098,7 +1100,7 @@ DHA + EPA dietary
 0.11 (0.03 - 0.25)
 </td>
 <td style="text-align: center;">
-0.22
+0.13
 </td>
 </tr>
 <tr>
@@ -1106,13 +1108,13 @@ DHA + EPA dietary
 Omega-3
 </td>
 <td style="text-align: center;">
-2.01 (1.61 - 2.51)
+2.07 (1.66 - 2.56)
 </td>
 <td style="text-align: center;">
-2.07 (1.62 - 2.55)
+2.17 (1.73 - 2.63)
 </td>
 <td style="text-align: center;">
-0.64
+0.26
 </td>
 </tr>
 <tr>
@@ -1120,13 +1122,13 @@ Omega-3
 Omega-3 dietary
 </td>
 <td style="border-bottom: 2px solid grey; text-align: center;">
-1.58 (1.25 - 1.98)
+1.57 (1.24 - 1.98)
 </td>
 <td style="border-bottom: 2px solid grey; text-align: center;">
-1.62 (1.23 - 2.05)
+1.64 (1.25 - 2.02)
 </td>
 <td style="border-bottom: 2px solid grey; text-align: center;">
-0.90
+0.52
 </td>
 </tr>
 </tbody>
@@ -4861,6 +4863,8 @@ Observations
 
 -   Incident cases of SLE were identified using [HHF3 Question
     10](https://wiki.ahs2.org/_media/hhf3:hhf3-page-03.jpg).
+    -   There were *n* = 54549 subjects who returned HHF3 questionnaire.
+        This included 147 prevalent cases at baseline.
     -   The question asked when they were first diagnosed with SLE after
         2001 in three time periods: 2002-2004, 2005-2006, and 2007-2008.
     -   There were 105 participants who indicated their first diagnosis
@@ -4921,9 +4925,6 @@ Percent
 </table>
 
 -   Energy-adjusted FA intake was compared between cases and non-cases.
-    **Note that this is preliminary analysis, since the current data do
-    not have a variable indicating which participants returned the HHF3
-    questionnaire.**
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
@@ -4936,7 +4937,7 @@ Median (IQR) energy-adjusted intake of fatty acids (gram/day)
 <th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-No<br /> (n = 77,488)
+No<br /> (n = 54,332)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 Yes<br /> (n = 70)
@@ -4952,13 +4953,13 @@ P-value
 ALA
 </td>
 <td style="text-align: center;">
-1.41 (1.11 - 1.77)
+1.43 (1.14 - 1.79)
 </td>
 <td style="text-align: center;">
 1.39 (1.16 - 1.62)
 </td>
 <td style="text-align: center;">
-0.56
+0.34
 </td>
 </tr>
 <tr>
@@ -4966,13 +4967,13 @@ ALA
 DHA + EPA
 </td>
 <td style="text-align: center;">
-0.03 (0.00 - 0.18)
+0.02 (0.00 - 0.16)
 </td>
 <td style="text-align: center;">
 0.03 (0.00 - 0.21)
 </td>
 <td style="text-align: center;">
-0.89
+0.68
 </td>
 </tr>
 <tr>
@@ -4980,13 +4981,13 @@ DHA + EPA
 Omega-3
 </td>
 <td style="text-align: center;">
-1.56 (1.23 - 1.98)
+1.57 (1.24 - 1.98)
 </td>
 <td style="text-align: center;">
 1.56 (1.24 - 1.88)
 </td>
 <td style="text-align: center;">
-0.94
+0.87
 </td>
 </tr>
 <tr>
@@ -4994,13 +4995,13 @@ Omega-3
 Omega-6
 </td>
 <td style="border-bottom: 2px solid grey; text-align: center;">
-14.11 (11.27 - 17.14)
+14.33 (11.57 - 17.31)
 </td>
 <td style="border-bottom: 2px solid grey; text-align: center;">
 13.68 (11.36 - 15.79)
 </td>
 <td style="border-bottom: 2px solid grey; text-align: center;">
-0.24
+0.095
 </td>
 </tr>
 </tbody>
@@ -5014,9 +5015,7 @@ P-values were from Mann-Whitney tests
 </table>
 
 -   Ratios of energy-adjusted FA intake were compared between cases and
-    non-cases. **Note that this is preliminary analysis, since the
-    current data do not have a variable indicating which participants
-    returned the HHF3 questionnaire.**
+    non-cases.
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
@@ -5029,7 +5028,7 @@ Median (IQR) ratio of fatty acids
 <th style="border-bottom: 1px solid grey; border-top: 2px solid grey;">
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
-No<br /> (n = 77,488)
+No<br /> (n = 54,332)
 </th>
 <th style="font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
 Yes<br /> (n = 70)
@@ -5045,13 +5044,13 @@ P-value
 Omega-3/Omega-6
 </td>
 <td style="text-align: center;">
-0.1121 (0.0944 - 0.1340)
+0.1107 (0.0935 - 0.1320)
 </td>
 <td style="text-align: center;">
 0.1123 (0.0954 - 0.1396)
 </td>
 <td style="text-align: center;">
-0.67
+0.42
 </td>
 </tr>
 <tr>
@@ -5059,13 +5058,13 @@ Omega-3/Omega-6
 (DHA + EPA)/Omega-6
 </td>
 <td style="text-align: center;">
-0.0020 (0.0002 - 0.0135)
+0.0012 (0.0002 - 0.0119)
 </td>
 <td style="text-align: center;">
 0.0023 (0.0002 - 0.0160)
 </td>
 <td style="text-align: center;">
-0.99
+0.53
 </td>
 </tr>
 <tr>
@@ -5073,13 +5072,13 @@ Omega-3/Omega-6
 ALA/Omega-6
 </td>
 <td style="border-bottom: 2px solid grey; text-align: center;">
-0.1032 (0.0889 - 0.1187)
+0.1028 (0.0885 - 0.1183)
 </td>
 <td style="border-bottom: 2px solid grey; text-align: center;">
 0.1024 (0.0903 - 0.1222)
 </td>
 <td style="border-bottom: 2px solid grey; text-align: center;">
-0.75
+0.65
 </td>
 </tr>
 </tbody>

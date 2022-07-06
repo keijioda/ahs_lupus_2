@@ -19,12 +19,26 @@ dim(lupus0)
 names(lupus0)
 n_distinct(lupus0$analysisid)
 
+# Additional n-6 variables
 filepath <- "./data/lupus-initial-dataset-v2-2022-06-03.csv"
 lupus00  <- read_csv(filepath)
 dim(lupus00)
 
+# Cod liver oil
+filepath <- "./data/lupus-dataset-hhf3-codliver-v3-2022-06-29.csv"
+lupus00a  <- read_csv(filepath)
+dim(lupus00a)
+
+# HHF3
+filepath <- "./data/lupus-hhf3-return-date.csv"
+lupus00b <- read_csv(filepath)
+dim(lupus00b)
+
+# Merge all files
 lupus0 <- lupus0 %>% 
-  inner_join(select(lupus00, analysisid, starts_with("p182"), starts_with("p204")))
+  inner_join(select(lupus00, analysisid, starts_with("p182"), starts_with("p204"))) %>% 
+  left_join(select(lupus00a, analysisid, codliver, hhf3)) %>% 
+  left_join(select(lupus00b, analysisid, hhf3_returned))
 
 # Include non-Hispanic White or Black
 # Exclude age < 30
@@ -51,7 +65,8 @@ lupus <- lupus0 %>%
     educat3 = factor(educat3, labels = c("HS or less", "Some college", "Col grad")),
     # take_vd = ifelse(!is.na(vitd) & vitd == 2, 1, 0),
     # take_vd = factor(take_vd, labels = c("No", "Yes")),
-    take_fo = ifelse(!is.na(fishoil) & fishoil == 2, 1, 0),
+    # take_fo = ifelse(!is.na(fishoil) & fishoil == 2, 1, 0),
+    take_fo = ifelse((!is.na(fishoil) & fishoil == 2) | (!is.na(codliver) & codliver == 1), 1, 0),
     take_fo = factor(take_fo, labels = c("No", "Yes")),
     bmicat  = cut(bmi, breaks = c(0, 25, 30, Inf), right = FALSE),
     bmicat  = factor(bmicat, labels = c("Normal", "Overweight", "Obese")),
@@ -536,6 +551,7 @@ lupus %>%
 
 # Create a data for incident analysis
 lupus_inc <- lupus %>%
+  filter(hhf3 == TRUE) %>% 
   filter(prev_sle == "No") %>% 
   mutate(inc_sle = if_else(!is.na(sle_dx), 1, 0),
          inc_sle = factor(inc_sle, labels = c("No", "Yes")))
@@ -607,3 +623,22 @@ lupus_inc %>%
                         statistics = TRUE) %>% 
   htmlTable(caption = "Median (IQR) ratio of fatty acids",
             tfoot = "P-values were from Mann-Whitney tests")
+
+# Analysis during 6/29 meeting
+lupus %>% 
+  filter(sley > 0) %>% 
+  CreateTableOne("take_fo", strata=c("sley", "sle"), data =.)
+
+lupus %>% 
+  filter(sley > 0) %>% 
+  CreateTableOne("take_fo", strata=c("sle"), data =.)
+
+lupus %>% 
+  filter(sley > 0) %>% 
+  select(sle, take_fo) %>% table(useNA = "ifany")
+
+lupus_inc %>% 
+  CreateTableOne("take_fo", strata = "inc_sle", data = .)
+
+lupus %>% 
+  CreateTableOne("take_fo", strata = "vegstat", data = .)
