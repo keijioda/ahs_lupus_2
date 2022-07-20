@@ -550,7 +550,7 @@ lupus %>%
   table(useNA = "ifany")
 
 # Create a data for incident analysis
-lupus_inc <- lupus %>%
+lupus_inc <- lupus_md %>%
   filter(hhf3 == TRUE) %>% 
   filter(prev_sle == "No") %>% 
   mutate(inc_sle = if_else(!is.na(sle_dx), 1, 0),
@@ -624,13 +624,149 @@ lupus_inc %>%
   htmlTable(caption = "Median (IQR) ratio of fatty acids",
             tfoot = "P-values were from Mann-Whitney tests")
 
+# Preparing data for interval-censoring
+lupus_inc %>% group_by(sle_dx) %>% select(sle_dx) %>% tally()
+
+lupus_inc %>% 
+  group_by(sle_dx) %>% 
+  filter(!is.na(sle_dx)) %>% 
+  select(analysisid, sle_dx, death_date)
+
+library(lubridate)
+int1 <- interval(ymd("2002-01-01"), ymd("2004-12-31"))
+int2 <- interval(ymd("2005-01-01"), ymd("2006-12-31"))
+int3 <- interval(ymd("2007-01-01"), ymd("2008-12-31"))
+
+lupus_cll <- lupus_inc %>% 
+  mutate(interval1 = as.numeric(sle_dx == "2002-2004"),
+         interval2 = as.numeric(sle_dx == "2005-2006"),
+         interval3 = as.numeric(sle_dx == "2007-2008"),
+         
+         interval2 = ifelse(interval1 == 1, NA, interval2),
+         interval3 = ifelse(interval1 == 1 | interval2 == 1, NA, interval3),
+         
+         interval1 = ifelse(is.na(sle_dx), 0, interval1),
+         interval2 = ifelse(is.na(sle_dx), 0, interval2),
+         interval3 = ifelse(is.na(sle_dx), 0, interval3),
+         
+         interval2 = ifelse(!is.na(death_date) & death_date %within% int1, NA, interval2),
+         interval3 = ifelse(!is.na(death_date) & (death_date %within% int1 | death_date %within% int2), NA, interval3))
+
+# Checking...
+lupus_cll %>% 
+  select(analysisid, sle_dx, starts_with("interval"), death_date) 
+
+lupus_cll %>% 
+  select(analysisid, sle_dx, starts_with("interval"), death_date) %>% 
+  arrange(death_date)
+
+lupus_cll %>% 
+  filter(!is.na(sle_dx)) %>% 
+  select(analysisid, sle_dx, starts_with("interval"), death_date)
+
+lupus_cll_long <- lupus_cll %>% 
+  pivot_longer(interval1:interval3, names_to = "interval", values_to = "y") %>% 
+  mutate(interval = parse_number(interval),
+         interval = factor(interval, labels = c("2002-2004", "2005-2006", "2007-2008")),
+         offset = ifelse(interval == 1, 3, 2))
+
+lupus_cll_long %>% 
+  select(analysisid, sle_dx, interval, offset, y, death_date) %>% 
+  # filter(!is.na(sle_dx)) %>% 
+  arrange(death_date)
+
+# Fitting complementary log-log model
+covar_labels <- c("Kcal/100",
+                  "Diag: 2005-2006",
+                  "Diag: 2007-2008",
+                  "Age.: 30-39", 
+                  "Age.: 40-59", 
+                  "Race: Black",
+                  "Sex.: Male",
+                  "Educ: HS or less",
+                  "Educ: Some college",
+                  "Smkg: Ever", 
+                  "Diet: Vegetarians",
+                  "Diet: Pesco veg",
+                  "BMI.: Overweight",
+                  "BMI.: Obese")
+
+# Function for stargazer
+my_stargazer2 <- function(x, fname){
+  stargazer::stargazer(x, 
+                       type = "html", 
+                       out = fname,
+                       digits = 2,
+                       dep.var.caption = "",
+                       dep.var.labels = "Outcome: Incident SLE",
+                       model.numbers = FALSE,
+                       column.labels = c("Model 1", "Model 2", "Model 3", "Model 4"),
+                       covariate.labels = var_labels,
+                       apply.coef = exp, 
+                       ci.custom = ci, 
+                       star.cutoffs = NA, 
+                       omit = "Constant", 
+                       omit.stat = c("aic", "ll"),
+                       omit.table.layout = "n")
+}
+
+# Complementary log-log Models with omega-3/omega-6 ratio
+fm <- formula(y ~ o3_o6_cat + I(kcal/100) + interval + offset(log(offset)))
+m1 <- glm(fm, family = binomial(link = "cloglog"), data = lupus_cll_long)
+m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m3 <- update(m2, .~. + vegstat3)
+m4 <- update(m3, .~. + bmicat)
+
+models <- list(m1, m2, m3, m4)
+
+var_labels <- c("O3/O6: Q2",
+                "O3/O6: Q3",
+                "O3/O6: Q4",
+                covar_labels)
+
+my_stargazer2(models, "O3_O6.html")
+
+# Complementary log-log Models with (DHA + EPA)/omega-6 ratio
+fm <- formula(y ~ p205p226_o6_cat + I(kcal/100) + interval + offset(log(offset)))
+m1 <- glm(fm, family = binomial(link = "cloglog"), data = lupus_cll_long)
+m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m3 <- update(m2, .~. + vegstat3)
+m4 <- update(m3, .~. + bmicat)
+
+models <- list(m1, m2, m3, m4)
+
+var_labels <- c("DHA+EPA/O6: Q2",
+                "DHA+EPA/O6: Q3",
+                "DHA+EPA/O6: Q4",
+                covar_labels)
+
+my_stargazer2(models, "DHA+EPA_O6.html")
+
+# Complementary log-log Models with ALA/omega-6 ratio
+fm <- formula(y ~ p183_o6_cat + I(kcal/100) + interval + offset(log(offset)))
+m1 <- glm(fm, family = binomial(link = "cloglog"), data = lupus_cll_long)
+m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m3 <- update(m2, .~. + vegstat3)
+m4 <- update(m3, .~. + bmicat)
+
+models <- list(m1, m2, m3, m4)
+
+var_labels <- c("ALA/O6: Q2",
+                "ALA/O6: Q3",
+                "ALA/O6: Q4",
+                covar_labels)
+
+my_stargazer2(models, "ALA_O6.html")
+
 # Analysis during 6/29 meeting
-lupus %>% 
+lupus %>%
   filter(sley > 0) %>% 
   CreateTableOne("take_fo", strata=c("sley", "sle"), data =.)
 
+# Among those who were diagnosed, crosstab between treated and fish oil use
 lupus %>% 
   filter(sley > 0) %>% 
+  mutate(sle = factor(sle, labels = c("Not treated", "Treated"))) %>% 
   CreateTableOne("take_fo", strata=c("sle"), data =.)
 
 lupus %>% 
