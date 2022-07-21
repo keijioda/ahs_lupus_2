@@ -40,6 +40,40 @@ lupus0 <- lupus0 %>%
   left_join(select(lupus00a, analysisid, codliver, hhf3)) %>% 
   left_join(select(lupus00b, analysisid, hhf3_returned))
 
+dim(lupus0)
+n_check <- lupus0 %>% 
+  mutate(
+    age = ifelse(age < 30, NA, age),
+    agecat = cut(age, breaks = c(0, 40, 60, Inf), right = FALSE),
+    agecat = factor(agecat, labels = c("30-39", "40-59", ">=60")),
+    sex = factor(sex, labels = c("Female", "Male")),
+    black = case_when(
+      ethyou == "01" ~ 0,
+      ethyou %in% c("02", "03", "04", "05", "39", "40", "63", "74", "77", "96") ~ 1),
+    smkcat  = case_when(
+      smokenow == 1 ~ 3,
+      smoke > 1 & is.na(smokenow) ~ 2,
+      smoke == 1 ~ 1
+    ),
+    smkcat  = factor(smkcat, labels = c("Never", "Past", "Current")),
+    smkever = factor(smkcat, labels = c("Never", "Ever", "Ever")),
+    prev_sle = ifelse(!is.na(sle) & sle == 2, 1, 0),
+    prev_sle = factor(prev_sle, labels = c("No", "Yes")))
+
+dim(n_check)
+n_check %>% filter(age >= 30, !is.na(sex)) %>% dim()
+n_check %>% filter(age >= 30, !is.na(sex)) %>% select(sex) %>% table()
+n_check %>% filter(age >= 30, sex == "Female") %>% 
+  select(black) %>% table(useNA = "ifany")
+n_check %>% filter(age >= 30, sex == "Female", !is.na(black)) %>% dim()
+n_check %>% filter(age >= 30, sex == "Female", !is.na(black)) %>% 
+  filter(kcal >= 500 & kcal <= 4500) %>% dim()
+n_check %>% filter(age >= 30, sex == "Female", !is.na(black)) %>% 
+  filter(kcal < 500 | kcal > 4500) %>% dim()
+n_check %>% filter(age >= 30, sex == "Female", !is.na(black)) %>% 
+  filter(kcal >= 500 & kcal <= 4500) %>%
+  drop_na(sex, age, black, vege_group_gen_bl, smkever, educyou, bmi) %>% dim()
+  
 # Include non-Hispanic White or Black
 # Exclude age < 30
 # Exclude missing gender, diet pattern, education, smoking and BMI
