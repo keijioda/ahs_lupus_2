@@ -3329,8 +3329,8 @@ Observations
     ## 1    0.0617 0.5897  0.0953   0.3286
     ## 
     ## $`Model 4`
-    ##   o3_o6_cat agecat educat3 vegstat3
-    ## 1    0.0638 0.6655  0.0825   0.4722
+    ##   o3_o6_cat agecat educat3 vegstat3 bmicat
+    ## 1    0.0638 0.6655  0.0825   0.4722 0.2595
 
 ## Logistic models with (DHA + EPA)/omega-6 ratio
 
@@ -4018,8 +4018,8 @@ Observations
     ## 1          0.0969 0.5437  0.0965   0.9246
     ## 
     ## $`Model 4`
-    ##   p205p226_o6_cat agecat educat3 vegstat3
-    ## 1           0.107 0.6162  0.0844   0.8118
+    ##   p205p226_o6_cat agecat educat3 vegstat3 bmicat
+    ## 1           0.107 0.6162  0.0844   0.8118 0.2985
 
 ## Logistic models with ALA/omega-6 ratio
 

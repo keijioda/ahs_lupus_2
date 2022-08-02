@@ -534,6 +534,10 @@ Mod4["educat3"] <- update(m4, .~. - educat3 + as.numeric(educat3), data = lupus)
 Mod4["vegstat3"] <- update(m4, .~. - vegstat3 + as.numeric(vegstat3), data = lupus) %>% 
   getLastPval()
 
+# Model 4, BMI
+Mod4["bmicat"] <- update(m4, .~. - bmicat + as.numeric(bmicat)) %>% 
+  getLastPval()
+
 all_trend <- list(Mod1, Mod2, Mod3, Mod4)
 names(all_trend) <- c("Model 1", "Model 2", "Model 3", "Model 4")
 
@@ -607,6 +611,10 @@ Mod4["educat3"] <- update(m4, .~. - educat3 + as.numeric(educat3), data = lupus)
 
 # Model 4, vegstat3
 Mod4["vegstat3"] <- update(m4, .~. - vegstat3 + as.numeric(vegstat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 4, BMI
+Mod4["bmicat"] <- update(m4, .~. - bmicat + as.numeric(bmicat)) %>% 
   getLastPval()
 
 all_trend <- list(Mod1, Mod2, Mod3, Mod4)
@@ -683,6 +691,10 @@ Mod4["educat3"] <- update(m4, .~. - educat3 + as.numeric(educat3), data = lupus)
 
 # Model 4, vegstat3
 Mod4["vegstat3"] <- update(m4, .~. - vegstat3 + as.numeric(vegstat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 4, BMI
+Mod4["bmicat"] <- update(m4, .~. - bmicat + as.numeric(bmicat)) %>% 
   getLastPval()
 
 all_trend <- list(Mod1, Mod2, Mod3, Mod4)
