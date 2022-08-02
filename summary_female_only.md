@@ -3326,11 +3326,11 @@ Observations
     ## 
     ## $`Model 3`
     ##   o3_o6_cat agecat educat3 vegstat3
-    ## 1    0.0617 0.0971  0.0953   0.3286
+    ## 1    0.0617 0.5897  0.0953   0.3286
     ## 
     ## $`Model 4`
     ##   o3_o6_cat agecat educat3 vegstat3
-    ## 1    0.0638 0.0918  0.0825   0.4722
+    ## 1    0.0638 0.6655  0.0825   0.4722
 
 ## Logistic models with (DHA + EPA)/omega-6 ratio
 
@@ -4015,11 +4015,11 @@ Observations
     ## 
     ## $`Model 3`
     ##   p205p226_o6_cat agecat educat3 vegstat3
-    ## 1          0.0969 0.1043  0.0965   0.9246
+    ## 1          0.0969 0.5437  0.0965   0.9246
     ## 
     ## $`Model 4`
     ##   p205p226_o6_cat agecat educat3 vegstat3
-    ## 1           0.107 0.0985  0.0844   0.8118
+    ## 1           0.107 0.6162  0.0844   0.8118
 
 ## Logistic models with ALA/omega-6 ratio
 
@@ -4704,11 +4704,11 @@ Observations
     ## 
     ## $`Model 3`
     ##   p183_o6_cat agecat educat3 vegstat3
-    ## 1      0.6702 0.0878  0.0929   0.1257
+    ## 1      0.6702 0.6105  0.0929   0.1257
     ## 
     ## $`Model 4`
     ##   p183_o6_cat agecat educat3 vegstat3
-    ## 1      0.6843 0.0827  0.0796   0.2104
+    ## 1      0.6843 0.6911  0.0796   0.2104
 
 ## Incident cases of SLE
 

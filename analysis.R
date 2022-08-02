@@ -507,7 +507,7 @@ Mod3["o3_o6_cat"] <- update(m3, .~. - o3_o6_cat + as.numeric(o3_o6_cat)) %>%
   getLastPval()
 
 # Model 3, age
-Mod3["agecat"] <- update(m3, .~. - agecat + as.numeric(agecat)) %>% 
+Mod3["agecat"] <- update(m3, .~. - agecat + as.numeric(agecat), data = lupus) %>% 
   getLastPval()
 
 # Model 3, educ
@@ -523,7 +523,7 @@ Mod4["o3_o6_cat"] <- update(m4, .~. - o3_o6_cat + as.numeric(o3_o6_cat)) %>%
   getLastPval()
 
 # Model 4, age
-Mod4["agecat"] <- update(m4, .~. - agecat + as.numeric(agecat)) %>% 
+Mod4["agecat"] <- update(m4, .~. - agecat + as.numeric(agecat), data = lupus) %>% 
   getLastPval()
 
 # Model 4 educ
@@ -582,7 +582,7 @@ Mod3["p205p226_o6_cat"] <- update(m3, .~. - p205p226_o6_cat + as.numeric(p205p22
   getLastPval()
 
 # Model 3, age
-Mod3["agecat"] <- update(m3, .~. - agecat + as.numeric(agecat)) %>% 
+Mod3["agecat"] <- update(m3, .~. - agecat + as.numeric(agecat), data = lupus) %>% 
   getLastPval()
 
 # Model 3, educ
@@ -598,7 +598,7 @@ Mod4["p205p226_o6_cat"] <- update(m4, .~. - p205p226_o6_cat + as.numeric(p205p22
   getLastPval()
 
 # Model 4, age
-Mod4["agecat"] <- update(m4, .~. - agecat + as.numeric(agecat)) %>% 
+Mod4["agecat"] <- update(m4, .~. - agecat + as.numeric(agecat), data = lupus) %>% 
   getLastPval()
 
 # Model 4 educ
@@ -658,7 +658,7 @@ Mod3["p183_o6_cat"] <- update(m3, .~. - p183_o6_cat + as.numeric(p183_o6_cat)) %
   getLastPval()
 
 # Model 3, age
-Mod3["agecat"] <- update(m3, .~. - agecat + as.numeric(agecat)) %>% 
+Mod3["agecat"] <- update(m3, .~. - agecat + as.numeric(agecat), data = lupus) %>% 
   getLastPval()
 
 # Model 3, educ
@@ -674,7 +674,7 @@ Mod4["p183_o6_cat"] <- update(m4, .~. - p183_o6_cat + as.numeric(p183_o6_cat)) %
   getLastPval()
 
 # Model 4, age
-Mod4["agecat"] <- update(m4, .~. - agecat + as.numeric(agecat)) %>% 
+Mod4["agecat"] <- update(m4, .~. - agecat + as.numeric(agecat), data = lupus) %>% 
   getLastPval()
 
 # Model 4 educ
