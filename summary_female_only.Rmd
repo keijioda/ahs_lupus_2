@@ -532,6 +532,69 @@ var_labels <- c("O3/O6: Q2",
 
 my_stargazer(models)
 ```
+* P-values for trend are shown below:
+
+```{r echo = FALSE}
+# Trend p-values
+getLastPval <- function(x) broom::tidy(x) %>% select(p.value) %>% slice(nrow(.))
+
+Mod1 <- Mod2 <- Mod3 <- Mod4 <- Mod5a <- Mod5b <- list()
+
+# Model 1, ratio
+Mod1["o3_o6_cat"] <- update(m1, .~. - o3_o6_cat + as.numeric(o3_o6_cat)) %>% 
+  getLastPval()
+
+# Model 2, ratio
+Mod2["o3_o6_cat"] <- update(m2, .~. - o3_o6_cat + as.numeric(o3_o6_cat)) %>% 
+  getLastPval()
+
+# Model 2, age
+Mod2["agecat"] <- update(m2, .~. - agecat + as.numeric(agecat), data = lupus) %>% 
+  getLastPval()
+
+# Model 2, educ
+Mod2["educat3"] <- update(m2, .~. - educat3 + as.numeric(educat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 3, ratio
+Mod3["o3_o6_cat"] <- update(m3, .~. - o3_o6_cat + as.numeric(o3_o6_cat)) %>% 
+  getLastPval()
+
+# Model 3, age
+Mod3["agecat"] <- update(m3, .~. - agecat + as.numeric(agecat)) %>% 
+  getLastPval()
+
+# Model 3, educ
+Mod3["educat3"] <- update(m3, .~. - educat3 + as.numeric(educat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 3, vegstat3
+Mod3["vegstat3"] <- update(m3, .~. - vegstat3 + as.numeric(vegstat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 4, ratio
+Mod4["o3_o6_cat"] <- update(m4, .~. - o3_o6_cat + as.numeric(o3_o6_cat)) %>% 
+  getLastPval()
+
+# Model 4, age
+Mod4["agecat"] <- update(m4, .~. - agecat + as.numeric(agecat)) %>% 
+  getLastPval()
+
+# Model 4 educ
+Mod4["educat3"] <- update(m4, .~. - educat3 + as.numeric(educat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 4, vegstat3
+Mod4["vegstat3"] <- update(m4, .~. - vegstat3 + as.numeric(vegstat3), data = lupus) %>% 
+  getLastPval()
+
+all_trend <- list(Mod1, Mod2, Mod3, Mod4)
+names(all_trend) <- c("Model 1", "Model 2", "Model 3", "Model 4")
+
+all_trend %>% 
+  map(as.data.frame) %>% 
+  map(\(x) round(x, 4))
+```
 
 ## Logistic models with (DHA + EPA)/omega-6 ratio
 
@@ -560,6 +623,67 @@ var_labels <- c("DHA+EPA/O6: Q2",
 
 my_stargazer(models)
 ```
+* P-values for trend are shown below:
+
+```{r echo = FALSE}
+# Trend p-values
+Mod1 <- Mod2 <- Mod3 <- Mod4 <- Mod5a <- Mod5b <- list()
+
+# Model 1, ratio
+Mod1["p205p226_o6_cat"] <- update(m1, .~. - p205p226_o6_cat + as.numeric(p205p226_o6_cat)) %>% 
+  getLastPval()
+
+# Model 2, ratio
+Mod2["p205p226_o6_cat"] <- update(m2, .~. - p205p226_o6_cat + as.numeric(p205p226_o6_cat)) %>% 
+  getLastPval()
+
+# Model 2, age
+Mod2["agecat"] <- update(m2, .~. - agecat + as.numeric(agecat), data = lupus) %>% 
+  getLastPval()
+
+# Model 2, educ
+Mod2["educat3"] <- update(m2, .~. - educat3 + as.numeric(educat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 3, ratio
+Mod3["p205p226_o6_cat"] <- update(m3, .~. - p205p226_o6_cat + as.numeric(p205p226_o6_cat)) %>% 
+  getLastPval()
+
+# Model 3, age
+Mod3["agecat"] <- update(m3, .~. - agecat + as.numeric(agecat)) %>% 
+  getLastPval()
+
+# Model 3, educ
+Mod3["educat3"] <- update(m3, .~. - educat3 + as.numeric(educat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 3, vegstat3
+Mod3["vegstat3"] <- update(m3, .~. - vegstat3 + as.numeric(vegstat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 4, ratio
+Mod4["p205p226_o6_cat"] <- update(m4, .~. - p205p226_o6_cat + as.numeric(p205p226_o6_cat)) %>% 
+  getLastPval()
+
+# Model 4, age
+Mod4["agecat"] <- update(m4, .~. - agecat + as.numeric(agecat)) %>% 
+  getLastPval()
+
+# Model 4 educ
+Mod4["educat3"] <- update(m4, .~. - educat3 + as.numeric(educat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 4, vegstat3
+Mod4["vegstat3"] <- update(m4, .~. - vegstat3 + as.numeric(vegstat3), data = lupus) %>% 
+  getLastPval()
+
+all_trend <- list(Mod1, Mod2, Mod3, Mod4)
+names(all_trend) <- c("Model 1", "Model 2", "Model 3", "Model 4")
+
+all_trend %>% 
+  map(as.data.frame) %>% 
+  map(\(x) round(x, 4))
+```
 
 ## Logistic models with ALA/omega-6 ratio
 
@@ -587,6 +711,67 @@ var_labels <- c("ALA/O6: Q2",
                 covar_labels)
 
 my_stargazer(models)
+```
+* P-values for trend are shown below:
+
+```{r echo = FALSE}
+# Trend p-values
+Mod1 <- Mod2 <- Mod3 <- Mod4 <- Mod5a <- Mod5b <- list()
+
+# Model 1, ratio
+Mod1["p183_o6_cat"] <- update(m1, .~. - p183_o6_cat + as.numeric(p183_o6_cat)) %>% 
+  getLastPval()
+
+# Model 2, ratio
+Mod2["p183_o6_cat"] <- update(m2, .~. - p183_o6_cat + as.numeric(p183_o6_cat)) %>% 
+  getLastPval()
+
+# Model 2, age
+Mod2["agecat"] <- update(m2, .~. - agecat + as.numeric(agecat), data = lupus) %>% 
+  getLastPval()
+
+# Model 2, educ
+Mod2["educat3"] <- update(m2, .~. - educat3 + as.numeric(educat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 3, ratio
+Mod3["p183_o6_cat"] <- update(m3, .~. - p183_o6_cat + as.numeric(p183_o6_cat)) %>% 
+  getLastPval()
+
+# Model 3, age
+Mod3["agecat"] <- update(m3, .~. - agecat + as.numeric(agecat)) %>% 
+  getLastPval()
+
+# Model 3, educ
+Mod3["educat3"] <- update(m3, .~. - educat3 + as.numeric(educat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 3, vegstat3
+Mod3["vegstat3"] <- update(m3, .~. - vegstat3 + as.numeric(vegstat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 4, ratio
+Mod4["p183_o6_cat"] <- update(m4, .~. - p183_o6_cat + as.numeric(p183_o6_cat)) %>% 
+  getLastPval()
+
+# Model 4, age
+Mod4["agecat"] <- update(m4, .~. - agecat + as.numeric(agecat)) %>% 
+  getLastPval()
+
+# Model 4 educ
+Mod4["educat3"] <- update(m4, .~. - educat3 + as.numeric(educat3), data = lupus) %>% 
+  getLastPval()
+
+# Model 4, vegstat3
+Mod4["vegstat3"] <- update(m4, .~. - vegstat3 + as.numeric(vegstat3), data = lupus) %>% 
+  getLastPval()
+
+all_trend <- list(Mod1, Mod2, Mod3, Mod4)
+names(all_trend) <- c("Model 1", "Model 2", "Model 3", "Model 4")
+
+all_trend %>% 
+  map(as.data.frame) %>% 
+  map(\(x) round(x, 4))
 ```
 
 ## Incident cases of SLE

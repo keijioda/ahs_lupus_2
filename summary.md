@@ -3435,6 +3435,26 @@ Observations
 </tr>
 </table>
 
+-   P-values for trend are shown below:
+
+<!-- -->
+
+    ## $`Model 1`
+    ##   o3_o6_cat
+    ## 1     3e-04
+    ## 
+    ## $`Model 2`
+    ##   o3_o6_cat agecat educat3
+    ## 1    0.0518 0.2052  0.1215
+    ## 
+    ## $`Model 3`
+    ##   o3_o6_cat agecat educat3 vegstat3
+    ## 1    0.1326 0.4478  0.0859   0.1544
+    ## 
+    ## $`Model 4`
+    ##   o3_o6_cat agecat educat3 vegstat3
+    ## 1    0.1357 0.4507    0.07    0.291
+
 ## Logistic models with (DHA + EPA)/omega-6 ratio
 
 -   Four logistic models were fitted using prevalent SLE as the outcome.
@@ -4147,6 +4167,26 @@ Observations
 </tr>
 </table>
 
+-   P-values for trend are shown below:
+
+<!-- -->
+
+    ## $`Model 1`
+    ##   p205p226_o6_cat
+    ## 1           4e-04
+    ## 
+    ## $`Model 2`
+    ##   p205p226_o6_cat agecat educat3
+    ## 1          0.0371 0.1596    0.09
+    ## 
+    ## $`Model 3`
+    ##   p205p226_o6_cat agecat educat3 vegstat3
+    ## 1          0.2257 0.4756  0.0843   0.6877
+    ## 
+    ## $`Model 4`
+    ##   p205p226_o6_cat agecat educat3 vegstat3
+    ## 1          0.2445 0.4769  0.0697   0.8548
+
 ## Logistic models with ALA/omega-6 ratio
 
 -   Four logistic models were fitted using prevalent SLE as the outcome.
@@ -4858,6 +4898,26 @@ Observations
 </td>
 </tr>
 </table>
+
+-   P-values for trend are shown below:
+
+<!-- -->
+
+    ## $`Model 1`
+    ##   p183_o6_cat
+    ## 1      0.1091
+    ## 
+    ## $`Model 2`
+    ##   p183_o6_cat agecat educat3
+    ## 1      0.7447 0.2079  0.1333
+    ## 
+    ## $`Model 3`
+    ##   p183_o6_cat agecat educat3 vegstat3
+    ## 1      0.8846 0.4408  0.0829   0.0623
+    ## 
+    ## $`Model 4`
+    ##   p183_o6_cat agecat educat3 vegstat3
+    ## 1       0.904 0.4416  0.0673   0.1389
 
 ## Incident cases of SLE
 
