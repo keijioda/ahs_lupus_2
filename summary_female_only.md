@@ -4707,8 +4707,8 @@ Observations
     ## 1      0.6702 0.6105  0.0929   0.1257
     ## 
     ## $`Model 4`
-    ##   p183_o6_cat agecat educat3 vegstat3
-    ## 1      0.6843 0.6911  0.0796   0.2104
+    ##   p183_o6_cat agecat educat3 vegstat3 bmicat
+    ## 1      0.6843 0.6911  0.0796   0.2104 0.2485
 
 ## Incident cases of SLE
 
