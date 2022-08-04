@@ -61,6 +61,7 @@ lupus <- lupus0 %>%
     ),
     smkcat  = factor(smkcat, labels = c("Never", "Past", "Current")),
     smkever = factor(smkcat, labels = c("Never", "Ever", "Ever")),
+    alcever = factor(alcohol, labels = c("Never", "Ever")),
     educat3 = cut(educyou, breaks = c(0, 3, 6, 9)),
     educat3 = factor(educat3, labels = c("HS or less", "Some college", "Col grad")),
     # take_vd = ifelse(!is.na(vitd) & vitd == 2, 1, 0),
@@ -74,7 +75,7 @@ lupus <- lupus0 %>%
     vegstat3 = vegstat,
     prev_sle = ifelse(!is.na(sle) & sle == 2, 1, 0),
     prev_sle = factor(prev_sle, labels = c("No", "Yes"))) %>% 
-  drop_na(sex, age, black, vege_group_gen_bl, smkever, educat3, bmi) %>% 
+  drop_na(sex, age, black, vege_group_gen_bl, smkever, alcever, educat3, bmi) %>% 
   filter(kcal >= 500 & kcal <= 4500) %>% 
   filter(sex == "Female")
 
@@ -112,7 +113,7 @@ levels(lupus$vegstat3) <- c("Vegetarians", "Vegetarians", "Pesco", "Non-veg", "N
   * Use of fish oil supplement (``take_fo``) now includes cod liver oil
 
 ```{r echo = FALSE}
-table_vars <- c("age", "agecat", "black", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat", "kcal")
+table_vars <- c("age", "agecat", "black", "smkever", "alcever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat", "kcal")
 lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4) %>% 
   kableone()
@@ -439,7 +440,7 @@ lupus %>%
 
 * Four logistic models were fitted using prevalent SLE as the outcome.
   * Model 1 includes: quartile groups of omega-3/omega-6, (DHA + EPA)/omega-6, ALA/omaga-6, and kcal (per 100 kcal)
-  * Model 2 adds age groups, race, education level, and smoking status (never/ever)
+  * Model 2 adds age groups, race, education level, smoking status (never/ever), and alcohol (never/ever)
   * Model 3 further adds dietary pattern
   * Model 4 further adds BMI groups
 * The table below shows estimated odds ratios and 95% Wald confidence intervals from each logistic model:
@@ -459,6 +460,7 @@ covar_labels <- c("Kcal/100",
                   "Educ: HS or less",
                   "Educ: Some college",
                   "Smkg: Ever", 
+                  "Alc.: Ever", 
                   "Diet: Vegetarians",
                   "Diet: Pesco veg",
                   "BMI.: Overweight",
@@ -484,7 +486,7 @@ my_stargazer <- function(x){
 
 fm <- formula(prev_sle ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -509,7 +511,7 @@ my_stargazer(models)
 
 * Four logistic models were fitted using prevalent SLE as the outcome.
   * Model 1 includes: quartile groups of omega-3/omega-6 and kcal (per 100 kcal)
-  * Model 2 adds age groups, race, education level, and smoking status (never/ever)
+  * Model 2 adds age groups, race, education level, smoking status (never/ever), and alcohol (never/ever)
   * Model 3 further adds dietary pattern
   * Model 4 further adds BMI groups
 * The table below shows estimated odds ratios and 95% Wald confidence intervals from each logistic model:
@@ -518,7 +520,7 @@ my_stargazer(models)
 # Logistic regression with omega-3/omega-6 ratio
 fm <- formula(prev_sle ~ o3_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -604,7 +606,7 @@ all_trend %>%
 
 * Four logistic models were fitted using prevalent SLE as the outcome.
   * Model 1 includes: quartile groups of (DHA + EPA)/omega-6 and kcal (per 100 kcal)
-  * Model 2 adds age groups, race, education level, and smoking status (never/ever)
+  * Model 2 adds age groups, race, education level, smoking status (never/ever), and alcohol (never/ever)
   * Model 3 further adds dietary pattern
   * Model 4 further adds BMI groups
 * The table below shows estimated odds ratios and 95% Wald confidence intervals from each logistic model:
@@ -613,7 +615,7 @@ all_trend %>%
 # Logistic regression with (DHA + EPA)/omega-6 ratio
 fm <- formula(prev_sle ~ p205p226_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -697,7 +699,7 @@ all_trend %>%
 
 * Four logistic models were fitted using prevalent SLE as the outcome.
   * Model 1 includes: quartile groups of ALA/omega-6 and kcal (per 100 kcal)
-  * Model 2 adds age groups, race, education level, and smoking status (never/ever)
+  * Model 2 adds age groups, race, education level, smoking status (never/ever), and alcohol (never/ever)
   * Model 3 further adds dietary pattern
   * Model 4 further adds BMI groups
 * The table below shows estimated odds ratios and 95% Wald confidence intervals from each logistic model:
@@ -706,7 +708,7 @@ all_trend %>%
 # Logistic regression with ALA/omega-6 ratio
 fm <- formula(prev_sle ~ p183_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 

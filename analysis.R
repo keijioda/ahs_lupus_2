@@ -95,6 +95,7 @@ lupus <- lupus0 %>%
     ),
     smkcat  = factor(smkcat, labels = c("Never", "Past", "Current")),
     smkever = factor(smkcat, labels = c("Never", "Ever", "Ever")),
+    alcever = factor(alcohol, labels = c("Never", "Ever")),
     educat3 = cut(educyou, breaks = c(0, 3, 6, 9)),
     educat3 = factor(educat3, labels = c("HS or less", "Some college", "Col grad")),
     # take_vd = ifelse(!is.na(vitd) & vitd == 2, 1, 0),
@@ -110,15 +111,16 @@ lupus <- lupus0 %>%
     prev_sle = factor(prev_sle, labels = c("No", "Yes")),
     p182     = p182diet + p182supp,
     p204     = p204diet + p204supp) %>% 
-  drop_na(sex, age, black, vege_group_gen_bl, smkever, educat3, bmi) %>% 
-  filter(kcal >= 500 & kcal <= 4500)
+  drop_na(sex, age, black, vege_group_gen_bl, smkever, alcever, educat3, bmi) %>% 
+  filter(kcal >= 500 & kcal <= 4500) %>% 
+  filter(sex == "Female")
 
 levels(lupus$vegstat) <- c("Vegans", "Lacto-ovo", "Pesco", "Semi", "Non-veg")
 levels(lupus$vegstat3) <- c("Vegetarians", "Vegetarians", "Pesco", "Non-veg", "Non-veg")
 
-# Females only
-lupus_f <- lupus %>% filter(sex == "Female")
-dim(lupus_f)
+# Include alcohol intake into the model? Never/ever
+lupus_f %>% filter(alcnow == 1)  %>% select(prev_sle) %>% table()
+lupus_f %>% filter(alcohol == 2) %>% select(prev_sle) %>% table()
 
 # Yields n = 77,795 and n.cases = 237
 dim(lupus)
@@ -415,10 +417,10 @@ covar_labels <- c("Kcal/100",
                   "Age.: 30-39", 
                   "Age.: 40-59", 
                   "Race: Black",
-                  "Sex.: Male",
                   "Educ: HS or less",
                   "Educ: Some college",
                   "Smkg: Ever", 
+                  "Alc.: Ever", 
                   "Diet: Vegetarians",
                   "Diet: Pesco veg",
                   "BMI.: Overweight",
@@ -467,7 +469,7 @@ my_stargazer(models)
 # Logistic regression with omega-3/omega-6 ratio
 fm <- formula(prev_sle ~ o3_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -548,7 +550,7 @@ all_trend %>%
 # Logistic regression with (DHA + EPA)/omega-6 ratio
 fm <- formula(prev_sle ~ p205p226_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -627,7 +629,7 @@ all_trend %>%
 # Logistic regression with ALA/omega-6 ratio
 fm <- formula(prev_sle ~ p183_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
