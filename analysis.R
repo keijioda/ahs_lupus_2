@@ -252,7 +252,7 @@ lupus <- lupus %>%
 # Descriptive table
 # Demographics and lifestyles
 table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat", "kcal")
-lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
+lupus %>% CreateTableOne(table_vars, strata = "prev_sle", addOverall = TRUE, data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4)
 
 # FA quartiles by SLE status
@@ -333,9 +333,28 @@ lupus %>%
                         header_count = "(n = %s)",
                         continuous_fn = describeMedian,
                         digits = 2,
-                        statistics = TRUE) %>% 
+                        statistics = TRUE,
+                        add_total_col = TRUE) %>% 
   htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
             tfoot = "P-values were from Mann-Whitney tests")
+
+# Mean (SD)
+lupus %>% 
+  set_column_labels(prev_sle          = "Prevalent SLE", 
+                    p183_ea           = "ALA",
+                    p205p226_ea       = "DHA + EPA",
+                    p205p226_diet_ea  = "DHA + EPA dietary",
+                    n3pfa_ea          = "Omega-3",
+                    n3pfa_diet_ea     = "Omega-3 dietary",
+                    n6pfa_ea          = "Omega-6") %>% 
+  getDescriptionStatsBy(all_of(table_vars), 
+                        by = prev_sle, 
+                        header_count = "(n = %s)",
+                        digits = 2,
+                        statistics = list(continuous = getPvalAnova),
+                        add_total_col = TRUE) %>% 
+  htmlTable(caption = "Mean (SD) energy-adjusted intake of fatty acids (gram/day)",
+            tfoot = "P-values were from two-sample <i>t</i> tests")
 
 # Fish oil supplement
 lupus %>% 

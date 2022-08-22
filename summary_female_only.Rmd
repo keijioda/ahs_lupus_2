@@ -114,7 +114,7 @@ levels(lupus$vegstat3) <- c("Vegetarians", "Vegetarians", "Pesco", "Non-veg", "N
 
 ```{r echo = FALSE}
 table_vars <- c("age", "agecat", "black", "smkever", "alcever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat", "kcal")
-lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
+lupus %>% CreateTableOne(table_vars, strata = "prev_sle", addOverall = TRUE, data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4) %>% 
   kableone()
 ```
@@ -287,9 +287,32 @@ lupus %>%
                         header_count = "(n = %s)",
                         continuous_fn = describeMedian,
                         digits = 2,
-                        statistics = TRUE) %>% 
+                        statistics = TRUE,
+                        add_total_col = TRUE) %>% 
   htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
             tfoot = "P-values were from Mann-Whitney tests")
+```
+
+* Similarly, mean (SD) intake (gram/day) of energy-adjusted ALA, EPA + DHA, total omega-3, and total omega-6 is shown below:
+
+```{r echo = FALSE}
+# Mean (SD)
+lupus %>% 
+  set_column_labels(prev_sle          = "Prevalent SLE", 
+                    p183_ea           = "ALA",
+                    p205p226_ea       = "DHA + EPA",
+                    p205p226_diet_ea  = "DHA + EPA dietary",
+                    n3pfa_ea          = "Omega-3",
+                    n3pfa_diet_ea     = "Omega-3 dietary",
+                    n6pfa_ea          = "Omega-6") %>% 
+  getDescriptionStatsBy(all_of(table_vars), 
+                        by = prev_sle, 
+                        header_count = "(n = %s)",
+                        digits = 2,
+                        statistics = list(continuous = getPvalAnova),
+                        add_total_col = TRUE) %>% 
+  htmlTable(caption = "Mean (SD) energy-adjusted intake of fatty acids (gram/day)",
+            tfoot = "P-values were from two-sample <i>t</i> tests")
 ```
 
 * Proportions of (energy-adjusted) dietary intake out of the total intake (dietary + supplement) are shown below. 
@@ -440,7 +463,7 @@ lupus %>%
 
 * Four logistic models were fitted using prevalent SLE as the outcome.
   * Model 1 includes: quartile groups of omega-3/omega-6, (DHA + EPA)/omega-6, ALA/omaga-6, and kcal (per 100 kcal)
-  * Model 2 adds age groups, race, education level, smoking status (never/ever), and alcohol (never/ever)
+  * Model 2 adds age groups, race, education level, and smoking status (never/ever)
   * Model 3 further adds dietary pattern
   * Model 4 further adds BMI groups
 * The table below shows estimated odds ratios and 95% Wald confidence intervals from each logistic model:
@@ -460,7 +483,6 @@ covar_labels <- c("Kcal/100",
                   "Educ: HS or less",
                   "Educ: Some college",
                   "Smkg: Ever", 
-                  "Alc.: Ever", 
                   "Diet: Vegetarians",
                   "Diet: Pesco veg",
                   "BMI.: Overweight",
@@ -486,7 +508,7 @@ my_stargazer <- function(x){
 
 fm <- formula(prev_sle ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -511,7 +533,7 @@ my_stargazer(models)
 
 * Four logistic models were fitted using prevalent SLE as the outcome.
   * Model 1 includes: quartile groups of omega-3/omega-6 and kcal (per 100 kcal)
-  * Model 2 adds age groups, race, education level, smoking status (never/ever), and alcohol (never/ever)
+  * Model 2 adds age groups, race, education level, and smoking status (never/ever)
   * Model 3 further adds dietary pattern
   * Model 4 further adds BMI groups
 * The table below shows estimated odds ratios and 95% Wald confidence intervals from each logistic model:
@@ -520,7 +542,7 @@ my_stargazer(models)
 # Logistic regression with omega-3/omega-6 ratio
 fm <- formula(prev_sle ~ o3_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -540,7 +562,7 @@ my_stargazer(models)
 # Trend p-values
 getLastPval <- function(x) broom::tidy(x) %>% select(p.value) %>% slice(nrow(.))
 
-Mod1 <- Mod2 <- Mod3 <- Mod4 <- Mod5a <- Mod5b <- list()
+Mod1 <- Mod2 <- Mod3 <- Mod4 <- list()
 
 # Model 1, ratio
 Mod1["o3_o6_cat"] <- update(m1, .~. - o3_o6_cat + as.numeric(o3_o6_cat)) %>% 
@@ -606,7 +628,7 @@ all_trend %>%
 
 * Four logistic models were fitted using prevalent SLE as the outcome.
   * Model 1 includes: quartile groups of (DHA + EPA)/omega-6 and kcal (per 100 kcal)
-  * Model 2 adds age groups, race, education level, smoking status (never/ever), and alcohol (never/ever)
+  * Model 2 adds age groups, race, education level, and smoking status (never/ever)
   * Model 3 further adds dietary pattern
   * Model 4 further adds BMI groups
 * The table below shows estimated odds ratios and 95% Wald confidence intervals from each logistic model:
@@ -615,7 +637,7 @@ all_trend %>%
 # Logistic regression with (DHA + EPA)/omega-6 ratio
 fm <- formula(prev_sle ~ p205p226_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -633,7 +655,7 @@ my_stargazer(models)
 
 ```{r echo = FALSE}
 # Trend p-values
-Mod1 <- Mod2 <- Mod3 <- Mod4 <- Mod5a <- Mod5b <- list()
+Mod1 <- Mod2 <- Mod3 <- Mod4 <- list()
 
 # Model 1, ratio
 Mod1["p205p226_o6_cat"] <- update(m1, .~. - p205p226_o6_cat + as.numeric(p205p226_o6_cat)) %>% 
@@ -699,7 +721,7 @@ all_trend %>%
 
 * Four logistic models were fitted using prevalent SLE as the outcome.
   * Model 1 includes: quartile groups of ALA/omega-6 and kcal (per 100 kcal)
-  * Model 2 adds age groups, race, education level, smoking status (never/ever), and alcohol (never/ever)
+  * Model 2 adds age groups, race, education level, and smoking status (never/ever)
   * Model 3 further adds dietary pattern
   * Model 4 further adds BMI groups
 * The table below shows estimated odds ratios and 95% Wald confidence intervals from each logistic model:
@@ -708,7 +730,7 @@ all_trend %>%
 # Logistic regression with ALA/omega-6 ratio
 fm <- formula(prev_sle ~ p183_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -726,7 +748,7 @@ my_stargazer(models)
 
 ```{r echo = FALSE}
 # Trend p-values
-Mod1 <- Mod2 <- Mod3 <- Mod4 <- Mod5a <- Mod5b <- list()
+Mod1 <- Mod2 <- Mod3 <- Mod4 <- list()
 
 # Model 1, ratio
 Mod1["p183_o6_cat"] <- update(m1, .~. - p183_o6_cat + as.numeric(p183_o6_cat)) %>% 
