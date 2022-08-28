@@ -4982,7 +4982,9 @@ Observations
     ##   p183_o6_cat agecat educat3 vegstat3 bmicat
     ## 1      0.6841 0.6676  0.0856    0.209 0.2508
 
-## Incident cases of SLE
+## Supplementary analysis
+
+### Incident cases of SLE
 
 -   Incident cases of SLE were identified using [HHF3 Question
     10](https://wiki.ahs2.org/_media/hhf3:hhf3-page-03.jpg).
@@ -5212,4 +5214,146 @@ P-values were from Mann-Whitney tests
 </td>
 </tr>
 </tfoot>
+</table>
+
+### Diagnosed versus Treated
+
+-   There are 409 women who said they were diagnosed with SLE. A
+    frequency table below shows that only 195 women were treated within
+    the previous 12 months – among those who were treated (n = 220), 25
+    had a missing on their year of diagnosis.
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+sle
+</th>
+<th style="text-align:right;">
+n
+</th>
+<th style="text-align:right;">
+pct
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Not treated
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+33.74
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Treated
+</td>
+<td style="text-align:right;">
+195
+</td>
+<td style="text-align:right;">
+47.68
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+18.58
+</td>
+</tr>
+</tbody>
+</table>
+
+-   Comparison of supplement use between those who were treated vs not
+    treated among those who were diagnosed:
+    -   Fish oil use was significantly higher among those who were
+        treated.
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+Not treated
+</th>
+<th style="text-align:left;">
+Treated
+</th>
+<th style="text-align:left;">
+p
+</th>
+<th style="text-align:left;">
+test
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+138
+</td>
+<td style="text-align:left;">
+195
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+take_fo (%)
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+124 (89.9)
+</td>
+<td style="text-align:left;">
+147 (75.4)
+</td>
+<td style="text-align:left;">
+0.001
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+14 (10.1)
+</td>
+<td style="text-align:left;">
+48 (24.6)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
 </table>

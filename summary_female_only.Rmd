@@ -810,7 +810,9 @@ all_trend %>%
   map(\(x) round(x, 4))
 ```
 
-## Incident cases of SLE
+## Supplementary analysis
+
+### Incident cases of SLE
 
 ```{r echo = FALSE}
 lupus_inc <- lupus %>%
@@ -879,4 +881,30 @@ lupus_inc %>%
                         statistics = TRUE) %>% 
   htmlTable(caption = "Median (IQR) ratio of fatty acids",
             tfoot = "P-values were from Mann-Whitney tests")
+```
+
+### Diagnosed versus Treated
+
+* There are `r lupus %>% filter(sley > 0) %>% nrow()` women who said they were diagnosed with SLE. A frequency table below shows that only `r lupus %>% filter(sley > 0, sle == 2) %>% nrow()` women were treated within the previous 12 months -- among those who were treated (n = 220), 25 had a missing on their year of diagnosis.
+
+```{r echo = FALSE}
+lupus %>% 
+  filter(sley > 0) %>% 
+  mutate(sle = factor(sle, labels = c("Not treated", "Treated"))) %>% 
+  group_by(sle) %>% 
+  tally() %>% 
+  mutate(pct = round(n / sum(n) * 100, 2)) %>% 
+  knitr::kable()
+```
+
+* Comparison of supplement use between those who were treated vs not treated among those who were diagnosed:
+  * Fish oil use was significantly higher among those who were treated.
+
+```{r echo = FALSE}
+lupus %>% 
+  filter(sley > 0) %>% 
+  mutate(sle = factor(sle, labels = c("Not treated", "Treated"))) %>% 
+  CreateTableOne("take_fo", strata=c("sle"), data =.) %>% 
+  print(showAllLevels = TRUE) %>%   
+  kableone()
 ```

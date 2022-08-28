@@ -1002,23 +1002,20 @@ var_labels <- c("ALA/O6: Q2",
 
 my_stargazer2(models, "ALA_O6.html")
 
-# Analysis during 6/29 meeting
-lupus %>%
-  filter(sley > 0) %>% 
-  CreateTableOne("take_fo", strata=c("sley", "sle"), data =.)
+# Misc analysis
+# Those who were diagnosed
+lupus %>% 
+  filter(sley > 0) %>% nrow()
 
-# Among those who were diagnosed, crosstab between treated and fish oil use
+lupus %>% 
+  filter(sley > 0) %>% 
+  mutate(sle = factor(sle, labels = c("Not treated", "treated"))) %>% 
+  group_by(sle) %>% 
+  tally() %>% 
+  mutate(pct = round(n / sum(n) * 100, 2))
+
 lupus %>% 
   filter(sley > 0) %>% 
   mutate(sle = factor(sle, labels = c("Not treated", "Treated"))) %>% 
-  CreateTableOne("take_fo", strata=c("sle"), data =.)
-
-lupus %>% 
-  filter(sley > 0) %>% 
-  select(sle, take_fo) %>% table(useNA = "ifany")
-
-lupus_inc %>% 
-  CreateTableOne("take_fo", strata = "inc_sle", data = .)
-
-lupus %>% 
-  CreateTableOne("take_fo", strata = "vegstat", data = .)
+  CreateTableOne("take_fo", strata=c("sle"), data =.) %>% 
+  print(showAllLevels = TRUE)
