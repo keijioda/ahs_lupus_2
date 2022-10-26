@@ -908,3 +908,39 @@ lupus %>%
   print(showAllLevels = TRUE) %>%   
   kableone()
 ```
+
+* Among those who use fish oil, there was no significant difference in duration of its use between those who were treated and not treated.
+  
+```{r echo = FALSE}
+lupus %>% 
+  filter(sley > 0, fishoily > 0) %>% 
+  mutate(sle = factor(sle, labels = c("Not treated", "Treated")),
+         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
+  CreateTableOne("fishoily", strata=c("sle"), data =.) %>% 
+  print(showAllLevels = TRUE, exact = "fishoily") %>%   
+  kableone()
+```
+
+* Crosstab between SLE diagnosis year and duration of fish oil use, among those who were not treated:
+
+```{r echo = FALSE}
+lupus %>% 
+  filter(sley > 0, sle == 1) %>% 
+  mutate(sley = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
+         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
+  CreateTableOne("sley", strata=c("fishoily"), data =.) %>% 
+  print(showAllLevels = TRUE, exact = "sley") %>%   
+  kableone()
+```
+
+* Crosstab between SLE diagnosis year and duration of fish oil use, among those who were treated:
+
+```{r echo = FALSE}
+lupus %>% 
+  filter(sley > 0, sle == 2) %>% 
+  mutate(sley = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
+         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
+  CreateTableOne("sley", strata=c("fishoily"), data =.) %>% 
+  print(showAllLevels = TRUE, exact = "sley") %>%   
+  kableone()
+```

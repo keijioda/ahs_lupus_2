@@ -5357,3 +5357,472 @@ Yes
 </tr>
 </tbody>
 </table>
+
+-   Among those who use fish oil, there was no significant difference in
+    duration of its use between those who were treated and not treated.
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+Not treated
+</th>
+<th style="text-align:left;">
+Treated
+</th>
+<th style="text-align:left;">
+p
+</th>
+<th style="text-align:left;">
+test
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+39
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fishoily (%)
+</td>
+<td style="text-align:left;">
+0-1 yr
+</td>
+<td style="text-align:left;">
+3 (23.1)
+</td>
+<td style="text-align:left;">
+15 (38.5)
+</td>
+<td style="text-align:left;">
+0.179
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2-4 yrs
+</td>
+<td style="text-align:left;">
+4 (30.8)
+</td>
+<td style="text-align:left;">
+14 (35.9)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+5-9 yrs
+</td>
+<td style="text-align:left;">
+5 (38.5)
+</td>
+<td style="text-align:left;">
+4 (10.3)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+10+ yrs
+</td>
+<td style="text-align:left;">
+1 ( 7.7)
+</td>
+<td style="text-align:left;">
+6 (15.4)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+
+-   Crosstab between SLE diagnosis year and duration of fish oil use,
+    among those who were not treated:
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+0-1 yr
+</th>
+<th style="text-align:left;">
+2-4 yrs
+</th>
+<th style="text-align:left;">
+5-9 yrs
+</th>
+<th style="text-align:left;">
+10+ yrs
+</th>
+<th style="text-align:left;">
+p
+</th>
+<th style="text-align:left;">
+test
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sley (%)
+</td>
+<td style="text-align:left;">
+\<5 yrs ago
+</td>
+<td style="text-align:left;">
+2 (66.7)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+1 (20.0)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+0.116
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+5-9 yrs ago
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+3 (60.0)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+10-14 yrs ago
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+2 (50.0)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+1 (100.0)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+15-19 yrs ago
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+20+ yrs ago
+</td>
+<td style="text-align:left;">
+1 (33.3)
+</td>
+<td style="text-align:left;">
+2 (50.0)
+</td>
+<td style="text-align:left;">
+1 (20.0)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+
+-   Crosstab between SLE diagnosis year and duration of fish oil use,
+    among those who were treated:
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+0-1 yr
+</th>
+<th style="text-align:left;">
+2-4 yrs
+</th>
+<th style="text-align:left;">
+5-9 yrs
+</th>
+<th style="text-align:left;">
+10+ yrs
+</th>
+<th style="text-align:left;">
+p
+</th>
+<th style="text-align:left;">
+test
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sley (%)
+</td>
+<td style="text-align:left;">
+\<5 yrs ago
+</td>
+<td style="text-align:left;">
+7 (46.7)
+</td>
+<td style="text-align:left;">
+7 (50.0)
+</td>
+<td style="text-align:left;">
+2 (50.0)
+</td>
+<td style="text-align:left;">
+3 (50.0)
+</td>
+<td style="text-align:left;">
+0.935
+</td>
+<td style="text-align:left;">
+exact
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+5-9 yrs ago
+</td>
+<td style="text-align:left;">
+1 ( 6.7)
+</td>
+<td style="text-align:left;">
+1 ( 7.1)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+10-14 yrs ago
+</td>
+<td style="text-align:left;">
+3 (20.0)
+</td>
+<td style="text-align:left;">
+4 (28.6)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+15-19 yrs ago
+</td>
+<td style="text-align:left;">
+2 (13.3)
+</td>
+<td style="text-align:left;">
+1 ( 7.1)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+0 ( 0.0)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+20+ yrs ago
+</td>
+<td style="text-align:left;">
+2 (13.3)
+</td>
+<td style="text-align:left;">
+1 ( 7.1)
+</td>
+<td style="text-align:left;">
+2 (50.0)
+</td>
+<td style="text-align:left;">
+1 (16.7)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>

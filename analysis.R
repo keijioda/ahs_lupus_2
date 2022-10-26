@@ -465,7 +465,7 @@ my_stargazer <- function(x){
 
 fm <- formula(prev_sle ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -488,7 +488,7 @@ my_stargazer(models)
 # Logistic regression with omega-3/omega-6 ratio
 fm <- formula(prev_sle ~ o3_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -569,7 +569,7 @@ all_trend %>%
 # Logistic regression with (DHA + EPA)/omega-6 ratio
 fm <- formula(prev_sle ~ p205p226_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
-m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
+m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
 m4 <- update(m3, .~. + bmicat)
 
@@ -582,6 +582,35 @@ var_labels <- c("DHA+EPA/O6: Q2",
                 covar_labels)
 
 my_stargazer(models)
+
+fa_coefs1 <- models %>% 
+  lapply(\(x) exp(cbind(coef(x)[2:4], confint(x)[2:4,]))) %>% 
+  lapply(\(x) rbind(c(1, NA, NA), x))
+
+df_coefs1 <- do.call(rbind, fa_coefs1) %>% 
+  as.data.frame() %>% 
+  mutate(var = rep(paste0("Q", 1:4), 4),
+         Model = rep(paste("Model", 1:4), each = 4),
+         Estimate = V1,
+         lower = `2.5 %`,
+         upper = `97.5 %`,
+         symbol = factor(rep(c(1, 2, 2, 2), 4))) %>% 
+  select(var:symbol)
+
+p1 <- df_coefs1 %>% 
+  ggplot(aes(x = var, y = Estimate, group = symbol)) +
+  geom_point(aes(shape = symbol), size = 4) +
+  scale_shape_manual(values=c(16, 15)) +
+  geom_hline(yintercept = 1, linetype = 2) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2) +
+  scale_x_discrete(labels = c("Q1 \n(Ref)", "Q2", "Q3", "Q4")) +
+  ylim(0, 3) +
+  facet_grid(~Model) +
+  labs(x = "Quartiles of (DHA + EPA) / Omega-6", y = "Odds ratio for (DHA + EPA) / Omega-6") +
+  theme(legend.position = "none", 
+        axis.title.x = element_text(size = 16), 
+        axis.text = element_text(size = 12),
+        strip.text.x = element_text(size = 12))
 
 # Trend p-values
 Mod1 <- Mod2 <- Mod3 <- Mod4 <- Mod5a <- Mod5b <- list()
@@ -645,6 +674,15 @@ all_trend %>%
   map(as.data.frame) %>% 
   map(\(x) round(x, 4))
 
+pval1 <- all_trend %>% 
+  map(as.numeric) %>% 
+  map_dbl(\(x) x[1]) %>% 
+  scales::pvalue(accuracy = 0.0001) %>% 
+  paste("p trend =", .)
+
+ann_text <- data.frame(Model = rep(paste("Model", 1:4)), label = pval1, symbol = NA)
+p1b <- p1 + geom_text(data = ann_text, aes(x = 1, y = 3, label = label), hjust = 0.1)
+
 # Logistic regression with ALA/omega-6 ratio
 fm <- formula(prev_sle ~ p183_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
@@ -662,6 +700,34 @@ var_labels <- c("ALA/O6: Q2",
 
 my_stargazer(models)
 
+fa_coefs2 <- models %>% 
+  lapply(\(x) exp(cbind(coef(x)[2:4], confint(x)[2:4,]))) %>% 
+  lapply(\(x) rbind(c(1, NA, NA), x))
+
+df_coefs2 <- do.call(rbind, fa_coefs2) %>% 
+  as.data.frame() %>% 
+  mutate(var = rep(paste0("Q", 1:4), 4),
+         Model = rep(paste("Model", 1:4), each = 4),
+         Estimate = V1,
+         lower = `2.5 %`,
+         upper = `97.5 %`,
+         symbol = factor(rep(c(1, 2, 2, 2), 4))) %>% 
+  select(var:symbol)
+
+p2 <- df_coefs2 %>% 
+  ggplot(aes(x = var, y = Estimate, group = symbol)) +
+  geom_point(aes(shape = symbol), size = 4) +
+  scale_shape_manual(values=c(16, 15)) +
+  geom_hline(yintercept = 1, linetype = 2) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2) +
+  scale_x_discrete(labels = c("Q1 \n(Ref)", "Q2", "Q3", "Q4")) +
+  ylim(0, 3) +
+  facet_grid(~Model) +
+  labs(x = "Quartiles of ALA / Omega-6", y = "Odds ratio for ALA / Omega-6") +
+  theme(legend.position = "none", 
+        axis.title.x = element_text(size = 16), 
+        axis.text = element_text(size = 12),
+        strip.text.x = element_text(size = 12))
 
 # Trend p-values
 Mod1 <- Mod2 <- Mod3 <- Mod4 <- Mod5a <- Mod5b <- list()
@@ -724,6 +790,20 @@ names(all_trend) <- c("Model 1", "Model 2", "Model 3", "Model 4")
 all_trend %>% 
   map(as.data.frame) %>% 
   map(\(x) round(x, 4))
+
+pval2 <- all_trend %>% 
+  map(as.numeric) %>% 
+  map_dbl(\(x) x[1]) %>% 
+  scales::pvalue(accuracy = 0.0001) %>% 
+  paste("p trend =", .)
+
+ann_text <- data.frame(Model = rep(paste("Model", 1:4)), label = pval2, symbol = NA)
+p2b <- p2 + geom_text(data = ann_text, aes(x = 1, y = 3, label = label), hjust = 0.1)
+
+library(patchwork)
+pdf("OR_figure.pdf", width = 10, height = 8)
+p1b / p2b
+dev.off()
 
 # Fishoil use and timing of dx
 sle_lab  <- paste(c("<5", "5-9", "10-14", "15-19", "20+"), "years ago")
@@ -1019,3 +1099,34 @@ lupus %>%
   mutate(sle = factor(sle, labels = c("Not treated", "Treated"))) %>% 
   CreateTableOne("take_fo", strata=c("sle"), data =.) %>% 
   print(showAllLevels = TRUE)
+
+# Treated in the last 12 months, known diagnosis year
+treated <- lupus %>% 
+  filter(sle == 2, sley > 0)
+
+# Duration of fish oil use among those diagnosed with SLE
+# By treated and not-treated
+lupus %>% 
+  filter(sley > 0, fishoily > 0) %>% 
+  mutate(sle = factor(sle, labels = c("Not treated", "Treated")),
+         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
+  CreateTableOne("fishoily", strata=c("sle"), data =.) %>% 
+  print(showAllLevels = TRUE, exact = "fishoily")
+
+# Crosstab between SLE diagnosis year and duration of fish oil use
+# among those who are not treated
+lupus %>% 
+  filter(sley > 0, sle == 1) %>% 
+  mutate(sley = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
+         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
+  CreateTableOne("sley", strata=c("fishoily"), data =.) %>% 
+  print(showAllLevels = TRUE, exact = "sley")
+
+# among those who are treated
+lupus %>% 
+  filter(sley > 0, sle == 2) %>% 
+  mutate(sley = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
+         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
+  CreateTableOne("sley", strata=c("fishoily"), data =.) %>% 
+  print(showAllLevels = TRUE, exact = "sley")
+
