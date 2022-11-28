@@ -944,3 +944,51 @@ lupus %>%
   print(showAllLevels = TRUE, exact = "sley") %>%   
   kableone()
 ```
+
+* SLE status was classified into 3 groups: Those who were not dianosed, those who were diagnosed and not treated in the last 12 months, and those who were diagnosed and treated in the last 12 months. See the table below for comparisons of omega-3 and omega-6 FA intake:
+
+```{r echo = FALSE}
+# Compare FAs
+table_vars <- c("p183_ea", "p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea", "n6pfa_ea")
+
+# Table by SLE status
+lupus %>% 
+  mutate(sle_status = case_when(
+    sley > 0 & sle == 2 ~ "Treated 12 mo",
+    sley > 0 & sle == 1 ~ "Not treated 12 mo",
+    prev_sle == "No" ~ "Not diagnosed"
+  )) %>% 
+  CreateTableOne(table_vars, strata = "sle_status", data = .) %>%
+  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars) %>% 
+  kableone()
+```
+
+* Similarly, comparing their supplement use (fish oil or codliver, yes/no):
+
+```{r echo = FALSE}
+lupus %>% 
+  mutate(sle_status = case_when(
+    sley > 0 & sle == 2 ~ "Treated 12 mo",
+    sley > 0 & sle == 1 ~ "Not treated 12 mo",
+    prev_sle == "No" ~ "Not diagnosed"
+  )) %>% 
+  CreateTableOne("take_fo", strata = "sle_status", data = .) %>%
+  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars) %>%   
+  kableone()
+```
+
+* The crosstab of SLE status by duration of fish oil use, among those who use it:
+
+```{r echo = FALSE}
+lupus %>% 
+  filter(fishoil == 2, !is.na(fishoily)) %>% 
+  mutate(sle_status = case_when(
+    sley > 0 & sle == 2 ~ "Treated 12 mo",
+    sley > 0 & sle == 1 ~ "Not treated 12 mo",
+    prev_sle == "No" ~ "Not diagnosed"
+  ),
+  fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
+  CreateTableOne("fishoily", strata = "sle_status", data = .) %>%
+  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars) %>%   
+  kableone()
+```

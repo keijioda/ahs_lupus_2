@@ -3,36 +3,34 @@ AHS-2 lupus study 2
 
 ## Dataset
 
--   Filename: `lupus-initial-dataset-v1-2022-04-25.csv`
-    -   Data received on 4/25/2022
-    -   Includes *n* = 93467 subjects and 118 variables
-    -   No imputations
--   To create an analytic file:
-    -   Included only non-Hispanic White or Black
-    -   Excluded if age at baseline \< 30 years
-    -   Excluded extreme energy intake of \<500 or \>4500 kcal
-    -   Excluded any subjects with missing gender, education, smoking
-        history, dietary pattern and BMI
-    -   **Included only females in this analysis**
-    -   This resulted in *n* = 50299 subjects (43168 subjects were
-        excluded)
+- Filename: `lupus-initial-dataset-v1-2022-04-25.csv`
+  - Data received on 4/25/2022
+  - Includes *n* = 93467 subjects and 118 variables
+  - No imputations
+- To create an analytic file:
+  - Included only non-Hispanic White or Black
+  - Excluded if age at baseline \< 30 years
+  - Excluded extreme energy intake of \<500 or \>4500 kcal
+  - Excluded any subjects with missing gender, education, smoking
+    history, dietary pattern and BMI
+  - **Included only females in this analysis**
+  - This resulted in *n* = 50299 subjects (43168 subjects were excluded)
 
 ## Outcome
 
--   Prevalent cases of SLE were identified using the baseline
-    questionnaire
-    -   Includes only those who “have been treated for SLE in the last
-        12 months” at baseline
-    -   (“Years since the 1st diagnosis” was not used, following the
-        case definition in the manuscript)
--   There were 220 prevalent cases (0.44%) of SLE
+- Prevalent cases of SLE were identified using the baseline
+  questionnaire
+  - Includes only those who “have been treated for SLE in the last 12
+    months” at baseline
+  - (“Years since the 1st diagnosis” was not used, following the case
+    definition in the manuscript)
+- There were 220 prevalent cases (0.44%) of SLE
 
 ## Descriptive table
 
--   Descriptive table stratified by cases/non-cases
-    -   Variables were categorized following the original manuscript
-    -   Use of fish oil supplement (`take_fo`) now includes cod liver
-        oil
+- Descriptive table stratified by cases/non-cases
+  - Variables were categorized following the original manuscript
+  - Use of fish oil supplement (`take_fo`) now includes cod liver oil
 
 <table>
 <thead>
@@ -564,9 +562,9 @@ kcal (mean (SD))
 
 ## Diagnosis of SLE and use of fish oil supplement
 
--   Among those who were diagnosed with SLE and takes fish oil
-    supplement, a crosstab was created between years since diagnosis and
-    the duration of fish oil supplement use:
+- Among those who were diagnosed with SLE and takes fish oil supplement,
+  a crosstab was created between years since diagnosis and the duration
+  of fish oil supplement use:
 
 <table>
 <thead>
@@ -731,8 +729,8 @@ Total
 
 ## Energy-adjusted fatty acid intake
 
--   The nutrient intake data include the following fatty acids
-    -   Each FA has both dietary and supplement intake
+- The nutrient intake data include the following fatty acids
+  - Each FA has both dietary and supplement intake
 
 <table>
 <thead>
@@ -829,34 +827,34 @@ Omega-6
 </tbody>
 </table>
 
--   For each FA, its dietary intake was energy-adjusted by the residual
-    method, while partitioning zero intake ([Jaceldo-Siegl et al.,
-    2011](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3433053/)). Due
-    to its highly right-skewed distribution, non-zero intake was
-    log-transformed before being regressed on the total energy intake.
-    Residuals were added by the mean of log and then back-transformed to
-    obtain energy-adjusted dietary intake. Energy-adjusted dietary
-    intake was added with (unadjusted) supplement intake to form
-    energy-adjuste total intake.
-    -   Energy-adjusted total omega-3 fatty acid intake was calculated
-        as the sum of the following energy-adjusted FAs: ALA, SDA, EPA,
-        DPA and DHA.
-    -   Energy-adjusted total omega-6 fatty acid intake was calculated
-        as the sum of the following energy-adjusted FAs: LA, AA
--   Distributions of energy-adjusted ALA, EPA + DHA, total omega-3, and
-    total omega-6 are highly right-skewed:
+- For each FA, its dietary intake was energy-adjusted by the residual
+  method, while partitioning zero intake ([Jaceldo-Siegl et al.,
+  2011](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3433053/)). Due to
+  its highly right-skewed distribution, non-zero intake was
+  log-transformed before being regressed on the total energy intake.
+  Residuals were added by the mean of log and then back-transformed to
+  obtain energy-adjusted dietary intake. Energy-adjusted dietary intake
+  was added with (unadjusted) supplement intake to form energy-adjuste
+  total intake.
+  - Energy-adjusted total omega-3 fatty acid intake was calculated as
+    the sum of the following energy-adjusted FAs: ALA, SDA, EPA, DPA and
+    DHA.
+  - Energy-adjusted total omega-6 fatty acid intake was calculated as
+    the sum of the following energy-adjusted FAs: LA, AA
+- Distributions of energy-adjusted ALA, EPA + DHA, total omega-3, and
+  total omega-6 are highly right-skewed:
 
 ![](summary_female_only_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
--   Density plots by prevalent SLE status are shown below. Note that the
-    x-axis is in a pseudo-log scale:
+- Density plots by prevalent SLE status are shown below. Note that the
+  x-axis is in a pseudo-log scale:
 
 ![](summary_female_only_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
--   A Spearman correlation matrix among energy-adjusted ALA, EPA + DHA,
-    total omega-3, and total omega-6 is shown below
-    -   ALA is moderately positively correlated with omega-3 and omega-6
-        fatty acids.
+- A Spearman correlation matrix among energy-adjusted ALA, EPA + DHA,
+  total omega-3, and total omega-6 is shown below
+  - ALA is moderately positively correlated with omega-3 and omega-6
+    fatty acids.
 
 <table>
 <thead>
@@ -949,10 +947,10 @@ n6pfa_ea
 </tbody>
 </table>
 
--   Median (IQR) intake (gram/day) of energy-adjusted ALA, EPA + DHA,
-    total omega-3, and total omega-6 by cases/non-cases:
-    -   For EPA + DHA, those with SLE had significantly higher intake
-        than those without SLE.
+- Median (IQR) intake (gram/day) of energy-adjusted ALA, EPA + DHA,
+  total omega-3, and total omega-6 by cases/non-cases:
+  - For EPA + DHA, those with SLE had significantly higher intake than
+    those without SLE.
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
@@ -1091,8 +1089,8 @@ P-values were from Mann-Whitney tests
 </tfoot>
 </table>
 
--   Similarly, mean (SD) intake (gram/day) of energy-adjusted ALA, EPA +
-    DHA, total omega-3, and total omega-6 is shown below:
+- Similarly, mean (SD) intake (gram/day) of energy-adjusted ALA, EPA +
+  DHA, total omega-3, and total omega-6 is shown below:
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
@@ -1231,10 +1229,10 @@ P-values were from two-sample <i>t</i> tests
 </tfoot>
 </table>
 
--   Proportions of (energy-adjusted) dietary intake out of the total
-    intake (dietary + supplement) are shown below.
-    -   Over 90% of the total intake were from dietary intake, not
-        supplements.
+- Proportions of (energy-adjusted) dietary intake out of the total
+  intake (dietary + supplement) are shown below.
+  - Over 90% of the total intake were from dietary intake, not
+    supplements.
 
 <table>
 <thead>
@@ -1283,10 +1281,10 @@ n6pfa_diet_ratio
 </tbody>
 </table>
 
--   Intake of fatty acids (dietary and total) among those who use fish
-    oil supplement:
-    -   Total intake of EPA + DHA is much greater, and most of its
-        intake is from supplementary sources
+- Intake of fatty acids (dietary and total) among those who use fish oil
+  supplement:
+  - Total intake of EPA + DHA is much greater, and most of its intake is
+    from supplementary sources
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
@@ -1376,17 +1374,16 @@ P-values were from Mann-Whitney tests
 </tfoot>
 </table>
 
--   Three ratios of fatty acids, Omega-3/Omega-6, (DHA + EPA)/Omega-6,
-    ALA/Omega-6, were calculated based on energy-adjusted intake, i.e.,
-    both the numerator and denominator were energy-adjusted values.
-    -   Distribution of the three ratios were highly right-skewed:
+- Three ratios of fatty acids, Omega-3/Omega-6, (DHA + EPA)/Omega-6,
+  ALA/Omega-6, were calculated based on energy-adjusted intake, i.e.,
+  both the numerator and denominator were energy-adjusted values.
+  - Distribution of the three ratios were highly right-skewed:
 
 ![](summary_female_only_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
--   A Spearman correlation matrix among three ratio variables is shown
-    below.
-    -   Omega-3/omema-6 ratio is highly correlated with ALA/omega-6
-        ratio.
+- A Spearman correlation matrix among three ratio variables is shown
+  below.
+  - Omega-3/omema-6 ratio is highly correlated with ALA/omega-6 ratio.
 
 <table>
 <thead>
@@ -1450,10 +1447,9 @@ p183_o6
 </tbody>
 </table>
 
--   Median (IQR) ratio of energy-adjusted fatty acids by
-    cases/non-cases:
-    -   For all ratios, those with SLE had significantly higher intake
-        than those without SLE.
+- Median (IQR) ratio of energy-adjusted fatty acids by cases/non-cases:
+  - For all ratios, those with SLE had significantly higher intake than
+    those without SLE.
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
@@ -1531,11 +1527,11 @@ P-values were from Mann-Whitney tests
 
 ## Quartiles of FA ratios
 
--   The three FA ratio variables were categorized into quartile groups.
-    Frequency tables by SLE status were shown below
-    -   For omega-3/omega-6 and (DHA + EPA)/omega-6, the SLE group had
-        significantly more subjects in higher quartile groups, compared
-        to the non-SLE group.
+- The three FA ratio variables were categorized into quartile groups.
+  Frequency tables by SLE status were shown below
+  - For omega-3/omega-6 and (DHA + EPA)/omega-6, the SLE group had
+    significantly more subjects in higher quartile groups, compared to
+    the non-SLE group.
 
 <table>
 <thead>
@@ -1790,7 +1786,7 @@ p183_o6_cat (%)
 </tbody>
 </table>
 
--   Cut-off values of quartiles were shown below:
+- Cut-off values of quartiles were shown below:
 
 <table>
 <thead>
@@ -1978,15 +1974,15 @@ max
 
 ## Logistic models with all three ratio variables
 
--   Four logistic models were fitted using prevalent SLE as the outcome.
-    -   Model 1 includes: quartile groups of omega-3/omega-6, (DHA +
-        EPA)/omega-6, ALA/omaga-6, and kcal (per 100 kcal)
-    -   Model 2 adds age groups, race, education level, and smoking
-        status (never/ever)
-    -   Model 3 further adds dietary pattern
-    -   Model 4 further adds BMI groups
--   The table below shows estimated odds ratios and 95% Wald confidence
-    intervals from each logistic model:
+- Four logistic models were fitted using prevalent SLE as the outcome.
+  - Model 1 includes: quartile groups of omega-3/omega-6, (DHA +
+    EPA)/omega-6, ALA/omaga-6, and kcal (per 100 kcal)
+  - Model 2 adds age groups, race, education level, and smoking status
+    (never/ever)
+  - Model 3 further adds dietary pattern
+  - Model 4 further adds BMI groups
+- The table below shows estimated odds ratios and 95% Wald confidence
+  intervals from each logistic model:
 
 <table style="text-align:center">
 <tr>
@@ -2917,15 +2913,15 @@ Observations
 
 ## Logistic models with omega-3/omega-6 ratio
 
--   Four logistic models were fitted using prevalent SLE as the outcome.
-    -   Model 1 includes: quartile groups of omega-3/omega-6 and kcal
-        (per 100 kcal)
-    -   Model 2 adds age groups, race, education level, and smoking
-        status (never/ever)
-    -   Model 3 further adds dietary pattern
-    -   Model 4 further adds BMI groups
--   The table below shows estimated odds ratios and 95% Wald confidence
-    intervals from each logistic model:
+- Four logistic models were fitted using prevalent SLE as the outcome.
+  - Model 1 includes: quartile groups of omega-3/omega-6 and kcal (per
+    100 kcal)
+  - Model 2 adds age groups, race, education level, and smoking status
+    (never/ever)
+  - Model 3 further adds dietary pattern
+  - Model 4 further adds BMI groups
+- The table below shows estimated odds ratios and 95% Wald confidence
+  intervals from each logistic model:
 
 <table style="text-align:center">
 <tr>
@@ -3584,7 +3580,7 @@ Observations
 </tr>
 </table>
 
--   P-values for trend are shown below:
+- P-values for trend are shown below:
 
 <!-- -->
 
@@ -3606,15 +3602,15 @@ Observations
 
 ## Logistic models with (DHA + EPA)/omega-6 ratio
 
--   Four logistic models were fitted using prevalent SLE as the outcome.
-    -   Model 1 includes: quartile groups of (DHA + EPA)/omega-6 and
-        kcal (per 100 kcal)
-    -   Model 2 adds age groups, race, education level, and smoking
-        status (never/ever)
-    -   Model 3 further adds dietary pattern
-    -   Model 4 further adds BMI groups
--   The table below shows estimated odds ratios and 95% Wald confidence
-    intervals from each logistic model:
+- Four logistic models were fitted using prevalent SLE as the outcome.
+  - Model 1 includes: quartile groups of (DHA + EPA)/omega-6 and kcal
+    (per 100 kcal)
+  - Model 2 adds age groups, race, education level, and smoking status
+    (never/ever)
+  - Model 3 further adds dietary pattern
+  - Model 4 further adds BMI groups
+- The table below shows estimated odds ratios and 95% Wald confidence
+  intervals from each logistic model:
 
 <table style="text-align:center">
 <tr>
@@ -4273,7 +4269,7 @@ Observations
 </tr>
 </table>
 
--   P-values for trend are shown below:
+- P-values for trend are shown below:
 
 <!-- -->
 
@@ -4295,15 +4291,15 @@ Observations
 
 ## Logistic models with ALA/omega-6 ratio
 
--   Four logistic models were fitted using prevalent SLE as the outcome.
-    -   Model 1 includes: quartile groups of ALA/omega-6 and kcal (per
-        100 kcal)
-    -   Model 2 adds age groups, race, education level, and smoking
-        status (never/ever)
-    -   Model 3 further adds dietary pattern
-    -   Model 4 further adds BMI groups
--   The table below shows estimated odds ratios and 95% Wald confidence
-    intervals from each logistic model:
+- Four logistic models were fitted using prevalent SLE as the outcome.
+  - Model 1 includes: quartile groups of ALA/omega-6 and kcal (per 100
+    kcal)
+  - Model 2 adds age groups, race, education level, and smoking status
+    (never/ever)
+  - Model 3 further adds dietary pattern
+  - Model 4 further adds BMI groups
+- The table below shows estimated odds ratios and 95% Wald confidence
+  intervals from each logistic model:
 
 <table style="text-align:center">
 <tr>
@@ -4962,7 +4958,7 @@ Observations
 </tr>
 </table>
 
--   P-values for trend are shown below:
+- P-values for trend are shown below:
 
 <!-- -->
 
@@ -4986,17 +4982,17 @@ Observations
 
 ### Incident cases of SLE
 
--   Incident cases of SLE were identified using [HHF3 Question
-    10](https://wiki.ahs2.org/_media/hhf3:hhf3-page-03.jpg).
-    -   There were *n* = 35144 subjects who returned HHF3 questionnaire.
-        This included 137 prevalent cases at baseline.
-    -   The question asked when they were first diagnosed with SLE after
-        2001 in three time periods: 2002-2004, 2005-2006, and 2007-2008.
-    -   There were 98 participants who indicated their first diagnosis
-        after 2001. However, after excluding prevalent cases, there were
-        64 incident cases of SLE. Among them, 25 cases indicated that
-        they were treated for SLE for the past 12 months.
--   A frequency table of diagnosis periods:
+- Incident cases of SLE were identified using [HHF3 Question
+  10](https://wiki.ahs2.org/_media/hhf3:hhf3-page-03.jpg).
+  - There were *n* = 35144 subjects who returned HHF3 questionnaire.
+    This included 137 prevalent cases at baseline.
+  - The question asked when they were first diagnosed with SLE after
+    2001 in three time periods: 2002-2004, 2005-2006, and 2007-2008.
+  - There were 98 participants who indicated their first diagnosis
+    after 2001. However, after excluding prevalent cases, there were 64
+    incident cases of SLE. Among them, 25 cases indicated that they were
+    treated for SLE for the past 12 months.
+- A frequency table of diagnosis periods:
 
 <table>
 <thead>
@@ -5049,7 +5045,7 @@ Percent
 </tbody>
 </table>
 
--   Energy-adjusted FA intake was compared between cases and non-cases.
+- Energy-adjusted FA intake was compared between cases and non-cases.
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
@@ -5139,8 +5135,8 @@ P-values were from Mann-Whitney tests
 </tfoot>
 </table>
 
--   Ratios of energy-adjusted FA intake were compared between cases and
-    non-cases.
+- Ratios of energy-adjusted FA intake were compared between cases and
+  non-cases.
 
 <table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
 <thead>
@@ -5218,10 +5214,10 @@ P-values were from Mann-Whitney tests
 
 ### Diagnosed versus Treated
 
--   There are 409 women who said they were diagnosed with SLE. A
-    frequency table below shows that only 195 women were treated within
-    the previous 12 months – among those who were treated (n = 220), 25
-    had a missing on their year of diagnosis.
+- There are 409 women who said they were diagnosed with SLE. A frequency
+  table below shows that only 195 women were treated within the previous
+  12 months – among those who were treated (n = 220), 25 had a missing
+  on their year of diagnosis.
 
 <table>
 <thead>
@@ -5274,10 +5270,9 @@ NA
 </tbody>
 </table>
 
--   Comparison of supplement use between those who were treated vs not
-    treated among those who were diagnosed:
-    -   Fish oil use was significantly higher among those who were
-        treated.
+- Comparison of supplement use between those who were treated vs not
+  treated among those who were diagnosed:
+  - Fish oil use was significantly higher among those who were treated.
 
 <table>
 <thead>
@@ -5358,8 +5353,8 @@ Yes
 </tbody>
 </table>
 
--   Among those who use fish oil, there was no significant difference in
-    duration of its use between those who were treated and not treated.
+- Among those who use fish oil, there was no significant difference in
+  duration of its use between those who were treated and not treated.
 
 <table>
 <thead>
@@ -5475,8 +5470,8 @@ exact
 </tbody>
 </table>
 
--   Crosstab between SLE diagnosis year and duration of fish oil use,
-    among those who were not treated:
+- Crosstab between SLE diagnosis year and duration of fish oil use,
+  among those who were not treated:
 
 <table>
 <thead>
@@ -5651,8 +5646,8 @@ exact
 </tbody>
 </table>
 
--   Crosstab between SLE diagnosis year and duration of fish oil use,
-    among those who were treated:
+- Crosstab between SLE diagnosis year and duration of fish oil use,
+  among those who were treated:
 
 <table>
 <thead>
@@ -5818,6 +5813,420 @@ exact
 </td>
 <td style="text-align:left;">
 1 (16.7)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+
+- SLE status was classified into 3 groups: Those who were not dianosed,
+  those who were diagnosed and not treated in the last 12 months, and
+  those who were diagnosed and treated in the last 12 months. See the
+  table below for comparisons of omega-3 and omega-6 FA intake:
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+Not diagnosed
+</th>
+<th style="text-align:left;">
+Not treated 12 mo
+</th>
+<th style="text-align:left;">
+Treated 12 mo
+</th>
+<th style="text-align:left;">
+p
+</th>
+<th style="text-align:left;">
+test
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+49941
+</td>
+<td style="text-align:left;">
+138
+</td>
+<td style="text-align:left;">
+195
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p183_ea (median \[IQR\])
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1.40 \[1.11, 1.76\]
+</td>
+<td style="text-align:left;">
+1.47 \[1.16, 1.81\]
+</td>
+<td style="text-align:left;">
+1.39 \[1.13, 1.75\]
+</td>
+<td style="text-align:left;">
+0.4545
+</td>
+<td style="text-align:left;">
+nonnorm
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p205p226_ea (median \[IQR\])
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.03 \[0.00, 0.18\]
+</td>
+<td style="text-align:left;">
+0.04 \[0.00, 0.18\]
+</td>
+<td style="text-align:left;">
+0.10 \[0.01, 0.30\]
+</td>
+<td style="text-align:left;">
+0.0001
+</td>
+<td style="text-align:left;">
+nonnorm
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p205p226_diet_ea (median \[IQR\])
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+0.02 \[0.00, 0.14\]
+</td>
+<td style="text-align:left;">
+0.02 \[0.00, 0.16\]
+</td>
+<td style="text-align:left;">
+0.05 \[0.00, 0.17\]
+</td>
+<td style="text-align:left;">
+0.0076
+</td>
+<td style="text-align:left;">
+nonnorm
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+n3pfa_ea (median \[IQR\])
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1.55 \[1.22, 1.97\]
+</td>
+<td style="text-align:left;">
+1.65 \[1.30, 2.02\]
+</td>
+<td style="text-align:left;">
+1.62 \[1.30, 2.05\]
+</td>
+<td style="text-align:left;">
+0.0547
+</td>
+<td style="text-align:left;">
+nonnorm
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+n3pfa_diet_ea (median \[IQR\])
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1.51 \[1.19, 1.89\]
+</td>
+<td style="text-align:left;">
+1.60 \[1.29, 1.95\]
+</td>
+<td style="text-align:left;">
+1.55 \[1.23, 1.87\]
+</td>
+<td style="text-align:left;">
+0.1720
+</td>
+<td style="text-align:left;">
+nonnorm
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+n6pfa_ea (median \[IQR\])
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+13.73 \[10.96, 16.70\]
+</td>
+<td style="text-align:left;">
+13.71 \[11.67, 16.92\]
+</td>
+<td style="text-align:left;">
+13.46 \[10.35, 16.29\]
+</td>
+<td style="text-align:left;">
+0.3490
+</td>
+<td style="text-align:left;">
+nonnorm
+</td>
+</tr>
+</tbody>
+</table>
+
+- Similarly, comparing their supplement use (fish oil or codliver,
+  yes/no):
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+Not diagnosed
+</th>
+<th style="text-align:left;">
+Not treated 12 mo
+</th>
+<th style="text-align:left;">
+Treated 12 mo
+</th>
+<th style="text-align:left;">
+p
+</th>
+<th style="text-align:left;">
+test
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+49941
+</td>
+<td style="text-align:left;">
+138
+</td>
+<td style="text-align:left;">
+195
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+take_fo (%)
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+43681 (87.5)
+</td>
+<td style="text-align:left;">
+124 (89.9)
+</td>
+<td style="text-align:left;">
+147 (75.4)
+</td>
+<td style="text-align:left;">
+\<0.0001
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+6260 (12.5)
+</td>
+<td style="text-align:left;">
+14 (10.1)
+</td>
+<td style="text-align:left;">
+48 (24.6)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+</tbody>
+</table>
+
+- The crosstab of SLE status by duration of fish oil use, among those
+  who use it:
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:left;">
+Not diagnosed
+</th>
+<th style="text-align:left;">
+Not treated 12 mo
+</th>
+<th style="text-align:left;">
+Treated 12 mo
+</th>
+<th style="text-align:left;">
+p
+</th>
+<th style="text-align:left;">
+test
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+n
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+5293
+</td>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+39
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fishoily (%)
+</td>
+<td style="text-align:left;">
+0-1 yr
+</td>
+<td style="text-align:left;">
+2567 (48.5)
+</td>
+<td style="text-align:left;">
+3 (23.1)
+</td>
+<td style="text-align:left;">
+15 (38.5)
+</td>
+<td style="text-align:left;">
+0.0493
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+2-4 yrs
+</td>
+<td style="text-align:left;">
+1628 (30.8)
+</td>
+<td style="text-align:left;">
+4 (30.8)
+</td>
+<td style="text-align:left;">
+14 (35.9)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+5-9 yrs
+</td>
+<td style="text-align:left;">
+614 (11.6)
+</td>
+<td style="text-align:left;">
+5 (38.5)
+</td>
+<td style="text-align:left;">
+4 (10.3)
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+10+ yrs
+</td>
+<td style="text-align:left;">
+484 ( 9.1)
+</td>
+<td style="text-align:left;">
+1 ( 7.7)
+</td>
+<td style="text-align:left;">
+6 (15.4)
 </td>
 <td style="text-align:left;">
 </td>
