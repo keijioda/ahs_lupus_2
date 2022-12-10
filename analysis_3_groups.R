@@ -44,8 +44,8 @@ dim(lupus0)
 n_check <- lupus0 %>% 
   mutate(
     age = ifelse(age < 30, NA, age),
-    agecat = cut(age, breaks = c(0, 40, 60, Inf), right = FALSE),
-    agecat = factor(agecat, labels = c("30-39", "40-59", ">=60")),
+    agecat = cut(age, breaks = c(0, 50, 60, Inf), right = FALSE),
+    agecat = factor(agecat, labels = c("30-49", "50-59", ">=60")),
     sex = factor(sex, labels = c("Female", "Male")),
     black = case_when(
       ethyou == "01" ~ 0,
@@ -81,8 +81,8 @@ n_check %>% filter(age >= 30, sex == "Female", !is.na(black)) %>%
 lupus <- lupus0 %>%
   mutate(
     age = ifelse(age < 30, NA, age),
-    agecat = cut(age, breaks = c(0, 40, 60, Inf), right = FALSE),
-    agecat = factor(agecat, labels = c("30-39", "40-59", ">=60")),
+    agecat = cut(age, breaks = c(0, 50, 60, Inf), right = FALSE),
+    agecat = factor(agecat, labels = c("30-49", "50-59", ">=60")),
     sex = factor(sex, labels = c("Female", "Male")),
     black = case_when(
       ethyou == "01" ~ 0,
@@ -110,21 +110,26 @@ lupus <- lupus0 %>%
     prev_sle = ifelse(!is.na(sle) & sle == 2, 1, 0),
     prev_sle = factor(prev_sle, labels = c("No", "Yes")),
     p182     = p182diet + p182supp,
-    p204     = p204diet + p204supp) %>% 
+    p204     = p204diet + p204supp,
+    sle_group = case_when(
+      sley >= 1 & sle == 1   ~ 1,
+      sley >= 1 & is.na(sle) ~ NA_real_,    
+      sle == 2               ~ 2,
+      TRUE                   ~ 0),
+    sle_group = factor(sle_group, labels = c("No_Diag", "Diag_Tx_No", "Diag_Tx_Yes")),
+    sle_diag  = ifelse(sle_group == "No_Diag", 0, 1)
+    ) %>% 
   drop_na(sex, age, black, vege_group_gen_bl, smkever, alcever, educat3, bmi) %>% 
   filter(kcal >= 500 & kcal <= 4500) %>% 
-  filter(sex == "Female")
+  filter(sex == "Female", !is.na(sle_group))
 
 levels(lupus$vegstat) <- c("Vegans", "Lacto-ovo", "Pesco", "Semi", "Non-veg")
 levels(lupus$vegstat3) <- c("Vegetarians", "Vegetarians", "Pesco", "Non-veg", "Non-veg")
 
-# Include alcohol intake into the model? Never/ever
-lupus_f %>% filter(alcnow == 1)  %>% select(prev_sle) %>% table()
-lupus_f %>% filter(alcohol == 2) %>% select(prev_sle) %>% table()
-
-# Yields n = 77,795 and n.cases = 237
+# Excluded those who were diagnosed, but missing if treated or not
+# Yields n = 50,223
 dim(lupus)
-lupus %>% count(prev_sle) %>% mutate(pct = n / sum(n) * 100)
+lupus %>% count(sle_group) %>% mutate(pct = n / sum(n) * 100)
 
 # Nutrients
 names(lupus)
@@ -251,13 +256,13 @@ lupus <- lupus %>%
 
 # Descriptive table
 # Demographics and lifestyles
-table_vars <- c("age", "agecat", "black", "sex", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat", "kcal")
-lupus %>% CreateTableOne(table_vars, strata = "prev_sle", addOverall = TRUE, data = .) %>%
+table_vars <- c("age", "agecat", "black", "smkever", "educat3", "vegstat3", "take_fo", "bmi", "bmicat", "kcal")
+lupus %>% CreateTableOne(table_vars, strata = "sle_group", addOverall = TRUE, data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4)
 
 # FA quartiles by SLE status
 table_vars <- c("o3_o6_cat", "p205p226_o6_cat", "p183_o6_cat")
-lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
+lupus %>% CreateTableOne(table_vars, strata = "sle_group", data = .) %>%
   print(showAllLevels = TRUE, pDigits = 4)
 
 # Cut-off values
@@ -289,14 +294,14 @@ lupus %>%
 
 # Density plot by SLE status
 lupus %>% 
-  select(all_of(table_vars), prev_sle) %>% 
+  select(all_of(table_vars), sle_group) %>% 
   pivot_longer(p183_ea:n6pfa_ea, names_to = "var", values_to = "value") %>% 
   mutate(var = factor(var, levels = table_vars))  %>% 
-  ggplot(aes(x = value, fill = prev_sle)) +
+  ggplot(aes(x = value, fill = sle_group)) +
   geom_density(alpha = 0.5) +
   scale_x_continuous(trans="pseudo_log") +
   facet_wrap(~var, scales = "free", ncol = 4) +
-  labs(x = "Energy-adjusted intake (gram/day)", fill = "Prevalent SLE") +
+  labs(x = "Energy-adjusted intake (gram/day)", fill = "SLE group") +
   theme(legend.position = "bottom")
 
 # Check Spearman correlations
@@ -309,7 +314,7 @@ lupus %>%
 table_vars <- c("p183_ea", "p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea", "n6pfa_ea")
 
 lupus %>% 
-  set_column_labels(prev_sle          = "Prevalent SLE", 
+  set_column_labels(sle_group         = "SLE group", 
                     p183_ea           = "ALA",
                     p205p226_ea       = "DHA + EPA",
                     p205p226_diet_ea  = "DHA + EPA dietary",
@@ -317,18 +322,18 @@ lupus %>%
                     n3pfa_diet_ea     = "Omega-3 dietary",
                     n6pfa_ea          = "Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
-                        by = prev_sle, 
+                        by = sle_group, 
                         header_count = "(n = %s)",
                         continuous_fn = describeMedian,
                         digits = 2,
-                        statistics = TRUE,
+                        statistics = list(continuous = getPvalKruskal),
                         add_total_col = TRUE) %>% 
   htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
-            tfoot = "P-values were from Mann-Whitney tests")
+            tfoot = "P-values were from Kruskcal-Wallis tests")
 
 # Mean (SD)
 lupus %>% 
-  set_column_labels(prev_sle          = "Prevalent SLE", 
+  set_column_labels(sle_group         = "SLE group", 
                     p183_ea           = "ALA",
                     p205p226_ea       = "DHA + EPA",
                     p205p226_diet_ea  = "DHA + EPA dietary",
@@ -336,13 +341,13 @@ lupus %>%
                     n3pfa_diet_ea     = "Omega-3 dietary",
                     n6pfa_ea          = "Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
-                        by = prev_sle, 
+                        by = sle_group, 
                         header_count = "(n = %s)",
                         digits = 2,
                         statistics = list(continuous = getPvalAnova),
                         add_total_col = TRUE) %>% 
   htmlTable(caption = "Mean (SD) energy-adjusted intake of fatty acids (gram/day)",
-            tfoot = "P-values were from two-sample <i>t</i> tests")
+            tfoot = "P-values were from one-way ANOVA")
 
 # Fish oil supplement
 lupus %>% 
@@ -355,20 +360,19 @@ table_vars <- c("p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea")
 
 lupus %>% 
   filter(take_fo == "Yes") %>% 
-  set_column_labels(prev_sle          = "Prevalent SLE", 
+  set_column_labels(sle_group         = "SLE group", 
                     p205p226_ea       = "DHA + EPA",
                     p205p226_diet_ea  = "DHA + EPA dietary",
                     n3pfa_ea          = "Omega-3",
                     n3pfa_diet_ea     = "Omega-3 dietary") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
-                        by = prev_sle, 
-                        header_count = "(n = %s)",
+                        by = sle_group, 
                         continuous_fn = describeMedian,
                         header_count = "(n = %s)",
                         digits = 2,
-                        statistics = TRUE) %>% 
+                        statistics = list(continuous = getPvalKruskal)) %>% 
   htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
-            tfoot = "P-values were from Mann-Whitney tests")
+            tfoot = "P-values were from Kruskal-Wallis tests")
 
 # Ratios
 table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
@@ -394,23 +398,22 @@ lm(as.numeric(prev_sle) ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat, data = lupu
   car::vif()
 
 # Table by SLE status
-lupus %>% CreateTableOne(table_vars, strata = "prev_sle", data = .) %>%
+lupus %>% CreateTableOne(table_vars, strata = "sle_group", data = .) %>%
   print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
 
 lupus %>% 
-  set_column_labels(prev_sle    = "Prevalent SLE", 
+  set_column_labels(sle_group   = "SLE group", 
                     o3_o6       = "Omega-3/Omega-6",
                     p205p226_o6 = "(DHA + EPA)/Omega-6",
                     p183_o6     = "ALA/Omega-6") %>% 
   getDescriptionStatsBy(all_of(table_vars), 
-                        by = prev_sle, 
-                        header_count = "(n = %s)",
+                        by = sle_group, 
                         continuous_fn = describeMedian,
                         header_count = "(n = %s)",
                         digits = 4,
-                        statistics = TRUE) %>% 
+                        statistics = list(continuous = getPvalKruskal)) %>% 
   htmlTable(caption = "Median (IQR) ratio of fatty acids",
-            tfoot = "P-values were from Mann-Whitney tests")
+            tfoot = "P-values were from Kruskcal-Wallis tests")
 
 # Logistic regression
 # Change references
@@ -421,8 +424,8 @@ lupus_md <- lupus %>%
          agecat   = relevel(agecat, ref = ">=60"))
 
 covar_labels <- c("Kcal/100",
-                  "Age.: 30-39", 
-                  "Age.: 40-59", 
+                  "Age.: 30-49", 
+                  "Age.: 50-59", 
                   "Race: Black",
                   "Educ: HS or less",
                   "Educ: Some college",
@@ -439,7 +442,7 @@ my_stargazer <- function(x){
                        type = "text", 
                        digits = 2,
                        dep.var.caption = "",
-                       dep.var.labels = "Outcome: Prevalent SLE",
+                       dep.var.labels = "Outcome: SLE diagnosis",
                        model.numbers = FALSE,
                        column.labels = c("Model 1", "Model 2", "Model 3", "Model 4"),
                        covariate.labels = var_labels,
@@ -451,7 +454,7 @@ my_stargazer <- function(x){
                        omit.table.layout = "n")
 }
 
-fm <- formula(prev_sle ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat + I(kcal/100))
+fm <- formula(sle_diag ~ o3_o6_cat + p205p226_o6_cat + p183_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
 m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
@@ -474,7 +477,7 @@ var_labels <- c("O3/O6: Q2",
 my_stargazer(models)
 
 # Logistic regression with omega-3/omega-6 ratio
-fm <- formula(prev_sle ~ o3_o6_cat + I(kcal/100))
+fm <- formula(sle_diag ~ o3_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
 m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
@@ -555,7 +558,7 @@ all_trend %>%
   map(\(x) round(x, 4))
 
 # Logistic regression with (DHA + EPA)/omega-6 ratio
-fm <- formula(prev_sle ~ p205p226_o6_cat + I(kcal/100))
+fm <- formula(sle_diag ~ p205p226_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
 m2 <- update(m1, .~. + agecat + black + educat3 + smkever)
 m3 <- update(m2, .~. + vegstat3)
@@ -672,7 +675,7 @@ ann_text <- data.frame(Model = rep(paste("Model", 1:4)), label = pval1, symbol =
 p1b <- p1 + geom_text(data = ann_text, aes(x = 1, y = 3, label = label), hjust = 0.1)
 
 # Logistic regression with ALA/omega-6 ratio
-fm <- formula(prev_sle ~ p183_o6_cat + I(kcal/100))
+fm <- formula(sle_diag ~ p183_o6_cat + I(kcal/100))
 m1 <- glm(fm, family = binomial, data = lupus_md)
 m2 <- update(m1, .~. + agecat + black + educat3 + smkever + alcever)
 m3 <- update(m2, .~. + vegstat3)
@@ -792,377 +795,3 @@ library(patchwork)
 pdf("OR_figure.pdf", width = 10, height = 8)
 p1b / p2b
 dev.off()
-
-# Fishoil use and timing of dx
-sle_lab  <- paste(c("<5", "5-9", "10-14", "15-19", "20+"), "years ago")
-supp_lab <- c("0-1 year", "2-4 years", "5-9 years", "10+ years")
-
-lupus %>%
-  filter(prev_sle == "Yes", sley > 0) %>% 
-  mutate(`SLE Dx` = factor(sley, labels = sle_lab),
-         `Fish oil supplement: For how long` = factor(fishoily, labels = supp_lab)) %>% 
-  select(`SLE Dx`, `Fish oil supplement: For how long`) %>% 
-  table()
-
-library(crosstable)
-my_labels = read.table(header=TRUE, text="
-  name      label
-  sley      'SLE: Years since diagnosis'
-  fishoily  'Fish oil supplement:  \nFor how many years'
-")
-
-lupus %>%
-  filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
-  mutate(sley = factor(sley, labels = sle_lab),
-         fishoily = factor(fishoily, labels = supp_lab)) %>% 
-  import_labels(my_labels, name_from = "name", label_from = "label") %>%
-  crosstable(sley, by = fishoily, percent_digits = 0) %>% 
-  flextable::as_flextable(compact = TRUE)
-
-library(gtsummary)
-lupus %>%
-  filter(prev_sle == "Yes", sley > 0, fishoily > 0) %>% 
-  transmute(sley = factor(sley, labels = sle_lab),
-            fishoily = factor(fishoily, labels = supp_lab)) %>% 
-  tbl_cross(
-    row = sley,
-    col = fishoily,
-    percent = "none",
-    label = list(sley ~ "Diagnosed with SLE", fishoily ~ "Fish oil supplement use: For how long")
-  )  %>% 
-  bold_labels() %>% 
-  bold_levels()
-
-# Incident cases of SLE
-# Need to exclude prevalent SLE
-# Need the date of HHF3 returned
-lupus %>% 
-  select(sex, sle_dx, sle_tx, prev_sle) %>% 
-  filter(!is.na(sle_dx))
-
-# There are 105 participants who indicated their 1st diagnosis after 2001, but...
-lupus %>% 
-  filter(!is.na(sle_dx)) %>% 
-  tally()
-
-# There are 70 incident cases (after exclusing prevalent cases)
-lupus %>% 
-  filter(!is.na(sle_dx), prev_sle == "No") %>% 
-  tally()
-
-lupus %>%
-  filter(prev_sle == "No") %>% 
-  select(sle_dx) %>% 
-  table()
-
-# Among them, 26 have been treated in the last 12 months
-lupus %>% 
-  filter(!is.na(sle_dx), prev_sle == "No") %>% 
-  select(sle_tx) %>% 
-  table(useNA = "ifany")
-
-# Create a data for incident analysis
-lupus_inc <- lupus_md %>%
-  filter(hhf3 == TRUE) %>% 
-  filter(prev_sle == "No") %>% 
-  mutate(inc_sle = if_else(!is.na(sle_dx), 1, 0),
-         inc_sle = factor(inc_sle, labels = c("No", "Yes")))
-
-lupus_inc %>% 
-  select(inc_sle) %>% 
-  table()
-
-# Frequency table of dx period
-lupus_inc %>% 
-  group_by(sle_dx) %>% 
-  filter(!is.na(sle_dx)) %>% 
-  tally() %>% 
-  mutate(Percent = round(n / sum(n) * 100, 1))
-
-# Compare FAs
-table_vars <- c("p183_ea", "p205p226_ea", "n3pfa_ea", "n6pfa_ea")
-
-# Table by SLE status
-lupus_inc %>% 
-  CreateTableOne(table_vars, strata = "inc_sle", data = .) %>%
-  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
-
-lupus_inc %>% 
-  set_column_labels(inc_sle     = "Incident SLE", 
-                    p183_ea     = "ALA",
-                    p205p226_ea = "DHA + EPA",
-                    n3pfa_ea    = "Omega-3",
-                    n6pfa_ea    = "Omega-6") %>% 
-  getDescriptionStatsBy(all_of(table_vars), 
-                        by = inc_sle, 
-                        continuous_fn = describeMedian,
-                        header_count = "(n = %s)",
-                        digits = 2,
-                        statistics = TRUE) %>% 
-  htmlTable(caption = "Median (IQR) energy-adjusted intake of fatty acids (gram/day)",
-            tfoot = "P-values were from Mann-Whitney tests")
-
-# Density plot by sle status
-lupus_inc %>% 
-  select(all_of(table_vars), inc_sle) %>% 
-  pivot_longer(p183_ea:n6pfa_ea, names_to = "var", values_to = "value") %>% 
-  mutate(var = factor(var, levels = table_vars))  %>% 
-  ggplot(aes(x = value, fill = inc_sle)) +
-  geom_density(alpha = 0.5) +
-  scale_x_continuous(trans = "pseudo_log") +
-  facet_wrap(~var, scales = "free", ncol = 4) +
-  labs(x = "Energy-adjusted intake (gram/day)", fill = "Incident SLE") +
-  theme(legend.position = "bottom")
-
-# Ratios
-table_vars <- c("o3_o6", "p205p226_o6", "p183_o6")
-
-# Table by SLE status
-lupus_inc %>% 
-  CreateTableOne(table_vars, strata = "inc_sle", data = .) %>%
-  print(showAllLevels = TRUE, contDigits = 4, pDigits = 4, nonnormal = table_vars)
-
-lupus_inc %>% 
-  set_column_labels(inc_sle     = "Incident SLE", 
-                    o3_o6       = "Omega-3/Omega-6",
-                    p205p226_o6 = "(DHA + EPA)/Omega-6",
-                    p183_o6     = "ALA/Omega-6") %>% 
-  getDescriptionStatsBy(all_of(table_vars), 
-                        by = inc_sle, 
-                        continuous_fn = describeMedian,
-                        header_count = "(n = %s)",
-                        digits = 4,
-                        statistics = TRUE) %>% 
-  htmlTable(caption = "Median (IQR) ratio of fatty acids",
-            tfoot = "P-values were from Mann-Whitney tests")
-
-# Preparing data for interval-censoring
-lupus_inc %>% group_by(sle_dx) %>% select(sle_dx) %>% tally()
-
-lupus_inc %>% 
-  group_by(sle_dx) %>% 
-  filter(!is.na(sle_dx)) %>% 
-  select(analysisid, sle_dx, death_date)
-
-library(lubridate)
-int1 <- interval(ymd("2002-01-01"), ymd("2004-12-31"))
-int2 <- interval(ymd("2005-01-01"), ymd("2006-12-31"))
-int3 <- interval(ymd("2007-01-01"), ymd("2008-12-31"))
-
-lupus_cll <- lupus_inc %>% 
-  mutate(interval1 = as.numeric(sle_dx == "2002-2004"),
-         interval2 = as.numeric(sle_dx == "2005-2006"),
-         interval3 = as.numeric(sle_dx == "2007-2008"),
-         
-         interval2 = ifelse(interval1 == 1, NA, interval2),
-         interval3 = ifelse(interval1 == 1 | interval2 == 1, NA, interval3),
-         
-         interval1 = ifelse(is.na(sle_dx), 0, interval1),
-         interval2 = ifelse(is.na(sle_dx), 0, interval2),
-         interval3 = ifelse(is.na(sle_dx), 0, interval3),
-         
-         interval2 = ifelse(!is.na(death_date) & death_date %within% int1, NA, interval2),
-         interval3 = ifelse(!is.na(death_date) & (death_date %within% int1 | death_date %within% int2), NA, interval3))
-
-# Checking...
-lupus_cll %>% 
-  select(analysisid, sle_dx, starts_with("interval"), death_date) 
-
-lupus_cll %>% 
-  select(analysisid, sle_dx, starts_with("interval"), death_date) %>% 
-  arrange(death_date)
-
-lupus_cll %>% 
-  filter(!is.na(sle_dx)) %>% 
-  select(analysisid, sle_dx, starts_with("interval"), death_date)
-
-lupus_cll_long <- lupus_cll %>% 
-  pivot_longer(interval1:interval3, names_to = "interval", values_to = "y") %>% 
-  mutate(interval = parse_number(interval),
-         interval = factor(interval, labels = c("2002-2004", "2005-2006", "2007-2008")),
-         offset = ifelse(interval == 1, 3, 2))
-
-lupus_cll_long %>% 
-  select(analysisid, sle_dx, interval, offset, y, death_date) %>% 
-  # filter(!is.na(sle_dx)) %>% 
-  arrange(death_date)
-
-# Fitting complementary log-log model
-covar_labels <- c("Kcal/100",
-                  "Diag: 2005-2006",
-                  "Diag: 2007-2008",
-                  "Age.: 30-39", 
-                  "Age.: 40-59", 
-                  "Race: Black",
-                  "Sex.: Male",
-                  "Educ: HS or less",
-                  "Educ: Some college",
-                  "Smkg: Ever", 
-                  "Diet: Vegetarians",
-                  "Diet: Pesco veg",
-                  "BMI.: Overweight",
-                  "BMI.: Obese")
-
-# Function for stargazer
-my_stargazer2 <- function(x, fname){
-  stargazer::stargazer(x, 
-                       type = "html", 
-                       out = fname,
-                       digits = 2,
-                       dep.var.caption = "",
-                       dep.var.labels = "Outcome: Incident SLE",
-                       model.numbers = FALSE,
-                       column.labels = c("Model 1", "Model 2", "Model 3", "Model 4"),
-                       covariate.labels = var_labels,
-                       apply.coef = exp, 
-                       ci.custom = ci, 
-                       star.cutoffs = NA, 
-                       omit = "Constant", 
-                       omit.stat = c("aic", "ll"),
-                       omit.table.layout = "n")
-}
-
-# Complementary log-log Models with omega-3/omega-6 ratio
-fm <- formula(y ~ o3_o6_cat + I(kcal/100) + interval + offset(log(offset)))
-m1 <- glm(fm, family = binomial(link = "cloglog"), data = lupus_cll_long)
-m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
-m3 <- update(m2, .~. + vegstat3)
-m4 <- update(m3, .~. + bmicat)
-
-models <- list(m1, m2, m3, m4)
-
-var_labels <- c("O3/O6: Q2",
-                "O3/O6: Q3",
-                "O3/O6: Q4",
-                covar_labels)
-
-my_stargazer2(models, "O3_O6.html")
-
-# Complementary log-log Models with (DHA + EPA)/omega-6 ratio
-fm <- formula(y ~ p205p226_o6_cat + I(kcal/100) + interval + offset(log(offset)))
-m1 <- glm(fm, family = binomial(link = "cloglog"), data = lupus_cll_long)
-m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
-m3 <- update(m2, .~. + vegstat3)
-m4 <- update(m3, .~. + bmicat)
-
-models <- list(m1, m2, m3, m4)
-
-var_labels <- c("DHA+EPA/O6: Q2",
-                "DHA+EPA/O6: Q3",
-                "DHA+EPA/O6: Q4",
-                covar_labels)
-
-my_stargazer2(models, "DHA+EPA_O6.html")
-
-# Complementary log-log Models with ALA/omega-6 ratio
-fm <- formula(y ~ p183_o6_cat + I(kcal/100) + interval + offset(log(offset)))
-m1 <- glm(fm, family = binomial(link = "cloglog"), data = lupus_cll_long)
-m2 <- update(m1, .~. + agecat + black + sex + educat3 + smkever)
-m3 <- update(m2, .~. + vegstat3)
-m4 <- update(m3, .~. + bmicat)
-
-models <- list(m1, m2, m3, m4)
-
-var_labels <- c("ALA/O6: Q2",
-                "ALA/O6: Q3",
-                "ALA/O6: Q4",
-                covar_labels)
-
-my_stargazer2(models, "ALA_O6.html")
-
-# Misc analysis
-# Those who were diagnosed
-lupus %>% 
-  filter(sley > 0) %>% nrow()
-
-lupus %>% 
-  filter(sley > 0) %>% 
-  mutate(sle = factor(sle, labels = c("Not treated", "treated"))) %>% 
-  group_by(sle) %>% 
-  tally() %>% 
-  mutate(pct = round(n / sum(n) * 100, 2))
-
-lupus %>% 
-  filter(sley > 0) %>% 
-  mutate(sle = factor(sle, labels = c("Not treated", "Treated"))) %>% 
-  CreateTableOne("take_fo", strata=c("sle"), data =.) %>% 
-  print(showAllLevels = TRUE)
-
-# Treated in the last 12 months, known diagnosis year
-treated <- lupus %>% 
-  filter(sle == 2, sley > 0)
-
-# Duration of fish oil use among those diagnosed with SLE
-# By treated and not-treated
-lupus %>% 
-  filter(sley > 0, fishoily > 0) %>% 
-  mutate(sle = factor(sle, labels = c("Not treated", "Treated")),
-         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
-  CreateTableOne("fishoily", strata=c("sle"), data =.) %>% 
-  print(showAllLevels = TRUE, exact = "fishoily")
-
-# Crosstab between SLE diagnosis year and duration of fish oil use
-# among those who are not treated
-lupus %>% 
-  filter(sley > 0, sle == 1) %>% 
-  mutate(sley = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
-         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
-  CreateTableOne("sley", strata=c("fishoily"), data =.) %>% 
-  print(showAllLevels = TRUE, exact = "sley")
-
-# among those who are treated
-lupus %>% 
-  filter(sley > 0, sle == 2) %>% 
-  mutate(sley = factor(sley, labels = c("<5 yrs ago", "5-9 yrs ago", "10-14 yrs ago", "15-19 yrs ago", "20+ yrs ago")),
-         fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
-  CreateTableOne("sley", strata=c("fishoily"), data =.) %>% 
-  print(showAllLevels = TRUE, exact = "sley")
-
-# Those who were diagnosed with SLE
-lupus %>% 
-  filter(sley > 0) %>%
-  group_by(sle) %>% 
-  tally()
-
-
-lupus %>% 
-  mutate(sle_status = case_when(
-    sle == 2 ~ "Treated 12 mo",
-    sle == 1 ~ "Not treated 12 mo",
-    prev_sle == "No" ~ "Not diagnosed"
-  )) %>% 
-  group_by(sle_status) %>% 
-  tally()
-
-# Compare FAs
-table_vars <- c("p183_ea", "p205p226_ea", "p205p226_diet_ea", "n3pfa_ea", "n3pfa_diet_ea", "n6pfa_ea")
-
-# Table by SLE status
-lupus %>% 
-  mutate(sle_status = case_when(
-    sley > 0 & sle == 2 ~ "Treated 12 mo",
-    sley > 0 & sle == 1 ~ "Not treated 12 mo",
-    prev_sle == "No" ~ "Not diagnosed"
-  )) %>% 
-  CreateTableOne(table_vars, strata = "sle_status", data = .) %>%
-  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
-
-lupus %>% 
-  mutate(sle_status = case_when(
-    sley > 0 & sle == 2 ~ "Treated 12 mo",
-    sley > 0 & sle == 1 ~ "Not treated 12 mo",
-    prev_sle == "No" ~ "Not diagnosed"
-  )) %>% 
-  CreateTableOne("take_fo", strata = "sle_status", data = .) %>%
-  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
-
-lupus %>% 
-  filter(fishoil == 2, !is.na(fishoily)) %>% 
-  mutate(sle_status = case_when(
-    sley > 0 & sle == 2 ~ "Treated 12 mo",
-    sley > 0 & sle == 1 ~ "Not treated 12 mo",
-    prev_sle == "No" ~ "Not diagnosed"
-  ),
-  fishoily = factor(fishoily, labels = c("0-1 yr", "2-4 yrs", "5-9 yrs", '10+ yrs'))) %>% 
-  CreateTableOne("fishoily", strata = "sle_status", data = .) %>%
-  print(showAllLevels = TRUE, pDigits = 4, nonnormal = table_vars)
