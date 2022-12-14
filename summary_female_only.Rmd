@@ -47,8 +47,8 @@ lupus0 <- lupus0 %>%
 lupus <- lupus0 %>%
   mutate(
     age = ifelse(age < 30, NA, age),
-    agecat = cut(age, breaks = c(0, 40, 60, Inf), right = FALSE),
-    agecat = factor(agecat, labels = c("30-39", "40-59", ">=60")),
+    agecat = cut(age, breaks = c(0, 50, 60, Inf), right = FALSE),
+    agecat = factor(agecat, labels = c("30-49", "50-59", ">=60")),
     sex = factor(sex, labels = c("Female", "Male")),
     black = case_when(
       ethyou == "01" ~ 0,
@@ -477,8 +477,8 @@ lupus_md <- lupus %>%
          agecat   = relevel(agecat, ref = ">=60"))
 
 covar_labels <- c("Kcal/100",
-                  "Age.: 30-39", 
-                  "Age.: 40-59", 
+                  "Age.: 30-49", 
+                  "Age.: 50-59", 
                   "Race: Black",
                   "Educ: HS or less",
                   "Educ: Some college",
